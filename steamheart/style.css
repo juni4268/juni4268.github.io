@@ -1,0 +1,8 @@
+/* SteamHeart 상세 페이지 전용 */
+figure video { display: block; width: 100%; height: auto; border: 1px solid var(--line); background: #000; }
+.outcomes { grid-template-columns: repeat(5, 1fr); }
+.outcomes dd { font-size: clamp(2.2rem, 4.4vw, 4rem); }
+.result-video { grid-column: 1 / -1; margin-top: clamp(1rem, 3vw, 2.5rem); }
+@media (max-width: 500px) {
+  .outcomes { grid-template-columns: repeat(3, 1fr); gap: 1rem .6rem; }
+}

@@ -7,6 +7,7 @@
   <meta name="description" content="최준이의 게임 프로그래밍 포트폴리오. SteamHeart에서 구현한 최종 보스 전투와 재도전·성장 시스템을 소개합니다.">
   <title>SteamHeart | 최준이</title>
   <link rel="stylesheet" href="/style.css">
+  <link rel="stylesheet" href="/steamheart/style.css">
 </head>
 <body>
   <a class="skip" href="#main">본문 바로가기</a>
@@ -27,27 +28,27 @@
       <div class="wrap hero-content">
         <p class="eyebrow">2D 사이드뷰 액션 어드벤처</p>
         <h1 id="hero-title">Steam<span>Heart</span></h1>
-        <p class="hero-summary">할아버지의 기계 심장을 되살릴 코어를 찾아, 로봇들이 지키는 스팀펑크 도시를 올라가는 픽셀 아트 액션 게임입니다.</p>
+        <p class="hero-summary">쓰러진 할아버지를 살릴 코어를 찾아, 위아래로 나뉜 스팀펑크 도시를 하층에서 상층까지 올라가는 픽셀 아트 액션 게임입니다.</p>
         <a class="button" href="#work">구현 사례 보기</a>
       </div>
     </section>
 
     <div class="project-facts" aria-label="프로젝트 기본 정보">
       <dl class="wrap facts-inner">
-        <div><dt>담당</dt><dd>게임 프로그래밍 · UI 제작</dd></div>
+        <div><dt>담당</dt><dd>프로그래밍 · UI 제작</dd></div>
         <div><dt>개발 환경</dt><dd>Unity 6 · C#</dd></div>
-        <div><dt>기간</dt><dd>약 3개월 <small>(기획 제외)</small></dd></div>
-        <div><dt>팀</dt><dd>픽셀롭 <small>· 4인 협업</small></dd></div>
+        <div><dt>기간</dt><dd>8주</dd></div>
+        <div><dt>팀</dt><dd>석복동 <small>· 4인 협업</small></dd></div>
       </dl>
     </div>
 
     <section class="wrap section project" id="project" aria-labelledby="project-title">
       <div class="project-copy">
-        <h2 id="project-title">실패가 다음 도전으로 이어지는 게임</h2>
-        <p class="standfirst">보스의 공격 예고를 읽고 회피와 반격 타이밍을 익히는 액션 게임을 만들었습니다.</p>
-        <p>쓰러지면 정비소로 돌아가 전투 중 모은 고철로 캐릭터를 강화합니다. 제한된 일정에서는 공격 패턴을 익히는 재미를 살리기 위해 보스전에 개발 시간을 집중했습니다.</p>
+        <h2 id="project-title">다시 도전할수록 더 잘 싸우게 되는 게임</h2>
+        <p class="standfirst">난이도가 높아 처음엔 어렵지만, 캐릭터가 강해지고 보스 패턴을 익힐수록 점점 쉬워지는 액션 게임을 만들었습니다.</p>
+        <p>보스에게 쓰러지면 처리장 입구로 돌아와 제작대에서 캐릭터를 강화한 뒤 다시 도전합니다. 모은 고철과 강화는 남고, 한 번 당해 본 공격은 경고를 읽고 회피와 반격 타이밍을 맞출 수 있게 됩니다.</p>
         <h3>내가 맡은 작업</h3>
-        <p>Unity 6와 C#으로 전투와 성장 시스템을 구현했습니다. 맵 구성, 애니메이션·연출 적용, 게임 UI 제작도 맡았습니다. 프로그래밍과 UI 제작에는 GPT를 보조 도구로 활용했습니다.</p>
+        <p>Unity 6와 C#으로 게임 프로그래밍을 맡았습니다. 애니메이션·연출 적용, 맵 구성과 레벨 구현, UI 제작과 구현도 담당했습니다. 프로그래밍과 UI 제작에는 GPT를 보조 도구로 활용했습니다.</p>
       </div>
       <figure class="city">
         <img src="/assets/lower-city.webp" alt="금속 건물과 배관이 늘어선 하층 마을의 게임 화면" loading="lazy">
@@ -61,25 +62,27 @@
 
         <article class="case boss">
           <figure>
-            <img src="/assets/boss.webp" width="1280" height="720" alt="최종 보스의 링에서 발사된 반사 광선을 피하는 플레이어" loading="lazy">
-            <figcaption>최종 보스의 반사 광선 패턴</figcaption>
+            <video controls muted playsinline preload="none" poster="/assets/boss2-poster.webp" width="1280" height="720" aria-label="최종 보스 코어의 지배자와 싸우는 플레이 영상. 소리 없음.">
+              <source src="/assets/video/boss2.mp4" type="video/mp4">
+            </video>
+            <figcaption>최종 보스 ‘코어의 지배자’ 전투 영상 (56초, 소리 없음)</figcaption>
           </figure>
           <div class="case-copy">
             <h3>보스의 동시 공격과 중단 처리</h3>
-            <p>최종 보스전에서 팔과 링의 공격이 겹치도록, 각 패턴이 필요한 부위를 예약하는 구조를 구현했습니다. 서로 다른 부위는 동시에 공격합니다. 주요 공격에 필요한 부위가 이미 견제 중이면 그 공격을 마친 뒤 새 패턴에 참여합니다.</p>
-            <p>공격이 끝나거나 도중에 중단되면 같은 종료 처리에서 경고 표시와 공격 판정을 정리하고, 예약을 풀어 해당 부위를 다음 패턴에서 다시 쓸 수 있게 했습니다.</p>
+            <p>최종 보스 ‘코어의 지배자’는 손 네 개와 링으로 여섯 가지 패턴을 씁니다. 손과 링의 공격이 겹치도록, 각 패턴이 필요한 부위를 예약하는 구조를 구현했습니다. 서로 다른 부위는 동시에 공격합니다. 주요 공격에 필요한 부위가 이미 견제 중이면 그 공격을 마친 뒤 새 패턴에 참여합니다.</p>
+            <p>공격이 끝나거나 도중에 중단되면 같은 종료 처리에서 경고 표시와 공격 판정을 정리하고, 예약을 풀어 해당 부위를 다음 패턴에서 다시 쓸 수 있게 했습니다. 중단 중 정리가 한 번만 실행되는지, 다른 패턴이 쓰고 있는 부위에 영향을 주지 않는지는 회귀 테스트로 확인합니다.</p>
           </div>
         </article>
 
         <article class="case workshop">
           <figure>
             <img src="/assets/workshop.webp" alt="제작대 화면에 표시된 고철 잔액, 공격력·체력·피격 무적 성장 그래프와 재료 구매 버튼" loading="lazy">
-            <figcaption>고철로 재료를 구매하는 제작대 UI</figcaption>
+            <figcaption>처리장 입구의 제작대 UI</figcaption>
           </figure>
           <div class="case-copy">
             <h3>사망 후에도 이어지는 성장</h3>
-            <p>한 번의 도전에서 모은 자원이 다음 도전에 쓰이도록, 도전 중 상태와 영구 진행도를 분리했습니다. 사망하면 해당 도전의 상태를 초기화하고 고철과 강화 단계는 저장합니다.</p>
-            <p>정비소 제작대에서는 고철로 재료를 구매하고 공격력·최대 체력·피격 무적 시간을 강화할 수 있습니다. 보유 자원과 강화 단계에 따라 화면에 구매 가능 여부를 표시하도록 구현했습니다.</p>
+            <p>한 번의 도전에서 모은 자원이 다음 도전에 쓰이도록, 도전 중 상태와 영구 진행도를 분리했습니다. 사망하면 처리장 입구로 돌아가며 체력과 무기 단계는 초기화하고, 고철과 강화 단계는 저장합니다.</p>
+            <p>처리장 입구의 제작대에서는 고철 5로 재료를 사고, 재료 3개를 모으면 공격력·최대 체력·피격 무적 시간 중 하나를 강화합니다. 각각 최대 +10까지이며, 보유 자원과 강화 단계에 따라 화면에 구매 가능 여부를 표시하도록 구현했습니다.</p>
           </div>
         </article>
       </div>
@@ -88,14 +91,21 @@
     <section class="wrap section result" aria-labelledby="result-title">
       <div>
         <h2 id="result-title">팀 결과물</h2>
-        <p>타이틀에서 시작해 하층, 고철 처리장, 상층, 최종 보스전과 엔딩 크레딧까지 이어지는 게임을 완성했습니다. 전투 구간에는 두 종류의 함정을 배치했습니다.</p>
+        <p>타이틀, 하층, 처리장 입구, 고철 처리장, 보스 1, 고철 낙하로, 상층, 보스 2까지 여덟 개 씬이 포털과 컷신으로 처음부터 엔딩 크레딧까지 이어집니다.</p>
       </div>
       <dl class="outcomes">
         <div><dt>씬</dt><dd>8<span>개</span></dd></div>
         <div><dt>보스</dt><dd>2<span>종</span></dd></div>
         <div><dt>일반 적</dt><dd>3<span>종</span></dd></div>
+        <div><dt>함정</dt><dd>2<span>종</span></dd></div>
         <div><dt>컷신</dt><dd>6<span>편</span></dd></div>
       </dl>
+      <figure class="result-video">
+        <video controls muted playsinline preload="none" poster="/assets/boss1-poster.webp" width="1280" height="720" aria-label="첫 번째 보스 폐기된 파괴자와 싸우는 플레이 영상. 소리 없음.">
+          <source src="/assets/video/boss1.mp4" type="video/mp4">
+        </video>
+        <figcaption>첫 번째 보스 ‘폐기된 파괴자’ 전투 영상 (61초, 소리 없음)</figcaption>
+      </figure>
     </section>
   </main>
 
@@ -107,7 +117,7 @@
       </div>
       <a class="email" href="mailto:choijuni4268@gmail.com">choijuni4268@gmail.com</a>
     </div>
-    <div class="wrap credit">SteamHeart · 팀 픽셀롭 (pixelop)</div>
+    <div class="wrap credit">SteamHeart · 팀 석복동</div>
   </footer>
 </body>
 </html>
