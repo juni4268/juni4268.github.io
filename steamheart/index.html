@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="theme-color" content="#151210">
-  <meta name="description" content="최준이의 게임 프로그래밍 포트폴리오. SteamHeart에서 구현한 최종 보스 전투와 재도전·성장 시스템을 소개합니다.">
+  <meta name="description" content="최준이의 게임 프로그래밍 포트폴리오. SteamHeart에서 구현한 최종 보스 전투, 재도전·성장 시스템, 플레이어 전투를 소개합니다.">
   <title>SteamHeart | 최준이</title>
   <link rel="stylesheet" href="/style.css">
   <link rel="stylesheet" href="/steamheart/style.css">
@@ -17,6 +17,7 @@
       <nav aria-label="포트폴리오 메뉴">
         <a href="/#games">전체 작품</a>
         <a href="#work">구현 사례</a>
+        <a href="#flow">게임 진행</a>
         <a href="#contact">연락처</a>
       </nav>
     </div>
@@ -46,9 +47,15 @@
       <div class="project-copy">
         <h2 id="project-title">다시 도전할수록 더 잘 싸우게 되는 게임</h2>
         <p class="standfirst">난이도가 높아 처음엔 어렵지만, 캐릭터가 강해지고 보스 패턴을 익힐수록 점점 쉬워지는 액션 게임을 만들었습니다.</p>
-        <p>보스에게 쓰러지면 처리장 입구로 돌아와 제작대에서 캐릭터를 강화한 뒤 다시 도전합니다. 모은 고철과 강화는 남고, 한 번 당해 본 공격은 경고를 읽고 회피와 반격 타이밍을 맞출 수 있게 됩니다.</p>
+        <ol class="loop">
+          <li>보스에 도전</li>
+          <li>당해서 사망</li>
+          <li>처리장 입구에서 강화</li>
+          <li>재도전</li>
+        </ol>
+        <p>모은 고철과 강화는 남고, 한 번 당해 본 공격은 경고를 읽고 회피와 반격 타이밍을 맞출 수 있게 됩니다.</p>
         <h3>내가 맡은 작업</h3>
-        <p>Unity 6와 C#으로 게임 프로그래밍을 맡았습니다. 애니메이션·연출 적용, 맵 구성과 레벨 구현, UI 제작과 구현도 담당했습니다. 프로그래밍과 UI 제작에는 GPT를 보조 도구로 활용했습니다.</p>
+        <p>Unity 6와 C#으로 게임 프로그래밍을 맡았고, 애니메이션·연출 적용, 맵 구성과 레벨 구현, UI 제작과 구현도 담당했습니다. 코드는 거의 전부 GPT로 작성했습니다. 저는 만들 기능과 규칙을 정해 지시하고, 직접 플레이하고 테스트하면서 조정했습니다. <a href="/#process">AI와 일하는 방식</a></p>
       </div>
       <figure class="city">
         <img src="/assets/lower-city.webp" alt="금속 건물과 배관이 늘어선 하층 마을의 게임 화면" loading="lazy">
@@ -60,17 +67,17 @@
       <div class="wrap section">
         <h2 id="work-title">주요 구현 사례</h2>
 
-        <article class="case boss">
+        <article class="lead-case" aria-labelledby="case-boss">
           <figure>
-            <video controls muted playsinline preload="none" poster="/assets/boss2-poster.webp" width="1280" height="720" aria-label="최종 보스 코어의 지배자와 싸우는 플레이 영상. 소리 없음.">
-              <source src="/assets/video/boss2.mp4" type="video/mp4">
-            </video>
-            <figcaption>최종 보스 ‘코어의 지배자’ 전투 영상 (56초, 소리 없음)</figcaption>
+            <img src="/assets/boss.webp" width="1280" height="720" alt="최종 보스의 링에서 발사된 반사광선을 피하는 플레이어">
+            <figcaption>최종 보스 ‘코어의 지배자’의 반사광선 패턴</figcaption>
           </figure>
-          <div class="case-copy">
-            <h3>보스의 동시 공격과 중단 처리</h3>
-            <p>최종 보스 ‘코어의 지배자’는 손 네 개와 링으로 여섯 가지 패턴을 씁니다. 손과 링의 공격이 겹치도록, 각 패턴이 필요한 부위를 예약하는 구조를 구현했습니다. 서로 다른 부위는 동시에 공격합니다. 주요 공격에 필요한 부위가 이미 견제 중이면 그 공격을 마친 뒤 새 패턴에 참여합니다.</p>
-            <p>공격이 끝나거나 도중에 중단되면 같은 종료 처리에서 경고 표시와 공격 판정을 정리하고, 예약을 풀어 해당 부위를 다음 패턴에서 다시 쓸 수 있게 했습니다. 중단 중 정리가 한 번만 실행되는지, 다른 패턴이 쓰고 있는 부위에 영향을 주지 않는지는 회귀 테스트로 확인합니다.</p>
+          <div class="lead-case-copy">
+            <h3 id="case-boss">최종 보스의 동시 공격과 중단 처리</h3>
+            <div>
+              <p>최종 보스 ‘코어의 지배자’는 손 네 개와 링으로 여섯 가지 패턴을 씁니다. 손과 링의 공격이 겹치도록, 각 패턴이 필요한 부위를 예약하는 구조를 구현했습니다. 서로 다른 부위는 동시에 공격합니다. 주요 공격에 필요한 부위가 이미 견제 중이면 그 공격을 마친 뒤 새 패턴에 참여합니다.</p>
+              <p>공격이 끝나거나 도중에 중단되면 같은 종료 처리에서 경고 표시와 공격 판정을 정리하고, 예약을 풀어 해당 부위를 다음 패턴에서 다시 쓸 수 있게 했습니다. 중단 중 정리가 한 번만 실행되는지, 다른 패턴이 쓰고 있는 부위에 영향을 주지 않는지는 회귀 테스트로 확인합니다.</p>
+            </div>
           </div>
         </article>
 
@@ -85,27 +92,129 @@
             <p>처리장 입구의 제작대에서는 고철 5로 재료를 사고, 재료 3개를 모으면 공격력·최대 체력·피격 무적 시간 중 하나를 강화합니다. 각각 최대 +10까지이며, 보유 자원과 강화 단계에 따라 화면에 구매 가능 여부를 표시하도록 구현했습니다.</p>
           </div>
         </article>
+
+        <article class="moves-case" aria-labelledby="case-moves">
+          <div class="moves-copy">
+            <h3 id="case-moves">플레이어 전투</h3>
+            <p>기본 공격, 공중 공격, 스킬 두 가지와 대시를 구현했습니다. 보스 1을 쓰러뜨리면 무기가 강화되어 기본 공격 피해량이 8 · 12에서 12 · 16으로 오르고 이펙트가 바뀝니다. 사망하면 무기 단계는 처음으로 돌아갑니다.</p>
+            <p class="moves-key">동작마다 위는 메인 무기, 아래는 강화 무기입니다.</p>
+          </div>
+          <ul class="moves" role="list">
+            <li>
+              <h4>기본 공격 2타</h4>
+              <p>두 번 연속으로 휘두릅니다.</p>
+              <img src="/assets/steamheart/move-attack-main.webp" width="720" height="348" alt="메인 무기로 기본 공격 2타을 쓰는 두 장면" loading="lazy">
+              <img src="/assets/steamheart/move-attack-upgraded.webp" width="720" height="348" alt="강화 무기로 기본 공격 2타을 쓰는 두 장면" loading="lazy">
+            </li>
+            <li>
+              <h4>공중 공격</h4>
+              <p>점프 중에 크게 휘두릅니다.</p>
+              <img src="/assets/steamheart/move-air-main.webp" width="720" height="348" alt="메인 무기로 공중 공격을 쓰는 두 장면" loading="lazy">
+              <img src="/assets/steamheart/move-air-upgraded.webp" width="720" height="348" alt="강화 무기로 공중 공격을 쓰는 두 장면" loading="lazy">
+            </li>
+            <li>
+              <h4>강타 <kbd>A</kbd></h4>
+              <p>뛰어올라 내려찍습니다.</p>
+              <img src="/assets/steamheart/move-smash-main.webp" width="720" height="348" alt="메인 무기로 강타을 쓰는 두 장면" loading="lazy">
+              <img src="/assets/steamheart/move-smash-upgraded.webp" width="720" height="348" alt="강화 무기로 강타을 쓰는 두 장면" loading="lazy">
+            </li>
+            <li>
+              <h4>카운터 <kbd>S</kbd></h4>
+              <p>적의 공격을 막고 반격합니다.</p>
+              <img src="/assets/steamheart/move-counter-main.webp" width="720" height="348" alt="메인 무기로 카운터을 쓰는 두 장면" loading="lazy">
+              <img src="/assets/steamheart/move-counter-upgraded.webp" width="720" height="348" alt="강화 무기로 카운터을 쓰는 두 장면" loading="lazy">
+            </li>
+            <li>
+              <h4>대시</h4>
+              <p>낮게 미끄러지며 회피합니다.</p>
+              <img src="/assets/steamheart/move-dash-main.webp" width="720" height="348" alt="메인 무기로 대시을 쓰는 두 장면" loading="lazy">
+              <img src="/assets/steamheart/move-dash-upgraded.webp" width="720" height="348" alt="강화 무기로 대시을 쓰는 두 장면" loading="lazy">
+            </li>
+          </ul>
+        </article>
       </div>
     </section>
 
-    <section class="wrap section result" aria-labelledby="result-title">
-      <div>
-        <h2 id="result-title">팀 결과물</h2>
-        <p>타이틀, 하층, 처리장 입구, 고철 처리장, 보스 1, 고철 낙하로, 상층, 보스 2까지 여덟 개 씬이 포털과 컷신으로 처음부터 엔딩 크레딧까지 이어집니다.</p>
+    <section class="wrap section" id="flow" aria-labelledby="flow-title">
+      <h2 id="flow-title">게임 진행</h2>
+      <p class="flow-intro">여덟 개 씬이 포털과 컷신으로 처음부터 엔딩 크레딧까지 이어집니다. 도중에 사망하면 처리장 입구로 돌아갑니다.</p>
+      <ol class="flow">
+          <li>
+            <img src="/assets/steamheart/scene-title.webp" width="720" height="362" alt="" loading="lazy">
+            <h3>타이틀</h3>
+            <p>게임 시작, 설정, 조작 안내</p>
+          </li>
+          <li>
+            <img src="/assets/steamheart/scene-lower.webp" width="720" height="362" alt="" loading="lazy">
+            <h3>하층</h3>
+            <p>프롤로그 컷신이 끝나면 출발</p>
+          </li>
+          <li>
+            <img src="/assets/steamheart/scene-entrance.webp" width="720" height="362" alt="" loading="lazy">
+            <h3>처리장 입구</h3>
+            <p>제작대에서 강화. 사망하면 돌아오는 곳</p>
+          </li>
+          <li>
+            <img src="/assets/steamheart/scene-scrapyard.webp" width="720" height="362" alt="" loading="lazy">
+            <h3>고철 처리장</h3>
+            <p>적을 모두 처치하면 통과</p>
+          </li>
+          <li>
+            <img src="/assets/steamheart/scene-boss1.webp" width="720" height="362" alt="" loading="lazy">
+            <h3>보스 1 · 폐기된 파괴자</h3>
+            <p class="flow-tag">중간 보스</p>
+            <p>쓰러뜨리면 코어 획득</p>
+          </li>
+          <li>
+            <img src="/assets/steamheart/scene-shaft.webp" width="720" height="362" alt="" loading="lazy">
+            <h3>고철 낙하로</h3>
+            <p>적을 모두 처치하면 통과</p>
+          </li>
+          <li>
+            <img src="/assets/steamheart/scene-upper.webp" width="720" height="362" alt="" loading="lazy">
+            <h3>상층</h3>
+            <p>NPC와 대화하면 다음 문이 열림</p>
+          </li>
+          <li class="is-final">
+            <img src="/assets/steamheart/scene-boss2.webp" width="720" height="362" alt="" loading="lazy">
+            <h3>보스 2 · 코어의 지배자</h3>
+            <p class="flow-tag">최종 보스</p>
+            <p>2페이즈가 있는 마지막 전투. 쓰러뜨리면 엔딩</p>
+          </li>
+      </ol>
+
+      <h3 class="patterns-title">보스 패턴 영상</h3>
+      <p class="flow-intro">패턴을 하나씩 보여주려고 찍은 영상이라, 최종 보스의 동시 공격은 꺼 둔 상태입니다. 소리는 없습니다.</p>
+      <div class="patterns">
+        <figure>
+          <video controls muted playsinline preload="none" poster="/assets/boss1-poster.webp" width="1280" height="720" aria-label="중간 보스 폐기된 파괴자의 패턴을 보여주는 플레이 영상. 소리 없음.">
+            <source src="/assets/video/boss1.mp4" type="video/mp4">
+          </video>
+          <figcaption>중간 보스 ‘폐기된 파괴자’ (61초)</figcaption>
+        </figure>
+        <figure>
+          <video controls muted playsinline preload="none" poster="/assets/boss2-poster.webp" width="1280" height="720" aria-label="최종 보스 코어의 지배자의 패턴을 하나씩 보여주는 플레이 영상. 소리 없음.">
+            <source src="/assets/video/boss2.mp4" type="video/mp4">
+          </video>
+          <figcaption>최종 보스 ‘코어의 지배자’ (56초)</figcaption>
+        </figure>
       </div>
-      <dl class="outcomes">
-        <div><dt>씬</dt><dd>8<span>개</span></dd></div>
-        <div><dt>보스</dt><dd>2<span>종</span></dd></div>
-        <div><dt>일반 적</dt><dd>3<span>종</span></dd></div>
-        <div><dt>함정</dt><dd>2<span>종</span></dd></div>
-        <div><dt>컷신</dt><dd>6<span>편</span></dd></div>
-      </dl>
-      <figure class="result-video">
-        <video controls muted playsinline preload="none" poster="/assets/boss1-poster.webp" width="1280" height="720" aria-label="첫 번째 보스 폐기된 파괴자와 싸우는 플레이 영상. 소리 없음.">
-          <source src="/assets/video/boss1.mp4" type="video/mp4">
-        </video>
-        <figcaption>첫 번째 보스 ‘폐기된 파괴자’ 전투 영상 (61초, 소리 없음)</figcaption>
-      </figure>
+    </section>
+
+    <section class="results" aria-labelledby="result-title">
+      <div class="wrap result">
+        <div>
+          <h2 id="result-title">팀 결과물</h2>
+          <p>네 명이 8주 동안 타이틀부터 엔딩 크레딧까지 이어지는 게임을 완성했습니다.</p>
+        </div>
+        <dl class="outcomes">
+          <div><dt>씬</dt><dd>8<span>개</span></dd></div>
+          <div><dt>보스</dt><dd>2<span>종</span></dd></div>
+          <div><dt>일반 적</dt><dd>3<span>종</span></dd></div>
+          <div><dt>함정</dt><dd>2<span>종</span></dd></div>
+          <div><dt>컷신</dt><dd>6<span>편</span></dd></div>
+        </dl>
+      </div>
     </section>
   </main>
 

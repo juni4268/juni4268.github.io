@@ -1,8 +1,59 @@
 /* SteamHeart 상세 페이지 전용 */
 figure video { display: block; width: 100%; height: auto; border: 1px solid var(--line); background: #000; }
+
+/* 게임 소개: 재도전 흐름 */
+.loop { display: flex; flex-wrap: wrap; gap: .5rem; margin: 1.1rem 0 1rem; padding: 0; list-style: none; counter-reset: loop; }
+.loop li { counter-increment: loop; padding: .3rem .8rem .3rem .65rem; border: 1px solid var(--line); background: var(--panel); font-size: .93rem; font-weight: 700; white-space: nowrap; }
+.loop li::before { content: counter(loop); margin-right: .5rem; color: var(--accent); font-family: Georgia, serif; }
+
+/* 대표 사례: 화면을 가로 전체로 쓴다 */
+.lead-case { padding-block: clamp(1.7rem, 4vw, 3.8rem); border-top: 1px solid var(--line); }
+.lead-case-copy { display: grid; grid-template-columns: 1fr 1.6fr; gap: 1rem clamp(1.8rem, 5vw, 5rem); margin-top: clamp(1.4rem, 3vw, 2.4rem); }
+.lead-case-copy p { color: var(--soft); word-break: keep-all; }
+.lead-case-copy p + p { margin-top: .7rem; }
+
+/* 플레이어 전투 */
+.moves-case { padding-top: clamp(1.7rem, 4vw, 3.8rem); border-top: 1px solid var(--line); }
+.moves-copy { max-width: 46rem; }
+.moves-copy h3 { margin-bottom: .85rem; }
+.moves-copy p { color: var(--soft); word-break: keep-all; }
+.moves-copy .moves-key { margin-top: .7rem; font-size: .9rem; }
+.moves { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 1.4rem .8rem; margin: 1.6rem 0 0; padding: 0; list-style: none; }
+.moves h4 { margin: 0; font-size: 1.02rem; line-height: 1.5; letter-spacing: -.03em; }
+.moves kbd { margin-left: .25rem; padding: .05rem .4rem; border: 1px solid var(--accent); color: var(--accent); font: 700 .8rem/1.4 inherit; }
+.moves p { min-height: 3.2em; margin-bottom: .55rem; color: var(--soft); font-size: .9rem; line-height: 1.6; word-break: keep-all; }
+.moves img { width: 100%; border: 1px solid var(--line); image-rendering: pixelated; }
+.moves img + img { margin-top: .4rem; }
+
+/* 게임 진행: 보조 정보라 화면을 작게 쓴다 */
+.flow-intro { max-width: 44rem; margin-top: .9rem; color: var(--soft); word-break: keep-all; }
+.flow { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 1.6rem 1rem; margin: 1.8rem 0 0; padding: 0; list-style: none; counter-reset: flow; }
+.flow li { counter-increment: flow; }
+.flow img { width: 100%; aspect-ratio: 2 / 1; object-fit: cover; border: 1px solid var(--line); }
+.flow h3 { margin-top: .6rem; font-size: 1.05rem; line-height: 1.45; letter-spacing: -.03em; }
+.flow h3::before { content: counter(flow); margin-right: .5rem; color: var(--accent); font-family: Georgia, serif; }
+.flow p { color: var(--soft); font-size: .9rem; line-height: 1.6; word-break: keep-all; }
+.flow .flow-tag { color: var(--accent); font-weight: 700; }
+.flow .is-final img { border-color: var(--accent); }
+.patterns-title { margin-top: clamp(2.5rem, 5vw, 4rem); font-size: 1.3rem; color: var(--accent); }
+.patterns { display: grid; grid-template-columns: repeat(2, minmax(0, 22rem)); gap: 1.25rem 1rem; margin-top: 1.2rem; }
+
+.results { border-top: 1px solid var(--line); background: var(--panel); }
+.results .result { padding-block: clamp(2.5rem, 5vw, 4.5rem); }
 .outcomes { grid-template-columns: repeat(5, 1fr); }
 .outcomes dd { font-size: clamp(2.2rem, 4.4vw, 4rem); }
-.result-video { grid-column: 1 / -1; margin-top: clamp(1rem, 3vw, 2.5rem); }
+
+@media (max-width: 900px) {
+  .moves { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .moves p { min-height: 0; }
+}
+@media (max-width: 810px) {
+  .lead-case-copy { grid-template-columns: 1fr; }
+  .flow { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
 @media (max-width: 500px) {
+  .moves { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .patterns { grid-template-columns: 1fr; }
   .outcomes { grid-template-columns: repeat(3, 1fr); gap: 1rem .6rem; }
+  .top nav { gap: .7rem; }
 }
