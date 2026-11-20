@@ -1,116 +1,100 @@
 <!doctype html>
-<html lang="ko" class="home-theme">
+<html lang="ko">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="theme-color" content="#10151f">
-  <meta name="description" content="게임 프로그래머 최준이의 포트폴리오. 참여한 게임의 대표 구현 사례와, AI와 함께 일하는 방식을 소개합니다.">
+  <meta name="theme-color" content="#171514">
+  <meta name="description" content="게임 프로그래머 최준이의 포트폴리오. 참여한 게임의 구현 사례와 작업 방식을 정리했습니다.">
   <title>최준이 | 게임 프로그래밍 포트폴리오</title>
   <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
-  <link rel="stylesheet" href="/style.css">
-  <link rel="stylesheet" href="/home.css">
+  <link rel="stylesheet" href="/plain.css">
 </head>
 <body>
-  <a class="skip" href="#main">본문 바로가기</a>
-  <header class="top">
-    <div class="wrap top-inner">
-      <a class="identity" href="/">최준이 <span>게임 프로그래밍</span></a>
-      <nav aria-label="포트폴리오 메뉴">
-        <a href="#games">작품</a>
-        <a href="#process">작업 방식</a>
-        <a href="#contact">연락처</a>
-      </nav>
-    </div>
+<div class="page">
+  <header class="site-head">
+    <a class="me" href="/">최준이</a>
+    <nav aria-label="메뉴">
+      <a href="#games">작품</a>
+      <a href="#process">작업 방식</a>
+      <a href="#contact">연락처</a>
+    </nav>
   </header>
 
-  <main class="wrap" id="main">
-    <!-- 소개문에는 게임명, 작품 수, 개발 환경을 쓰지 않습니다. 그 정보는 작품 카드에 둡니다. -->
-    <section class="home-intro" aria-labelledby="portfolio-title">
-      <h1 id="portfolio-title">게임 프로그래머 <br>최준이입니다</h1>
-      <div class="home-intro-copy">
+  <main>
+    <!-- 소개문에는 게임명, 작품 수, 개발 환경을 쓰지 않습니다. 그 정보는 작품 항목에 둡니다. -->
+    <div class="home-hero cols">
+      <h1>게임 프로그래머 <br>최준이입니다</h1>
+      <div class="body">
         <p>게임플레이에 필요한 시스템을 만듭니다. 플레이 규칙과 예외 상황에서의 동작을 정하고, 의도한 대로 움직일 때까지 AI와 함께 구현하고 다듬습니다.</p>
-        <a class="button" href="#games">작품 보기</a>
+        <p><a href="#games">작품 보기</a></p>
       </div>
-    </section>
+    </div>
 
-    <section class="home-games" id="games" aria-labelledby="games-title">
-      <h2 id="games-title">참여 작품</h2>
-
-      <!--
-        작품 추가 방법: 아래 <li class="work"> 블록 하나를 복사해 목록에 넣고 내용만 바꿉니다.
-        - 목록 순서가 곧 화면 순서입니다. 가장 보여주고 싶은 작품을 맨 위에 둡니다.
-        - 작품 수가 홀수이면 맨 위 작품이 자동으로 가로 전체를 쓰는 대표작이 되고,
-          짝수이면 모두 같은 크기로 2열에 놓입니다. 따로 지정할 것은 없습니다.
-        - 카드에는 대표 이미지, 한 줄 소개, 개발 환경, 담당, 대표 사례 제목 두 개만 둡니다.
-          구현 과정과 시연 자료는 상세 페이지에 넣습니다.
-        - 화면은 16:9 이미지나, 5~8초짜리 무음 반복 영상(<video class="work-art" autoplay muted loop playsinline>)을 씁니다.
-      -->
-      <ul class="works" role="list">
-        <li class="work" id="steamheart">
-          <video class="work-art" autoplay muted loop playsinline poster="/assets/boss.webp" width="960" height="540" aria-hidden="true" tabindex="-1">
+    <!--
+      작품 추가: 아래 <article class="row work"> 하나를 복사해 내용만 바꿉니다. 목록 순서가 화면 순서입니다.
+      화면이 왼쪽, 오른쪽으로 번갈아 놓이도록 짝수 번째 작품에는 class에 flip을 붙입니다.
+      화면은 16:9 이미지나 5~8초짜리 무음 반복 영상. 글은 한 줄 소개, 개발 환경과 담당, 대표 사례 제목 두 개까지만.
+    -->
+    <section id="games" aria-label="작품">
+      <article class="row work" id="steamheart">
+        <a class="shot" href="/steamheart/" tabindex="-1" aria-hidden="true">
+          <video autoplay muted loop playsinline poster="/assets/boss.webp" width="960" height="540">
             <source src="/assets/video/steamheart-card.mp4" type="video/mp4">
           </video>
-          <div class="work-body">
-            <p class="work-genre">2D 사이드뷰 액션 어드벤처</p>
-            <h3><a href="/steamheart/">SteamHeart</a></h3>
-            <p class="work-summary">스팀펑크 도시의 하층에서 출발해, 할아버지의 기계 심장을 되살릴 코어를 찾아 올라가는 픽셀 아트 액션 게임.</p>
-            <ul class="work-tags" aria-label="개발 환경과 담당">
-              <li>Unity 6 · C#</li>
-              <li>게임 프로그래밍</li>
-            </ul>
-            <ul class="work-cases" aria-label="대표 구현 사례">
-              <li>최종 보스의 동시 공격과 중단 처리</li>
-              <li>사망 후에도 이어지는 성장</li>
-            </ul>
-            <span class="work-go" aria-hidden="true">구현 사례 보기</span>
-          </div>
-        </li>
+        </a>
+        <div>
+          <h2><a href="/steamheart/">SteamHeart</a></h2>
+          <p class="meta">2D 사이드뷰 액션 어드벤처 / Unity 6, C# / 게임 프로그래밍</p>
+          <p class="summary">스팀펑크 도시의 하층에서 출발해, 할아버지의 기계 심장을 되살릴 코어를 찾아 올라가는 픽셀 아트 액션 게임.</p>
+          <ul class="cases" aria-label="대표 구현 사례">
+            <li>최종 보스의 동시 공격과 중단 처리</li>
+            <li>사망 후에도 이어지는 성장</li>
+          </ul>
+          <a class="more" href="/steamheart/">SteamHeart 작업 기록 보기</a>
+        </div>
+      </article>
 
-        <li class="work" id="safe-out">
-          <img class="work-art" src="/assets/safe-out-loading.webp" width="1280" height="714" alt="" loading="lazy">
-          <div class="work-body">
-            <p class="work-genre">3D 공장 탈출 게임</p>
-            <h3><a href="/safe-out/">SAFE OUT</a></h3>
-            <p class="work-summary">공장 곳곳의 설비 이상과 사고에 대응하고, 모든 미션을 끝낸 뒤 출구로 탈출하는 게임.</p>
-            <ul class="work-tags" aria-label="개발 환경과 담당">
-              <li>Unreal Engine 5.7 · C++</li>
-              <li>게임 프로그래밍</li>
-            </ul>
-            <ul class="work-cases" aria-label="대표 구현 사례">
-              <li>자원 관리에서 화재로 이어지는 과열 이벤트</li>
-              <li>사고 대응을 탈출 조건으로 연결한 미션 시스템</li>
-            </ul>
-            <span class="work-go" aria-hidden="true">구현 사례 보기</span>
-          </div>
-        </li>
-      </ul>
+      <article class="row flip work" id="safe-out">
+        <a class="shot" href="/safe-out/" tabindex="-1" aria-hidden="true">
+          <img src="/assets/safe-out-loading.webp" width="1280" height="714" alt="" loading="lazy">
+        </a>
+        <div>
+          <h2><a href="/safe-out/">SAFE OUT</a></h2>
+          <p class="meta">3D 공장 탈출 게임 / Unreal Engine 5.7, C++ / 게임 프로그래밍</p>
+          <p class="summary">공장 곳곳의 설비 이상과 사고에 대응하고, 모든 미션을 끝낸 뒤 출구로 탈출하는 게임.</p>
+          <ul class="cases" aria-label="대표 구현 사례">
+            <li>자원 관리에서 화재로 이어지는 과열 이벤트</li>
+            <li>사고 대응을 탈출 조건으로 연결한 미션 시스템</li>
+          </ul>
+          <a class="more" href="/safe-out/">SAFE OUT 작업 기록 보기</a>
+        </div>
+      </article>
     </section>
 
-    <section class="home-process" id="process" aria-labelledby="process-title">
-      <h2 id="process-title">작업 방식</h2>
-      <p class="home-process-lead">코드 작성과 수정은 대부분 AI(GPT, Claude)에게 맡깁니다.</p>
-      <p>저는 기능이 어떤 조건에서 시작되고 끝나는지를 먼저 정해 지시하고, 결과를 직접 플레이하고 테스트해 확인합니다. 문제를 발견하면 재현 조건을 찾아, 무엇을 고쳐야 하는지 구체적으로 지시합니다.</p>
+    <section class="cols" id="process">
+      <h2>작업 방식</h2>
+      <div class="body">
+        <p>코드 작성과 수정은 대부분 AI(GPT, Claude)에게 맡깁니다. 저는 기능이 어떤 조건에서 시작되고 끝나는지를 먼저 정해 지시하고, 결과를 직접 플레이하고 테스트해 확인합니다. 문제를 발견하면 재현 조건을 찾아, 무엇을 고쳐야 하는지 구체적으로 지시합니다.</p>
+      </div>
     </section>
   </main>
 
-  <footer class="footer" id="contact">
-    <div class="wrap footer-inner">
-      <div>
-        <h2>연락처</h2>
-        <p>최준이 · 게임 프로그래밍</p>
-      </div>
-      <div class="contact-links">
-        <a class="email" href="mailto:choijuni4268@gmail.com">choijuni4268@gmail.com</a>
-        <a class="email" href="https://github.com/juni4268">github.com/juni4268</a>
+  <footer class="site-foot" id="contact">
+    <div class="cols">
+      <h2>연락처</h2>
+      <div class="body">
+        <a href="mailto:choijuni4268@gmail.com">choijuni4268@gmail.com</a>
+        <a href="https://github.com/juni4268">github.com/juni4268</a>
       </div>
     </div>
   </footer>
-  <script>
-    // 움직임 줄이기를 켠 사용자에게는 카드 영상을 재생하지 않는다
-    if (matchMedia("(prefers-reduced-motion: reduce)").matches) {
-      document.querySelectorAll("video.work-art").forEach(function (v) { v.removeAttribute("autoplay"); v.pause(); });
-    }
-  </script>
+</div>
+<script>
+  // 움직임 줄이기를 켠 사용자에게는 반복 영상을 재생하지 않는다
+  if (matchMedia("(prefers-reduced-motion: reduce)").matches) {
+    document.querySelectorAll("video[autoplay]").forEach(function (v) { v.removeAttribute("autoplay"); v.pause(); });
+  }
+</script>
 </body>
 </html>
