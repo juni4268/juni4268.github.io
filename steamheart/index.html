@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="theme-color" content="#171514">
-  <meta name="description" content="SteamHeart에서 맡은 프로그래밍 작업 기록. 최종 보스 전투, 재도전과 성장, 플레이어 전투.">
+  <meta name="description" content="SteamHeart의 게임 프로그래밍과 UI/UX 작업 기록. 재도전 시스템, 플레이어 전투, 두 보스의 패턴과 팀 결과물을 소개합니다.">
   <title>SteamHeart | 최준이</title>
   <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
@@ -29,16 +29,16 @@
       </video>
       <div class="title">
         <h1>SteamHeart</h1>
-        <p class="meta">2D 사이드뷰 액션 어드벤처 / Unity 6, C# / 8주 / 4인 팀 석복동 / 프로그래밍과 UI 제작 담당</p>
+        <p class="meta">2D 사이드뷰 액션 어드벤처 · Unity 6, C# · 석복동 4인 팀</p>
       </div>
     </div>
 
     <section class="cols">
       <p class="statement">다시 도전할수록 더 잘 싸우게 되는 게임</p>
       <div class="body">
-        <p>쓰러진 할아버지를 살릴 코어를 찾아, 스팀펑크 도시를 하층에서 상층까지 올라가는 픽셀 아트 액션 게임입니다. 네 명이 8주 동안 만들었고 저는 프로그래밍과 UI를 맡았습니다. 애니메이션과 연출을 붙이는 일, 맵을 구성하는 일도 제가 했습니다.</p>
-        <p>처음엔 어렵지만 캐릭터가 강해지고 보스 패턴이 눈에 익으면 점점 쉬워지는 게임을 만들려고 했습니다. 보스에게 죽으면 처리장 입구로 돌아오고, 거기서 캐릭터를 강화한 뒤 다시 올라갑니다.</p>
-        <p>코드는 거의 전부 GPT로 작성했습니다. 제가 한 일은 기능이 어떻게 동작해야 하는지 정해서 지시하고, 직접 플레이하고 테스트하면서 맞을 때까지 고치는 것이었습니다.</p>
+        <p>쓰러진 할아버지를 살릴 코어를 찾아 스팀펑크 도시의 하층에서 상층으로 올라가는 픽셀 아트 액션 게임입니다. 정해진 순서로 맵을 돌파하고, 자체 제작한 도트 캐릭터와 카툰풍 컷신으로 이야기를 전개합니다.</p>
+        <p>실패할 때마다 캐릭터의 성장과 플레이어의 숙련이 함께 쌓이도록 했습니다. 모은 고철과 강화가 다음 도전으로 이어지고, 익숙해진 보스 패턴에서는 회피와 반격 타이밍을 잡기 쉬워집니다.</p>
+        <p><strong>담당 역할</strong>　게임 프로그래밍, UI/UX 제작·구현, 맵 구성·레벨 구현, 애니메이션·연출 적용을 맡았습니다. 코드 작성과 수정에는 주로 GPT를 활용했고, 기능의 동작 조건을 정하고 플레이와 테스트로 결과를 확인했습니다.</p>
       </div>
     </section>
 
@@ -46,24 +46,24 @@
       <article class="row">
         <figure class="shot">
           <img src="/assets/steamheart/boss2-beam.webp" width="1280" height="720" alt="최종 보스 코어의 지배자가 바닥으로 굵은 광선을 내리꽂는 장면" loading="lazy">
-          <figcaption>동시 공격이 나오는 영상은 다시 찍어서 올릴 예정입니다.</figcaption>
+          <figcaption>최종 보스 ‘코어의 지배자’의 광선 공격</figcaption>
         </figure>
         <div>
           <h2>최종 보스의 동시 공격과 중단 처리</h2>
-          <p>최종 보스 ‘코어의 지배자’는 손 네 개와 링으로 여섯 가지 패턴을 씁니다. 손과 링의 공격이 겹치게 하려고, 패턴마다 자기가 쓸 부위를 먼저 예약하게 했습니다. 서로 다른 부위를 쓰는 패턴은 동시에 진행됩니다. 쓰려는 부위가 이미 다른 공격에 쓰이고 있으면 그 공격이 끝난 뒤에 합류합니다.</p>
-          <p>공격이 끝났을 때와 도중에 끊겼을 때는 같은 종료 처리를 탑니다. 여기서 경고 표시와 공격 판정을 지우고 예약을 풀어서, 그 부위를 다음 패턴이 다시 쓸 수 있습니다. 끊기는 도중에 정리가 두 번 실행되지 않는지, 다른 패턴이 쓰고 있는 부위를 건드리지 않는지는 테스트로 확인합니다.</p>
+          <p>최종 보스의 손 네 개와 링을 패턴별로 예약하게 했습니다. 서로 다른 부위의 공격은 동시에 진행되고, 이미 사용 중인 부위는 현재 공격을 마친 뒤 새 패턴에 합류합니다.</p>
+          <p>공격이 끝나거나 중단되면 같은 종료 처리에서 경고 표시와 공격 판정을 정리하고 예약을 해제합니다. 정리가 한 번만 실행되는지, 다른 패턴이 사용 중인 부위는 정상적으로 동작하는지 테스트로 확인했습니다.</p>
         </div>
       </article>
 
       <article class="row flip">
         <figure class="shot">
           <img src="/assets/workshop.webp" width="1440" height="810" alt="제작대 화면. 고철 잔액, 공격력·체력·피격 무적 그래프, 재료 구매 버튼이 보인다." loading="lazy">
-          <figcaption>처리장 입구의 제작대. 죽고 나서 강화하는 영상은 찍어서 올릴 예정입니다.</figcaption>
+          <figcaption>처리장 입구의 제작대</figcaption>
         </figure>
         <div>
-          <h2>죽어도 남는 성장</h2>
-          <p>보스에게 죽어도 그 판이 헛되지 않게 하려고, 도전하는 동안만 유지되는 상태와 계속 남는 진행도를 나눴습니다. 죽으면 체력과 무기 단계는 처음으로 돌아가고, 고철과 강화 단계는 저장됩니다.</p>
-          <p>처리장 입구의 제작대에서 고철 5로 재료를 사고, 재료 3개로 공격력, 최대 체력, 피격 무적 시간 중 하나를 올립니다. 각각 +10까지 올릴 수 있습니다. 가진 고철과 강화 단계에 따라 살 수 있는지 없는지가 화면에 바로 보입니다.</p>
+          <h2>재도전과 영구 성장</h2>
+          <p>현재 도전 상태와 영구 진행도를 분리했습니다. 사망하면 처리장 입구로 돌아가 체력과 무기 단계가 초기화되고, 고철과 영구 강화 단계는 다음 도전으로 이어집니다.</p>
+          <p>제작대에서 고철 5개로 재료를 사고, 재료 3개로 공격력·최대 체력·피격 무적 시간 중 하나를 강화합니다. 고철과 재료 보유량, 현재 강화 단계, 구매 가능 상태가 UI에 바로 반영됩니다.</p>
         </div>
       </article>
     </section>
@@ -102,7 +102,53 @@
         <video autoplay muted loop playsinline preload="metadata" width="480" height="270" aria-label="강화된 무기로 쓰는 대시"><source src="/assets/steamheart/move-dash-upgraded.mp4" type="video/mp4"></video>
       </li>
     </ul>
-      <p class="meta">위가 처음 무기, 아래가 강화된 무기입니다. 테스트 맵에서 찍었고, 공중 공격은 아직 영상이 없어 정지 화면입니다.</p>
+      <p class="meta">위쪽은 기본 무기, 아래쪽은 강화 무기입니다. 공중 공격은 정지 화면으로 비교할 수 있습니다.</p>
+    </section>
+
+    <section id="bosses" aria-labelledby="bosses-title">
+      <div class="cols">
+        <h2 id="bosses-title">보스 패턴</h2>
+        <div class="body">
+          <p>첫 보스는 과부하 뒤에 반격 기회를 열고, 최종 보스는 체력이 절반 이하가 되면 2페이즈에 진입합니다.</p>
+          <p class="meta">무음 시연 영상은 각 패턴을 한 번에 하나씩 보여줍니다.</p>
+        </div>
+      </div>
+      <div class="pair">
+        <article>
+          <h3>폐기된 파괴자</h3>
+          <figure>
+            <video controls muted playsinline preload="none" poster="/assets/boss1-poster.webp" width="1280" height="720" aria-label="중간 보스 폐기된 파괴자의 패턴 영상. 소리 없음.">
+              <source src="/assets/video/boss1.mp4" type="video/mp4">
+            </video>
+            <figcaption>첫 번째 보스 패턴 시연 · 61초</figcaption>
+          </figure>
+          <ul aria-label="폐기된 파괴자의 패턴">
+            <li><strong>프로펠러 흡입</strong>　손을 프로펠러로 바꿔 플레이어를 끌어당깁니다.</li>
+            <li><strong>양손 내려찍기</strong>　경고 뒤 바닥을 내려쳐 잔해를 남깁니다.</li>
+            <li><strong>양손 압착</strong>　바닥을 따라 양손을 모아 압착합니다.</li>
+            <li><strong>과부하</strong>　손으로 잔해를 쳐서 날립니다.</li>
+          </ul>
+          <p class="meta">과부하가 끝나면 그로기 상태에 들어가고, 내려온 본체를 공격할 수 있습니다.</p>
+        </article>
+        <article>
+          <h3>코어의 지배자</h3>
+          <figure>
+            <video controls muted playsinline preload="none" poster="/assets/boss2-poster.webp" width="1280" height="720" aria-label="최종 보스 코어의 지배자의 패턴 영상. 소리 없음.">
+              <source src="/assets/video/boss2.mp4" type="video/mp4">
+            </video>
+            <figcaption>최종 보스 패턴 시연 · 56초</figcaption>
+          </figure>
+          <ul aria-label="코어의 지배자의 패턴">
+            <li><strong>대포 빔</strong>　플레이어를 겨냥해 빔을 발사합니다.</li>
+            <li><strong>추적광선</strong>　경고 뒤 굵은 광선이 플레이어를 따라옵니다.</li>
+            <li><strong>흡수</strong>　링이 블랙홀로 바뀌어 플레이어를 끌어당깁니다.</li>
+            <li><strong>중력장</strong>　바닥에 이동 속도를 낮추는 구역을 만듭니다.</li>
+            <li><strong>반사광선</strong>　경로를 표시한 뒤 여러 갈래로 발사합니다.</li>
+            <li><strong>중심 폭발</strong>　보호막 안에서 피해야 하는 폭발을 일으킵니다.</li>
+          </ul>
+          <p class="meta">체력 50% 이하에서 그로기와 중심 폭발 연출이 이어지며, 이후 패턴 간격이 절반으로 줄어듭니다.</p>
+        </article>
+      </div>
     </section>
 
     <section id="fixes">
@@ -123,7 +169,7 @@
       <div class="cols">
         <h2>게임 진행</h2>
         <div class="body">
-          <p>타이틀에서 엔딩 크레딧까지 여덟 개 씬이 포털과 컷신으로 이어집니다. 일반 적은 3종, 함정은 2종, 컷신은 6편입니다.</p>
+          <p>하층에서 출발해 고철 처리장과 수직 통로를 거쳐 상층에 도착합니다. 고철 처리장과 고철 낙하로에선 구간의 적을 모두 처치하면 관문이 열립니다.</p>
         </div>
       </div>
       <ol class="scenes">
@@ -169,25 +215,49 @@
     </ol>
 
       <div class="cols sub">
-        <h3>보스 패턴 영상</h3>
-        <div class="body">
-          <p class="soft">패턴을 하나씩 보여주려고 찍은 영상이라 최종 보스의 동시 공격은 꺼져 있습니다. 소리는 뺐습니다.</p>
+        <h3>컷신으로 이어지는 이야기</h3>
+        <p class="body">주인공은 첫 보스를 쓰러뜨려 코어를 얻고, 기계상인이 가리킨 상층으로 향합니다. 코어를 빼앗아 최종 보스로 변한 기계상인을 쓰러뜨린 뒤, 코어를 되찾아 할아버지의 심장을 고칩니다.</p>
+      </div>
+    </section>
+
+    <section id="results" aria-labelledby="results-title">
+      <article class="row">
+        <figure class="shot">
+          <img src="/assets/settings.webp" width="1440" height="810" alt="음량과 화면 모드, 게임플레이 표시를 조절하는 SteamHeart 설정 화면" loading="lazy">
+          <figcaption>음량·화면·게임플레이 설정 UI</figcaption>
+        </figure>
+        <div>
+          <h2 id="results-title">팀 결과물</h2>
+          <p>타이틀을 포함한 8개 씬, 보스 2종, 일반 적 3종, 함정 2종을 완성했습니다. 컷신 6편으로 진행되는 스토리는 엔딩 크레딧까지 이어집니다.</p>
+          <p>체력과 스킬 상태를 보여주는 HUD, 제작대, 일시정지 메뉴, 설정 UI를 구현했습니다. 키보드와 게임패드로 조작할 수 있습니다.</p>
+          <p class="meta">발표 당시 후속 계획은 스토리 개선, 신규 맵 추가, 무기 스킨과 강화 요소 확장이었습니다.</p>
+        </div>
+      </article>
+    </section>
+
+    <section id="team" aria-labelledby="team-title">
+      <h2 id="team-title">팀 구성과 제작 일정</h2>
+      <div class="fixes">
+        <div>
+          <h3>석복동 · 4인 팀</h3>
+          <ul>
+            <li><strong>최준이</strong>　프로그래밍·UI/UX, 애니메이션·연출 적용, 레벨 구현</li>
+            <li><strong>전진범</strong>　총괄·기획, 아트, 사운드 디렉팅</li>
+            <li><strong>임경섭</strong>　기획·사운드 디자인</li>
+            <li><strong>최지환</strong>　스토리보드·편집</li>
+          </ul>
+        </div>
+        <div>
+          <h3>발표 자료 기준 8주</h3>
+          <ul>
+            <li><strong>1주차</strong>　전투 기반과 공격 연출</li>
+            <li><strong>2~5주차</strong>　맵 확장과 첫 보스 제작</li>
+            <li><strong>3~5주차</strong>　일반 적, 함정, 일시정지 구현</li>
+            <li><strong>6~7주차</strong>　최종 보스와 상층 맵, UI·제작대·사운드·컷신</li>
+            <li><strong>7~8주차</strong>　버그 수정, 밸런스 조정, 발표 준비</li>
+          </ul>
         </div>
       </div>
-      <div class="pair">
-      <figure>
-        <video controls muted playsinline preload="none" poster="/assets/boss1-poster.webp" width="1280" height="720" aria-label="중간 보스 폐기된 파괴자의 패턴 영상. 소리 없음.">
-          <source src="/assets/video/boss1.mp4" type="video/mp4">
-        </video>
-        <figcaption>보스 1, 폐기된 파괴자 (61초)</figcaption>
-      </figure>
-      <figure>
-        <video controls muted playsinline preload="none" poster="/assets/boss2-poster.webp" width="1280" height="720" aria-label="최종 보스 코어의 지배자의 패턴 영상. 소리 없음.">
-          <source src="/assets/video/boss2.mp4" type="video/mp4">
-        </video>
-        <figcaption>보스 2, 코어의 지배자 (56초)</figcaption>
-      </figure>
-    </div>
     </section>
   </main>
 
