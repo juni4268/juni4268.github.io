@@ -1,11 +1,13 @@
 <!doctype html>
-<html lang="ko">
+<html lang="ko" class="home-theme">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="theme-color" content="#f5f7fa">
+  <meta name="theme-color" content="#10151f">
   <meta name="description" content="게임 프로그래머 최준이의 포트폴리오. 참여한 게임의 대표 구현 사례와, AI와 함께 일하는 방식을 소개합니다.">
   <title>최준이 | 게임 프로그래밍 포트폴리오</title>
+  <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
   <link rel="stylesheet" href="/style.css">
   <link rel="stylesheet" href="/home.css">
 </head>
@@ -42,84 +44,53 @@
           짝수이면 모두 같은 크기로 2열에 놓입니다. 따로 지정할 것은 없습니다.
         - 카드에는 대표 이미지, 한 줄 소개, 개발 환경, 담당, 대표 사례 제목 두 개만 둡니다.
           구현 과정과 시연 자료는 상세 페이지에 넣습니다.
-        - 이미지는 16:9에 가까운 게임 화면을 /assets/ 에 넣습니다.
+        - 화면은 16:9 이미지나, 5~8초짜리 무음 반복 영상(<video class="work-art" autoplay muted loop playsinline>)을 씁니다.
       -->
       <ul class="works" role="list">
         <li class="work" id="steamheart">
-          <a class="work-shot" href="/steamheart/" tabindex="-1" aria-hidden="true">
-            <img src="/assets/boss.webp" width="1280" height="720" alt="" fetchpriority="high">
-          </a>
+          <video class="work-art" autoplay muted loop playsinline poster="/assets/boss.webp" width="960" height="540" aria-hidden="true" tabindex="-1">
+            <source src="/assets/video/steamheart-card.mp4" type="video/mp4">
+          </video>
           <div class="work-body">
             <p class="work-genre">2D 사이드뷰 액션 어드벤처</p>
             <h3><a href="/steamheart/">SteamHeart</a></h3>
             <p class="work-summary">스팀펑크 도시의 하층에서 출발해, 할아버지의 기계 심장을 되살릴 코어를 찾아 올라가는 픽셀 아트 액션 게임.</p>
-            <dl class="work-facts">
-              <div><dt>개발 환경</dt><dd>Unity 6, C#</dd></div>
-              <div><dt>담당</dt><dd>게임 프로그래밍</dd></div>
-            </dl>
-            <div class="work-cases">
-              <h4>대표 구현 사례</h4>
-              <ul>
-                <li>최종 보스의 동시 공격과 중단 처리</li>
-                <li>사망 후에도 이어지는 성장</li>
-              </ul>
-            </div>
-            <a class="work-link" href="/steamheart/#work">SteamHeart 구현 사례 보기</a>
+            <ul class="work-tags" aria-label="개발 환경과 담당">
+              <li>Unity 6 · C#</li>
+              <li>게임 프로그래밍</li>
+            </ul>
+            <ul class="work-cases" aria-label="대표 구현 사례">
+              <li>최종 보스의 동시 공격과 중단 처리</li>
+              <li>사망 후에도 이어지는 성장</li>
+            </ul>
+            <span class="work-go" aria-hidden="true">구현 사례 보기</span>
           </div>
         </li>
 
         <li class="work" id="safe-out">
-          <a class="work-shot" href="/safe-out/" tabindex="-1" aria-hidden="true">
-            <img src="/assets/safe-out-loading.webp" width="1280" height="714" alt="" loading="lazy">
-          </a>
+          <img class="work-art" src="/assets/safe-out-loading.webp" width="1280" height="714" alt="" loading="lazy">
           <div class="work-body">
             <p class="work-genre">3D 공장 탈출 게임</p>
             <h3><a href="/safe-out/">SAFE OUT</a></h3>
             <p class="work-summary">공장 곳곳의 설비 이상과 사고에 대응하고, 모든 미션을 끝낸 뒤 출구로 탈출하는 게임.</p>
-            <dl class="work-facts">
-              <div><dt>개발 환경</dt><dd>Unreal Engine 5.7, C++</dd></div>
-              <div><dt>담당</dt><dd>게임 프로그래밍</dd></div>
-            </dl>
-            <div class="work-cases">
-              <h4>대표 구현 사례</h4>
-              <ul>
-                <li>자원 관리에서 화재로 이어지는 과열 이벤트</li>
-                <li>사고 대응을 탈출 조건으로 연결한 미션 시스템</li>
-              </ul>
-            </div>
-            <a class="work-link" href="/safe-out/#work">SAFE OUT 구현 사례 보기</a>
+            <ul class="work-tags" aria-label="개발 환경과 담당">
+              <li>Unreal Engine 5.7 · C++</li>
+              <li>게임 프로그래밍</li>
+            </ul>
+            <ul class="work-cases" aria-label="대표 구현 사례">
+              <li>자원 관리에서 화재로 이어지는 과열 이벤트</li>
+              <li>사고 대응을 탈출 조건으로 연결한 미션 시스템</li>
+            </ul>
+            <span class="work-go" aria-hidden="true">구현 사례 보기</span>
           </div>
         </li>
       </ul>
     </section>
 
     <section class="home-process" id="process" aria-labelledby="process-title">
-      <div class="home-process-head">
-        <h2 id="process-title">작업 방식</h2>
-        <p>코드 작성과 수정은 대부분 AI(GPT, Claude)에게 맡깁니다. 저는 기능이 어떤 조건에서 시작되고 끝나는지를 먼저 정해 지시하고, 결과를 직접 플레이하고 테스트해 확인합니다. 문제를 발견하면 재현 조건을 찾아, 무엇을 고쳐야 하는지 구체적으로 지시합니다.</p>
-      </div>
-
-      <article class="home-case" aria-labelledby="case-title">
-        <h3 id="case-title">사례: SteamHeart의 보스 패턴 선택</h3>
-        <ol class="home-steps">
-          <li>
-            <h4>발견</h4>
-            <p>5분 시연을 준비하면서 직접 플레이하며 구간별 시간을 기록했습니다. 그 과정에서 보스의 내려찍기가 반복해서 선택되어 다른 공격이 나오지 않는 상황을 발견했습니다.</p>
-          </li>
-          <li>
-            <h4>조건 정의</h4>
-            <p>아직 나오지 않은 공격을 먼저 고르고, 가장 위협적인 패턴은 첫 순환의 마지막에 나온다는 조건을 정했습니다.</p>
-          </li>
-          <li>
-            <h4>AI에 전달</h4>
-            <p>이 조건을 AI에 전달해 패턴 선택 코드를 수정했습니다.</p>
-          </li>
-          <li>
-            <h4>확인</h4>
-            <p>수정 후 패턴 선택 관련 테스트 8개가 통과했습니다.</p>
-          </li>
-        </ol>
-      </article>
+      <h2 id="process-title">작업 방식</h2>
+      <p class="home-process-lead">코드 작성과 수정은 대부분 AI(GPT, Claude)에게 맡깁니다.</p>
+      <p>저는 기능이 어떤 조건에서 시작되고 끝나는지를 먼저 정해 지시하고, 결과를 직접 플레이하고 테스트해 확인합니다. 문제를 발견하면 재현 조건을 찾아, 무엇을 고쳐야 하는지 구체적으로 지시합니다.</p>
     </section>
   </main>
 
@@ -135,5 +106,11 @@
       </div>
     </div>
   </footer>
+  <script>
+    // 움직임 줄이기를 켠 사용자에게는 카드 영상을 재생하지 않는다
+    if (matchMedia("(prefers-reduced-motion: reduce)").matches) {
+      document.querySelectorAll("video.work-art").forEach(function (v) { v.removeAttribute("autoplay"); v.pause(); });
+    }
+  </script>
 </body>
 </html>

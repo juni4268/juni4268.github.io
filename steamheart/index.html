@@ -6,6 +6,8 @@
   <meta name="theme-color" content="#151210">
   <meta name="description" content="최준이의 게임 프로그래밍 포트폴리오. SteamHeart에서 구현한 최종 보스 전투, 재도전·성장 시스템, 플레이어 전투를 소개합니다.">
   <title>SteamHeart | 최준이</title>
+  <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
   <link rel="stylesheet" href="/style.css">
   <link rel="stylesheet" href="/steamheart/style.css">
 </head>
@@ -17,6 +19,7 @@
       <nav aria-label="포트폴리오 메뉴">
         <a href="/#games">전체 작품</a>
         <a href="#work">구현 사례</a>
+        <a href="#fixes">고친 것</a>
         <a href="#flow">게임 진행</a>
         <a href="#contact">연락처</a>
       </nav>
@@ -97,14 +100,14 @@
           <div class="moves-copy">
             <h3 id="case-moves">플레이어 전투</h3>
             <p>기본 공격, 공중 공격, 스킬 두 가지와 대시를 구현했습니다. 보스 1을 쓰러뜨리면 무기가 강화되어 기본 공격 피해량이 8 · 12에서 12 · 16으로 오르고 이펙트가 바뀝니다. 사망하면 무기 단계는 처음으로 돌아갑니다.</p>
-            <p class="moves-key">동작마다 위는 메인 무기, 아래는 강화 무기입니다.</p>
+            <p class="moves-key">동작마다 위는 메인 무기, 아래는 강화 무기입니다. 공중 공격만 정지 화면입니다.</p>
           </div>
           <ul class="moves" role="list">
             <li>
               <h4>기본 공격 2타</h4>
               <p>두 번 연속으로 휘두릅니다.</p>
-              <img src="/assets/steamheart/move-attack-main.webp" width="720" height="348" alt="메인 무기로 기본 공격 2타을 쓰는 두 장면" loading="lazy">
-              <img src="/assets/steamheart/move-attack-upgraded.webp" width="720" height="348" alt="강화 무기로 기본 공격 2타을 쓰는 두 장면" loading="lazy">
+              <video autoplay muted loop playsinline preload="metadata" width="480" height="270" aria-label="메인 무기로 기본 공격 2타을 쓰는 영상"><source src="/assets/steamheart/move-attack-main.mp4" type="video/mp4"></video>
+              <video autoplay muted loop playsinline preload="metadata" width="480" height="270" aria-label="강화 무기로 기본 공격 2타을 쓰는 영상"><source src="/assets/steamheart/move-attack-upgraded.mp4" type="video/mp4"></video>
             </li>
             <li>
               <h4>공중 공격</h4>
@@ -115,22 +118,43 @@
             <li>
               <h4>강타 <kbd>A</kbd></h4>
               <p>뛰어올라 내려찍습니다.</p>
-              <img src="/assets/steamheart/move-smash-main.webp" width="720" height="348" alt="메인 무기로 강타을 쓰는 두 장면" loading="lazy">
-              <img src="/assets/steamheart/move-smash-upgraded.webp" width="720" height="348" alt="강화 무기로 강타을 쓰는 두 장면" loading="lazy">
+              <video autoplay muted loop playsinline preload="metadata" width="480" height="270" aria-label="메인 무기로 강타을 쓰는 영상"><source src="/assets/steamheart/move-smash-main.mp4" type="video/mp4"></video>
+              <video autoplay muted loop playsinline preload="metadata" width="480" height="270" aria-label="강화 무기로 강타을 쓰는 영상"><source src="/assets/steamheart/move-smash-upgraded.mp4" type="video/mp4"></video>
             </li>
             <li>
               <h4>카운터 <kbd>S</kbd></h4>
               <p>적의 공격을 막고 반격합니다.</p>
-              <img src="/assets/steamheart/move-counter-main.webp" width="720" height="348" alt="메인 무기로 카운터을 쓰는 두 장면" loading="lazy">
-              <img src="/assets/steamheart/move-counter-upgraded.webp" width="720" height="348" alt="강화 무기로 카운터을 쓰는 두 장면" loading="lazy">
+              <video autoplay muted loop playsinline preload="metadata" width="480" height="270" aria-label="메인 무기로 카운터을 쓰는 영상"><source src="/assets/steamheart/move-counter-main.mp4" type="video/mp4"></video>
+              <video autoplay muted loop playsinline preload="metadata" width="480" height="270" aria-label="강화 무기로 카운터을 쓰는 영상"><source src="/assets/steamheart/move-counter-upgraded.mp4" type="video/mp4"></video>
             </li>
             <li>
               <h4>대시</h4>
               <p>낮게 미끄러지며 회피합니다.</p>
-              <img src="/assets/steamheart/move-dash-main.webp" width="720" height="348" alt="메인 무기로 대시을 쓰는 두 장면" loading="lazy">
-              <img src="/assets/steamheart/move-dash-upgraded.webp" width="720" height="348" alt="강화 무기로 대시을 쓰는 두 장면" loading="lazy">
+              <video autoplay muted loop playsinline preload="metadata" width="480" height="270" aria-label="메인 무기로 대시을 쓰는 영상"><source src="/assets/steamheart/move-dash-main.mp4" type="video/mp4"></video>
+              <video autoplay muted loop playsinline preload="metadata" width="480" height="270" aria-label="강화 무기로 대시을 쓰는 영상"><source src="/assets/steamheart/move-dash-upgraded.mp4" type="video/mp4"></video>
             </li>
           </ul>
+        </article>
+      </div>
+    </section>
+
+    <section class="wrap section" id="fixes" aria-labelledby="fixes-title">
+      <h2 id="fixes-title">플레이하며 찾아 고친 것</h2>
+      <div class="fixes">
+        <article class="fix">
+          <h3>같은 공격만 반복하던 보스</h3>
+          <dl>
+            <div><dt>발견</dt><dd>5분 시연을 준비하면서 직접 플레이하며 구간별 시간을 기록했습니다. 그 과정에서 보스의 내려찍기가 반복해서 선택되어 다른 공격이 나오지 않는 상황을 발견했습니다.</dd></div>
+            <div><dt>정한 조건</dt><dd>아직 나오지 않은 공격을 먼저 고르고, 가장 위협적인 패턴은 첫 순환의 마지막에 나온다.</dd></div>
+            <div><dt>확인</dt><dd>이 조건을 AI에 전달해 수정했고, 수정 후 패턴 선택 관련 테스트 8개가 통과했습니다.</dd></div>
+          </dl>
+        </article>
+        <article class="fix">
+          <h3>지나갈 수 없는 틈</h3>
+          <dl>
+            <div><dt>발견</dt><dd>보스가 떨어뜨리는 잔해 사이에 틈이 있어 보이는데, 캐릭터가 지나가지 못하는 문제를 발견했습니다.</dd></div>
+            <div><dt>제안한 규칙</dt><dd>잔해를 서로 붙이거나, 캐릭터가 통과할 만큼 간격을 확보한다.</dd></div>
+          </dl>
         </article>
       </div>
     </section>
@@ -228,5 +252,11 @@
     </div>
     <div class="wrap credit">SteamHeart · 팀 석복동</div>
   </footer>
+  <script>
+    // 움직임 줄이기를 켠 사용자에게는 반복 영상을 재생하지 않는다
+    if (matchMedia("(prefers-reduced-motion: reduce)").matches) {
+      document.querySelectorAll("video[autoplay]").forEach(function (v) { v.removeAttribute("autoplay"); v.pause(); });
+    }
+  </script>
 </body>
 </html>
