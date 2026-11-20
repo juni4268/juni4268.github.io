@@ -1,0 +1,117 @@
+/* 메인(작품 목록) 페이지 전용. 공통 토큰과 헤더·푸터는 /style.css */
+html { scroll-behavior: smooth; }
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+.top .identity span { margin-left: .7rem; }
+
+.home-intro {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  align-items: end;
+  gap: 1.5rem clamp(2rem, 6vw, 6rem);
+  padding-block: clamp(2.5rem, 6vw, 5rem) clamp(2rem, 4.5vw, 3.75rem);
+}
+.home-intro h1 {
+  font-size: clamp(2.3rem, 5.6vw, 4.6rem);
+  line-height: 1.14;
+  letter-spacing: -.07em;
+  word-break: keep-all;
+}
+.home-intro-copy { max-width: 34rem; padding-bottom: .45rem; }
+.home-intro-copy p { font-size: clamp(1rem, 1.5vw, 1.16rem); word-break: keep-all; }
+.home-intro-copy .home-intro-note { margin-top: .7rem; color: var(--soft); font-size: 1rem; }
+
+.home-games { padding-bottom: clamp(3rem, 6vw, 5.8rem); }
+.home-games > h2 {
+  padding-top: 1.1rem;
+  margin-bottom: 1.1rem;
+  border-top: 1px solid var(--line);
+  color: var(--soft);
+  font-size: 1rem;
+  font-weight: 700;
+  letter-spacing: 0;
+}
+
+/* 작품 목록: 2열 격자. 작품 수가 홀수이면 첫 작품이 가로 전체를 쓴다. */
+.works {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: clamp(1.1rem, 2.2vw, 1.75rem);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.work {
+  display: flex;
+  flex-direction: column;
+  border: 1px solid var(--line);
+  background: var(--panel);
+  scroll-margin-top: 1rem;
+}
+.work-shot { display: block; overflow: hidden; background: #000; }
+.work-shot img { width: 100%; height: auto; aspect-ratio: 16 / 9; object-fit: cover; }
+.work-body {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: clamp(1.25rem, 2.4vw, 2rem);
+}
+.work-genre { color: var(--accent); font-size: .93rem; font-weight: 700; }
+.work-body h3 {
+  margin: .15rem 0 .6rem;
+  font: 700 clamp(2.1rem, 3.7vw, 3.1rem)/1.08 Georgia, "Times New Roman", serif;
+  letter-spacing: -.05em;
+}
+.work-body h3 a { text-decoration: none; }
+.work-body h3 a:hover { color: var(--accent); }
+.work-summary { color: var(--soft); word-break: keep-all; }
+
+.work-facts { align-self: stretch; margin-top: 1.1rem; border-top: 1px solid var(--line); }
+.work-facts div {
+  display: grid;
+  grid-template-columns: 5.2rem minmax(0, 1fr);
+  gap: .75rem;
+  padding-block: .45rem;
+  border-bottom: 1px solid var(--line);
+  font-size: .95rem;
+  line-height: 1.55;
+}
+.work-facts dt { color: var(--soft); }
+.work-facts dd { font-weight: 700; word-break: keep-all; }
+
+.work-cases { margin-top: 1.25rem; }
+.work-cases h4 { margin: 0 0 .5rem; color: var(--accent); font-size: .93rem; }
+.work-cases ul { display: grid; gap: .85rem; margin: 0; padding: 0; list-style: none; }
+.work-cases strong { display: block; font-size: 1.06rem; line-height: 1.45; letter-spacing: -.03em; word-break: keep-all; }
+.work-cases li span { display: block; margin-top: .2rem; color: var(--soft); font-size: .95rem; line-height: 1.65; word-break: keep-all; }
+
+.work-link {
+  margin-top: auto;
+  color: var(--accent);
+  font-weight: 700;
+  text-decoration: underline;
+  text-underline-offset: .32em;
+}
+.work-cases + .work-link { padding-top: 1.4rem; }
+.work-link:hover { color: var(--ink); }
+
+/* 홀수 개일 때의 대표작: 이미지와 본문을 가로로 놓는다 */
+.works > .work:first-child:nth-last-child(odd) {
+  grid-column: 1 / -1;
+  display: grid;
+  grid-template-columns: minmax(0, 1.3fr) minmax(0, 1fr);
+}
+.works > .work:first-child:nth-last-child(odd) .work-shot img { height: 100%; aspect-ratio: auto; min-height: 20rem; }
+.works > .work:first-child:nth-last-child(odd) .work-body { justify-content: center; padding: clamp(1.4rem, 3vw, 2.75rem); }
+.works > .work:first-child:nth-last-child(odd) .work-link { margin-top: 0; }
+
+@media (max-width: 860px) {
+  .home-intro { grid-template-columns: 1fr; align-items: start; }
+  .home-intro h1 br { display: none; }
+  .home-intro-copy { padding-bottom: 0; }
+}
+@media (max-width: 760px) {
+  .works { grid-template-columns: 1fr; }
+  .works > .work:first-child:nth-last-child(odd) { display: flex; }
+  .works > .work:first-child:nth-last-child(odd) .work-shot img { height: auto; aspect-ratio: 16 / 9; min-height: 0; }
+}

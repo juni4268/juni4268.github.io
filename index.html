@@ -1,0 +1,116 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f5f7fa">
+  <meta name="description" content="최준이의 게임 프로그래밍 포트폴리오. 참여한 게임마다 사용한 엔진, 맡은 역할, 직접 구현한 대표 사례를 소개합니다.">
+  <title>최준이 | 게임 프로그래밍 포트폴리오</title>
+  <link rel="stylesheet" href="/style.css">
+  <link rel="stylesheet" href="/home.css">
+</head>
+<body>
+  <a class="skip" href="#main">본문 바로가기</a>
+  <header class="top">
+    <div class="wrap top-inner">
+      <a class="identity" href="/">최준이 <span>게임 프로그래밍</span></a>
+      <nav aria-label="포트폴리오 메뉴">
+        <a href="#games">작품</a>
+        <a href="#contact">연락처</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="wrap" id="main">
+    <section class="home-intro" aria-labelledby="portfolio-title">
+      <h1 id="portfolio-title">게임 프로그래밍 <br>포트폴리오</h1>
+      <div class="home-intro-copy">
+        <p>게임 프로그래머를 목표로 하는 최준이입니다. 참여한 게임에서 게임 프로그래밍을 맡았습니다.</p>
+        <p class="home-intro-note">작품마다 사용한 엔진과 맡은 역할, 직접 구현한 대표 사례를 정리했습니다.</p>
+      </div>
+    </section>
+
+    <section class="home-games" id="games" aria-labelledby="games-title">
+      <h2 id="games-title">참여 작품</h2>
+
+      <!--
+        작품 추가 방법: 아래 <li class="work"> 블록 하나를 복사해 목록에 넣고 내용만 바꿉니다.
+        - 목록 순서가 곧 화면 순서입니다. 가장 보여주고 싶은 작품을 맨 위에 둡니다.
+        - 작품 수가 홀수이면 맨 위 작품이 자동으로 가로 전체를 쓰는 대표작이 되고,
+          짝수이면 모두 같은 크기로 2열에 놓입니다. 따로 지정할 것은 없습니다.
+        - 이미지는 16:9에 가까운 게임 화면을 /assets/ 에 넣습니다.
+        - 대표 구현 사례는 두 가지, 제목과 한 문장 설명으로 씁니다.
+      -->
+      <ul class="works" role="list">
+        <li class="work" id="steamheart">
+          <a class="work-shot" href="/steamheart/" tabindex="-1" aria-hidden="true">
+            <img src="/assets/boss.webp" width="1280" height="720" alt="" fetchpriority="high">
+          </a>
+          <div class="work-body">
+            <p class="work-genre">2D 사이드뷰 액션 어드벤처</p>
+            <h3><a href="/steamheart/">SteamHeart</a></h3>
+            <p class="work-summary">스팀펑크 도시의 하층에서 출발해, 할아버지의 기계 심장을 되살릴 코어를 찾아 올라가는 픽셀 아트 액션 게임.</p>
+            <dl class="work-facts">
+              <div><dt>개발 환경</dt><dd>Unity 6, C#</dd></div>
+              <div><dt>담당</dt><dd>게임 프로그래밍, UI 제작</dd></div>
+            </dl>
+            <div class="work-cases">
+              <h4>대표 구현 사례</h4>
+              <ul role="list">
+                <li>
+                  <strong>보스의 동시 공격과 중단 처리</strong>
+                  <span>팔과 링의 공격이 겹치도록 패턴마다 필요한 부위를 예약하고, 공격이 끝나거나 중단되면 같은 종료 처리로 정리합니다.</span>
+                </li>
+                <li>
+                  <strong>사망 후에도 이어지는 성장</strong>
+                  <span>도전 중 상태와 영구 진행도를 분리해, 사망해도 고철과 강화 단계가 다음 도전에 남습니다.</span>
+                </li>
+              </ul>
+            </div>
+            <a class="work-link" href="/steamheart/#work">SteamHeart 구현 사례 보기</a>
+          </div>
+        </li>
+
+        <li class="work" id="safe-out">
+          <a class="work-shot" href="/safe-out/" tabindex="-1" aria-hidden="true">
+            <img src="/assets/safe-out-loading.webp" width="1280" height="714" alt="" loading="lazy">
+          </a>
+          <div class="work-body">
+            <p class="work-genre">3D 공장 탈출 게임</p>
+            <h3><a href="/safe-out/">SAFE OUT</a></h3>
+            <p class="work-summary">공장 곳곳의 설비 이상과 사고에 대응하고, 모든 미션을 끝낸 뒤 출구로 탈출하는 게임.</p>
+            <dl class="work-facts">
+              <div><dt>개발 환경</dt><dd>Unreal Engine 5.7, C++</dd></div>
+              <div><dt>담당</dt><dd>게임 프로그래밍</dd></div>
+            </dl>
+            <div class="work-cases">
+              <h4>대표 구현 사례</h4>
+              <ul role="list">
+                <li>
+                  <strong>자원 관리에서 화재로 이어지는 과열 이벤트</strong>
+                  <span>오일·냉각수 잔량을 설비 온도와 연결하고, 온도가 한계에 이르면 화재로 전환해 피해 구역을 활성화합니다.</span>
+                </li>
+                <li>
+                  <strong>사고 대응을 탈출 조건으로 연결한 미션 시스템</strong>
+                  <span>사건의 상태를 미션 UI에 표시하고, 모든 미션이 끝나면 출구 안내를 띄웁니다.</span>
+                </li>
+              </ul>
+            </div>
+            <a class="work-link" href="/safe-out/#work">SAFE OUT 구현 사례 보기</a>
+          </div>
+        </li>
+      </ul>
+    </section>
+  </main>
+
+  <footer class="footer" id="contact">
+    <div class="wrap footer-inner">
+      <div>
+        <h2>연락처</h2>
+        <p>최준이 · 게임 프로그래밍</p>
+      </div>
+      <a class="email" href="mailto:choijuni4268@gmail.com">choijuni4268@gmail.com</a>
+    </div>
+  </footer>
+</body>
+</html>
