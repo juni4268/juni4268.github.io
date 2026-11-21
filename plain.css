@@ -95,14 +95,24 @@ section, .block { margin-top: clamp(4.5rem, 10vw, 8.5rem); }
   mask-image: linear-gradient(235deg, #000 28%, transparent 78%);
   pointer-events: none;
 }
-.home-intro p { max-width: 15em; font-size: clamp(1.25rem, 2.65vw, 1.85rem); line-height: 1.45; font-weight: 700; letter-spacing: -.035em; text-wrap: balance; }
+.home-intro .intro-lead { font-size: clamp(1.2rem, 2.3vw, 1.7rem); line-height: 1.4; font-weight: 750; letter-spacing: -.04em; }
+.home-intro p + p { margin-top: .8rem; max-width: 31em; line-height: 1.6; }
 .home-page h2 { font-size: clamp(1.3rem, 3.05vw, 2rem); line-height: 1.25; }
 .profile-section, .home-page .site-foot { margin: 0; padding-block: clamp(1.4rem, 3vw, 2.6rem); }
 .profile-section + .profile-section { border-top: 1px solid var(--rule); }
-.experience-list { margin: 0; }
-.experience-list div + div { margin-top: 1.1rem; padding-top: 1.1rem; border-top: 1px solid var(--rule); }
-.experience-list dt { color: var(--brass); font-size: 1.2rem; font-weight: 750; }
-.experience-list dd { margin: .25rem 0 0; }
+.game-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 18rem), 1fr));
+  gap: clamp(1.9rem, 4vw, 3.2rem) clamp(1.2rem, 2.4vw, 2rem);
+  margin-top: 1.25rem;
+}
+.game-cover { aspect-ratio: 16 / 9; width: 100%; height: auto; object-fit: cover; background: var(--rule); }
+.game-grid li { min-width: 0; display: flex; flex-direction: column; }
+.game-grid h3 { margin-top: .65rem; font-size: clamp(1.4rem, 2.5vw, 1.85rem); letter-spacing: -.045em; line-height: 1.25; }
+.game-tools { margin: .25rem 0 0; font-size: .9rem; font-weight: 650; color: var(--brass); }
+.game-description { margin: .6rem 0 .85rem; }
+.game-role { display: flex; align-items: baseline; gap: .55rem; margin: auto 0 0; padding-top: .55rem; border-top: 1px solid var(--rule); font-size: .9rem; }
+.game-role b { flex-shrink: 0; color: var(--soft); }
 .home-page .site-foot .body { display: flex; gap: 1.3rem; flex-wrap: wrap; }
 .home-page .site-foot .body a { display: inline-flex; align-items: center; min-height: 2.75rem; font-size: 1rem; color: var(--brass); }
 @media (max-width: 620px) {

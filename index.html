@@ -4,18 +4,18 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="theme-color" content="#f8f6ee">
-  <meta name="description" content="게임 프로그래머 최준이의 포트폴리오. Unity와 Unreal Engine 개발 경험, 작업 방식과 연락처를 소개합니다.">
+  <meta name="description" content="게임 프로그래머 최준이의 포트폴리오. 참여한 게임의 플레이 화면과 개발 환경, 작품별 담당 역할을 소개합니다.">
   <title>최준이 | 게임 프로그래밍 포트폴리오</title>
   <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
-  <link rel="stylesheet" href="/plain.css?v=profile-1">
+  <link rel="stylesheet" href="./plain.css?v=projects-1">
 </head>
 <body class="home-page">
 <div class="page">
   <header class="site-head">
-    <a class="me" href="/">포트폴리오</a>
+    <a class="me" href="#home-title">포트폴리오</a>
     <nav aria-label="메뉴">
-      <a href="#experience">개발 경험</a>
+      <a href="#games">작품</a>
       <a href="#process">작업 방식</a>
       <a href="#contact">연락처</a>
     </nav>
@@ -28,22 +28,50 @@
         <span class="home-name">최준이</span>
       </h1>
       <div class="home-intro">
-        <p>팀 프로젝트에서 게임 프로그래밍 전체를 맡았습니다.</p>
+        <p class="intro-lead">Unity와 Unreal Engine에서<br>게임플레이를 구현해 왔습니다.</p>
+        <p>게임 프로그래밍 전체를 맡은 작품도 있고, 다른 프로그래머와 역할을 나눠 개발한 작품도 있습니다.</p>
       </div>
     </section>
 
-    <section class="cols profile-section" id="experience" aria-labelledby="experience-title">
-      <h2 id="experience-title">개발 경험</h2>
-      <dl class="body experience-list">
-        <div>
-          <dt>Unity · C#</dt>
-          <dd>플레이어 전투와 보스의 공격 패턴을 구현하고 게임 UI를 제작했습니다.</dd>
-        </div>
-        <div>
-          <dt>Unreal Engine · C++</dt>
-          <dd>미션을 해결할 때마다 남은 작업을 화면에 표시하고, 모두 마치면 출구를 안내하도록 구현했습니다.</dd>
-        </div>
-      </dl>
+    <section class="profile-section" id="games" aria-labelledby="games-title">
+      <h2 id="games-title">작품</h2>
+      <ul class="game-grid">
+        <li>
+          <img class="game-cover" src="./assets/boss.webp" alt="SteamHeart의 보스전에서 붉은 광선이 전장을 가로지르는 장면" width="1280" height="720">
+          <h3>SteamHeart</h3>
+          <p class="game-tools">Unity 6 · C#</p>
+          <p class="game-description">할아버지의 기계 심장을 되살릴 코어를 찾아 도시의 하층에서 상층으로 올라가는 2D 액션 어드벤처.</p>
+          <p class="game-role"><b>담당</b> 게임 프로그래밍 전체 · UI 제작(AI 활용)</p>
+        </li>
+        <li>
+          <img class="game-cover" src="./assets/guardian-title.webp" alt="수호의 창 타이틀 배경에서 창을 든 인물이 성을 바라보는 모습" width="960" height="548">
+          <h3>수호의 창</h3>
+          <p class="game-tools">Unreal Engine 5.6 · C++ · PaperZD</p>
+          <p class="game-description">몬스터와 싸워 경험치를 쌓고, 레벨이 오르면 강화할 능력을 선택하는 2D 픽셀 액션 게임.</p>
+          <p class="game-role"><b>담당</b> 게임 프로그래밍 · 프로그래머 2인 협업</p>
+        </li>
+        <li>
+          <img class="game-cover" src="./assets/aka-battle.webp" alt="AKA의 던전을 위에서 본 화면. 보스가 기둥 옆의 플레이어를 향해 공격한다." width="960" height="540" loading="lazy">
+          <h3>AKA</h3>
+          <p class="game-tools">Unreal Engine 5.6 · C++</p>
+          <p class="game-description">던전에서 보스의 돌진과 번개 공격을 피하며 싸우는 탑뷰 보스 러시 액션 게임.</p>
+          <p class="game-role"><b>담당</b> 게임 프로그래밍</p>
+        </li>
+        <li>
+          <img class="game-cover" src="./assets/safe-out-valve.webp" alt="SAFE OUT 공장의 설비와 배관 사이로 불길이 치솟는 장면" width="960" height="536" loading="lazy">
+          <h3>SAFE OUT</h3>
+          <p class="game-tools">Unreal Engine 5.7 · C++</p>
+          <p class="game-description">공장 설비의 과열과 사고에 대응하고, 모든 미션을 해결한 뒤 출구로 향하는 3D 탈출 게임.</p>
+          <p class="game-role"><b>담당</b> 게임 프로그래밍 전체</p>
+        </li>
+        <li>
+          <img class="game-cover" src="./assets/daeva-battle.webp" alt="DAEVA의 마법사가 사막 협곡에서 몬스터와 맞서는 3인칭 플레이 화면" width="960" height="540" loading="lazy">
+          <h3>DAEVA</h3>
+          <p class="game-tools">Unreal Engine 5.4 · C++</p>
+          <p class="game-description">떠돌이 마법사가 되어 점점 늘어나는 몬스터를 상대로 3분간 버티는 3인칭 생존 게임.</p>
+          <p class="game-role"><b>담당</b> 게임 프로그래밍</p>
+        </li>
+      </ul>
     </section>
 
     <section class="cols profile-section" id="process">
