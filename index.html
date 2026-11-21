@@ -4,83 +4,52 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="theme-color" content="#f8f6ee">
-  <meta name="description" content="게임 프로그래머 최준이의 포트폴리오. 참여한 게임의 구현 사례와 작업 방식을 정리했습니다.">
+  <meta name="description" content="게임 프로그래머 최준이의 포트폴리오. Unity와 Unreal Engine 개발 경험, 작업 방식과 연락처를 소개합니다.">
   <title>최준이 | 게임 프로그래밍 포트폴리오</title>
   <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
-  <link rel="stylesheet" href="/plain.css?v=feb96f7">
+  <link rel="stylesheet" href="/plain.css?v=profile-1">
 </head>
 <body class="home-page">
 <div class="page">
   <header class="site-head">
-    <a class="me" href="/">최준이</a>
+    <a class="me" href="/">포트폴리오</a>
     <nav aria-label="메뉴">
-      <a href="#games">작품</a>
+      <a href="#experience">개발 경험</a>
       <a href="#process">작업 방식</a>
       <a href="#contact">연락처</a>
     </nav>
   </header>
 
   <main>
-    <!-- 소개문에는 게임명, 작품 수, 개발 환경을 쓰지 않습니다. 그 정보는 작품 항목에 둡니다. -->
     <section class="home-hero" aria-labelledby="home-title">
       <h1 id="home-title">
         <span class="home-role">게임 프로그래머</span>
         <span class="home-name">최준이</span>
       </h1>
       <div class="home-intro">
-        <p>프로젝트에서 맡은 역할과<br>직접 구현한 기능을 소개합니다.</p>
-        <a class="home-action" href="#games">작품 보기</a>
+        <p>팀 프로젝트에서 게임 프로그래밍 전체를 맡았습니다.</p>
       </div>
     </section>
 
-    <section id="games" aria-labelledby="games-title">
-      <h2 id="games-title">작품</h2>
-      <div class="work-grid">
-        <article class="work" id="steamheart">
-          <a class="work-link" href="/steamheart/" aria-labelledby="steamheart-title">
-            <div class="shot" aria-hidden="true">
-              <video autoplay muted loop playsinline poster="/assets/boss.webp" width="960" height="540">
-                <source src="/assets/video/steamheart-card.mp4" type="video/mp4">
-              </video>
-            </div>
-            <div class="work-caption">
-              <h3 id="steamheart-title">SteamHeart</h3>
-              <span class="work-detail">상세 보기</span>
-              <p class="meta">2D 사이드뷰 액션 어드벤처 · Unity 6, C# · 게임 프로그래밍</p>
-              <p>쓰러진 할아버지를 살릴 코어를 찾아 도시의 하층에서 상층으로 올라가는 게임.</p>
-              <ul class="cases" aria-label="대표 구현 사례">
-                <li>최종 보스의 동시 공격과 중단 처리</li>
-                <li>사망 후에도 이어지는 성장</li>
-              </ul>
-            </div>
-          </a>
-        </article>
-
-        <article class="work" id="safe-out">
-          <a class="work-link" href="/safe-out/" aria-labelledby="safe-out-title">
-            <div class="shot" aria-hidden="true">
-              <img src="/assets/safe-out-loading.webp" width="1280" height="714" alt="" loading="lazy">
-            </div>
-            <div class="work-caption">
-              <h3 id="safe-out-title">SAFE OUT</h3>
-              <span class="work-detail">상세 보기</span>
-              <p class="meta">3D 공장 탈출 게임 · Unreal Engine 5.7, C++ · 게임 프로그래밍</p>
-              <p>공장 곳곳의 설비 이상과 사고에 대응하고, 모든 미션을 끝낸 뒤 출구로 탈출하는 게임.</p>
-              <ul class="cases" aria-label="대표 구현 사례">
-                <li>자원 관리에서 화재로 이어지는 과열 이벤트</li>
-                <li>사고 대응을 탈출 조건으로 연결한 미션 시스템</li>
-              </ul>
-            </div>
-          </a>
-        </article>
-      </div>
+    <section class="cols profile-section" id="experience" aria-labelledby="experience-title">
+      <h2 id="experience-title">개발 경험</h2>
+      <dl class="body experience-list">
+        <div>
+          <dt>Unity · C#</dt>
+          <dd>플레이어 전투와 보스의 공격 패턴을 구현하고 게임 UI를 제작했습니다.</dd>
+        </div>
+        <div>
+          <dt>Unreal Engine · C++</dt>
+          <dd>미션을 해결할 때마다 남은 작업을 화면에 표시하고, 모두 마치면 출구를 안내하도록 구현했습니다.</dd>
+        </div>
+      </dl>
     </section>
 
-    <section class="cols" id="process">
+    <section class="cols profile-section" id="process">
       <h2>작업 방식</h2>
       <div class="body">
-        <p>기능이 어떤 조건에서 시작되고 끝나는지 먼저 정합니다. 코드 작성과 수정에는 AI를 활용합니다. 구현 결과는 직접 플레이하고 테스트해 확인합니다. 문제가 생기면 재현 조건을 찾아 수정 방향을 정합니다.</p>
+        <p>기능이 언제 시작되고 끝나야 하는지 정한 뒤, 코드 작성과 수정에 AI를 활용합니다. 직접 플레이하며 예상한 동작과 비교하고, 문제가 생기면 같은 상황을 재현해 원인을 찾습니다.</p>
       </div>
     </section>
   </main>
@@ -89,17 +58,11 @@
     <div class="cols">
       <h2>연락처</h2>
       <div class="body">
-        <a href="mailto:choijuni4268@gmail.com">이메일</a>
+        <a href="mailto:choijuni4268@gmail.com">choijuni4268@gmail.com</a>
         <a href="https://github.com/juni4268">GitHub</a>
       </div>
     </div>
   </footer>
 </div>
-<script>
-  // 움직임 줄이기를 켠 사용자에게는 반복 영상을 재생하지 않는다
-  if (matchMedia("(prefers-reduced-motion: reduce)").matches) {
-    document.querySelectorAll("video[autoplay]").forEach(function (v) { v.removeAttribute("autoplay"); v.pause(); });
-  }
-</script>
 </body>
 </html>
