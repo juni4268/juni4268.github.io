@@ -109,6 +109,10 @@ section, .block { margin-top: clamp(4.5rem, 10vw, 8.5rem); }
 .game-cover { aspect-ratio: 16 / 9; width: 100%; height: auto; object-fit: cover; background: var(--rule); }
 .game-grid li { min-width: 0; display: flex; flex-direction: column; }
 .game-grid h3 { margin-top: .65rem; font-size: clamp(1.4rem, 2.5vw, 1.85rem); letter-spacing: -.045em; line-height: 1.25; }
+.game-link { display: flex; flex: 1; flex-direction: column; text-decoration: none; }
+.game-link h3 span { color: var(--brass); }
+.game-link:hover { color: inherit; }
+.game-link:hover h3, .game-link:focus-visible h3 { color: var(--brass); }
 .game-tools { margin: .25rem 0 0; font-size: .9rem; font-weight: 650; color: var(--brass); }
 .game-description { margin: .6rem 0 .85rem; }
 .game-role { display: flex; align-items: baseline; gap: .55rem; margin: auto 0 0; padding-top: .55rem; border-top: 1px solid var(--rule); font-size: .9rem; }
