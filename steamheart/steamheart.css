@@ -29,7 +29,7 @@
   padding-block: .55rem;
 }
 .project-facts dt { color: var(--soft); font-weight: 700; }
-.project-facts dd, .retry-values dd { margin: 0; }
+.project-facts dd { margin: 0; }
 
 .project-media video, .frame-pair img { aspect-ratio: 16 / 9; object-fit: cover; }
 .project-section {
@@ -59,15 +59,18 @@
 }
 .retry-copy { max-width: 42rem; }
 .retry-values {
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: .5rem;
-  margin: 1.15rem 0 0;
-  padding-top: .75rem;
-  border-top: 1px solid var(--rule);
+  width: 100%;
+  margin-top: 1.15rem;
+  border-collapse: collapse;
+  text-align: left;
+  font-size: .95rem;
+  font-variant-numeric: tabular-nums;
 }
-.retry-values dt { font-size: .85rem; color: var(--soft); }
-.retry-values dd { color: var(--brass); font-size: clamp(1.1rem, 2.5vw, 1.5rem); font-weight: 800; }
+.retry-values caption { margin-bottom: .35rem; color: var(--soft); text-align: left; font-size: .85rem; }
+.retry-values :is(th, td) { padding: .45rem .5rem; border-bottom: 1px solid var(--rule); }
+.retry-values :is(th, td):first-child { padding-left: 0; }
+.retry-values thead { color: var(--soft); }
+.retry-values tbody td:last-child { color: var(--brass); font-weight: 700; }
 .implementation-facts div { grid-template-columns: 5.5rem minmax(0, 1fr); }
 .team-credits div { grid-template-columns: 3rem minmax(0, 1fr); }
 .project-footer { border: 0; }

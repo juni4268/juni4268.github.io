@@ -98,12 +98,23 @@
     <section class="project-section" id="retry" aria-labelledby="retry-title">
       <h2 id="retry-title">사망 후에도 이어지는 성장</h2>
       <div class="retry-copy">
-        <p>한 번의 도전에서만 쓰는 상태와 다음 도전에도 유지되는 진행도를 분리했습니다. 사망하면 처리장 입구에서 체력을 모두 회복하고 무기 단계가 초기화됩니다. 모은 고철과 제작대에서 적용한 영구 강화는 유지됩니다.</p>
-        <dl class="retry-values" aria-label="재현 테스트에서 확인한 사망 전후 값">
-          <div><dt>보유 고철</dt><dd>50 → 50</dd></div>
-          <div><dt>공격력 강화</dt><dd>+1 → +1</dd></div>
-          <div><dt>무기 단계</dt><dd>1 → 0</dd></div>
-        </dl>
+        <p>한 번의 도전에서만 쓰는 상태와 영구 진행도를 분리했습니다. 플레이어는 사망하면 처리장 입구에서 최대 체력으로 다시 시작합니다.</p>
+        <table class="retry-values">
+          <caption>재도전 테스트에서 확인한 값</caption>
+          <thead>
+            <tr>
+              <th scope="col">항목</th>
+              <th scope="col">사망 전</th>
+              <th scope="col">재도전 후</th>
+              <th scope="col">결과</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><th scope="row">보유 고철</th><td>50</td><td>50</td><td>유지</td></tr>
+            <tr><th scope="row">공격력 보너스</th><td>+1</td><td>+1</td><td>유지</td></tr>
+            <tr><th scope="row">무기 단계</th><td>1단계</td><td>0단계</td><td>초기화</td></tr>
+          </tbody>
+        </table>
         <details class="project-disclosure">
           <summary>재도전 테스트 영상 보기</summary>
           <figure class="project-media">
