@@ -41,11 +41,11 @@
 .case-copy p + p { margin-top: .85rem; }
 .case-result { border-left: 3px solid var(--brass); padding-left: .85rem; }
 .case-result strong { color: var(--brass); }
-.frame-comparison {
+.project-disclosure {
   margin-top: 1.3rem;
   border-top: 1px solid var(--rule);
 }
-.frame-comparison summary {
+.project-disclosure summary {
   width: fit-content;
   padding-block: .6rem;
   color: var(--brass);
@@ -57,6 +57,7 @@
   grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 1rem;
 }
+.retry-copy { max-width: 42rem; }
 .retry-values {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
