@@ -183,12 +183,12 @@
       "identity education education"
       "skills skills version";
     gap: clamp(2rem, 5.4vh, 4.75rem) clamp(2rem, 3.9vw, 6rem);
-    min-height: clamp(35rem, calc(100svh - 3.8rem - var(--dock-space)), 82rem);
+    min-height: clamp(35rem, calc(100svh - var(--dock-space)), 82rem);
     padding-block: clamp(2rem, 4.5vh, 4.2rem);
   }
 
   .portfolio-profile::before {
-    inset: 0 0 12% 28%;
+    inset: 3% 0 12% 28%;
     background: linear-gradient(131deg, #f5c1b9, #f8d7cd 52%, transparent 87%);
     clip-path: polygon(18% 0, 100% 0, 100% 100%, 0 61%);
   }
