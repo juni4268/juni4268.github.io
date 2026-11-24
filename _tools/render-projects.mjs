@@ -2,19 +2,15 @@ import { existsSync, mkdirSync, readFileSync, writeFileSync } from 'node:fs';
 
 const root = new URL('../', import.meta.url);
 const projects = JSON.parse(readFileSync(new URL('projects.json', import.meta.url), 'utf8'));
-const engineId = name => name.toLowerCase().replaceAll(' ', '-');
+const firstProject = projects[0].slug;
 const entities = { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' };
 const html = value => value.replace(/[&<>"']/g, character => entities[character]);
 const slugs = new Set(['projects']);
-const engines = new Map([['all', '전체']]);
 
 for (const project of projects) {
-  const { slug, engine, image, width, height, customDetail } = project;
+  const { slug, image, width, height, customDetail } = project;
   if (!/^[a-z0-9][a-z0-9-]*$/.test(slug) || slugs.has(slug)) {
     throw new Error('Invalid or duplicate project slug: ' + slug);
-  }
-  if (!/^[a-zA-Z][a-zA-Z0-9 -]*$/.test(engine) || engineId(engine) === 'all') {
-    throw new Error('Invalid engine: ' + engine);
   }
   if (!/^[a-z0-9-]+\.webp$/.test(image) || !existsSync(new URL('assets/' + image, root)) ||
       ![width, height].every(value => Number.isInteger(value) && value > 0)) {
@@ -24,80 +20,67 @@ for (const project of projects) {
     throw new Error('Missing custom detail page: ' + slug);
   }
   slugs.add(slug);
-  engines.set(engineId(engine), engine);
 }
 
-function page(title, description, content, isList = false) {
+function page(project) {
   return `<!doctype html>
 <html lang="ko">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="theme-color" content="#fff7e8">
-  <meta name="description" content="${html(description)}">
-  <title>${html(title)} | 최준이</title>
+  <meta name="description" content="${html(project.description)}">
+  <title>${html(project.name)} | 최준이</title>
   <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
   <link rel="stylesheet" href="../plain.css?v=projects-2">
-  <link rel="stylesheet" href="../portfolio.css">
-  <script type="module" src="../portfolio.js"></script>
+  <link rel="stylesheet" href="../portfolio.css?v=direct-work">
 </head>
-<body class="home-page portfolio-page">
+<body class="home-page portfolio-page portfolio-nav-page portfolio-detail-page">
 <div class="page">
   <header class="site-head">
     <a class="me" href="../">최준이</a>
-    <nav aria-label="사이트 메뉴">
-      <a href="../">메인</a>
-      <a href="../projects/" aria-current="${isList ? 'page' : 'location'}"${isList ? '' : ' data-work-list'}>작품</a>
-    </nav>
   </header>
-${content}
+${projectRail(project.slug)}
+${detail(project)}
 </div>
+${projectNavigation('../', project.slug)}
 </body>
 </html>
 `;
 }
 
-function cover(project, isCard) {
-  return `<img src="../assets/${project.image}" width="${project.width}" height="${project.height}" alt="${isCard ? '' : html(project.alt)}"${isCard ? ' loading="lazy"' : ''}>`;
+function cover(project) {
+  return `<img src="../assets/${project.image}" width="${project.width}" height="${project.height}" alt="${html(project.alt)}">`;
 }
 
-const filters = [...engines].map(([id, label]) =>
-  `        <button type="button" data-engine="${id}" aria-pressed="${id === 'all'}">${html(label)}</button>`).join('\n');
+function projectRail(activeSlug) {
+  const links = projects.map(project =>
+    `      <li><a href="../${project.slug}/"${project.slug === activeSlug ? ' aria-current="page"' : ''}>${html(project.name)}</a></li>`).join('\n');
 
-const cards = projects.map(project => `      <li data-engine="${engineId(project.engine)}">
-        <a class="portfolio-card" href="../${project.slug}/" aria-labelledby="title-${project.slug}">
-          <div class="portfolio-card-media">
-            ${cover(project, true)}
-            <h2 id="title-${project.slug}">${html(project.name)}</h2>
-          </div>
-          <p>${html(project.tech)}</p>
-          <p class="card-role">${html(project.role)}</p>
-        </a>
-      </li>`).join('\n');
-
-const list = `  <main class="portfolio-list">
-    <div class="portfolio-list-header">
-      <h1>참여 작품</h1>
-      <div class="portfolio-filters" data-project-filters role="group" aria-label="개발 엔진" hidden>
-${filters}
-      </div>
-    </div>
-    <p class="portfolio-count" data-project-count aria-live="polite">작품 ${projects.length}개</p>
-    <ul class="portfolio-grid">
-${cards}
+  return `  <nav class="project-rail" aria-labelledby="project-rail-title">
+    <p id="project-rail-title">참여 작품</p>
+    <ul>
+${links}
     </ul>
-  </main>`;
+  </nav>`;
+}
+
+function projectNavigation(prefix, activeSlug) {
+  return `  <nav class="portfolio-dock" aria-label="사이트 메뉴">
+    <a href="${prefix}"${activeSlug ? '' : ' aria-current="page"'}>메인</a>
+    <a href="${prefix}${activeSlug ?? firstProject}/" id="games"${activeSlug ? ' aria-current="page"' : ''}>작품</a>
+  </nav>`;
+}
 
 function detail(project) {
   return `  <main class="portfolio-work">
-    <a class="work-back" href="../projects/" data-work-list><span aria-hidden="true">←&nbsp;</span>전체 작품</a>
     <div class="portfolio-work-header">
       <h1>${html(project.name)}</h1>
       <p class="work-tech">${html(project.tech)}</p>
     </div>
     <div class="portfolio-work-layout">
-      ${cover(project, false)}
+      ${cover(project)}
       <div class="portfolio-work-copy">
         <p>${html(project.description)}</p>
         <dl class="profile-records">
@@ -114,7 +97,40 @@ function write(slug, contents) {
   writeFileSync(new URL('index.html', directory), contents, 'utf8');
 }
 
-write('projects', page('참여 작품', '게임 프로그래머 최준이가 참여한 게임과 작품별 담당 역할을 소개합니다.', list, true));
+function updateSlot(contents, name, markup, file) {
+  const start = `  <!-- portfolio-${name}:start -->`;
+  const end = `  <!-- portfolio-${name}:end -->`;
+  const from = contents.indexOf(start);
+  const to = contents.indexOf(end);
+  if (from < 0 || to < from) throw new Error('Missing portfolio slot ' + name + ' in ' + file);
+  return contents.slice(0, from) + start + '\n' + markup + '\n' + contents.slice(to);
+}
+
+function updateCustomPage(file, prefix, activeSlug) {
+  const target = new URL(file, root);
+  let contents = readFileSync(target, 'utf8');
+  contents = updateSlot(contents, 'navigation', projectNavigation(prefix, activeSlug), file);
+  if (activeSlug) contents = updateSlot(contents, 'rail', projectRail(activeSlug), file);
+  writeFileSync(target, contents, 'utf8');
+}
+
+write('projects', `<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta http-equiv="refresh" content="0; url=../${firstProject}/">
+  <link rel="canonical" href="../${firstProject}/">
+  <title>참여 작품 | 최준이</title>
+</head>
+<body>
+  <a href="../${firstProject}/">참여 작품 보기</a>
+</body>
+</html>
+`);
+
+updateCustomPage('index.html', './');
 for (const project of projects) {
-  if (!project.customDetail) write(project.slug, page(project.name, project.description, detail(project)));
+  if (project.customDetail) updateCustomPage(project.slug + '/index.html', '../', project.slug);
+  else write(project.slug, page(project));
 }

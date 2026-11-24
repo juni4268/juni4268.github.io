@@ -9,16 +9,12 @@
   <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
   <link rel="stylesheet" href="./plain.css?v=projects-2">
-  <link rel="stylesheet" href="./portfolio.css">
+  <link rel="stylesheet" href="./portfolio.css?v=direct-work">
 </head>
-<body class="home-page portfolio-page">
+<body class="home-page portfolio-page portfolio-home portfolio-nav-page">
 <div class="page">
   <header class="site-head">
     <a class="me" href="./">최준이</a>
-    <nav aria-label="사이트 메뉴">
-      <a href="./" aria-current="page">메인</a>
-      <a href="./projects/">작품</a>
-    </nav>
   </header>
 
   <main class="portfolio-profile">
@@ -36,37 +32,38 @@
         </a>
       </address>
     </div>
-    <div>
-      <dl class="profile-records">
-        <div>
-          <dt>학력</dt>
-          <dd>
-            <strong>한국폴리텍대학 서울정수캠퍼스</strong>
-            <span>메타버스콘텐츠과</span>
-            <b class="profile-dates">2025년 입학 · 2027년 졸업 예정</b>
-          </dd>
+    <section class="profile-field profile-education" aria-labelledby="education-title">
+      <h2 id="education-title">학력</h2>
+      <div class="profile-field-body">
+        <strong>한국폴리텍대학 서울정수캠퍼스</strong>
+        <span>메타버스콘텐츠과</span>
+        <b class="profile-dates">2025년 입학 · 2027년 졸업 예정</b>
+      </div>
+    </section>
+    <section class="profile-field profile-development" aria-labelledby="development-title">
+      <h2 id="development-title">개발 기술</h2>
+      <div class="profile-field-body profile-skillset">
+        <div class="profile-skill">
+          <b>Unity 6 · C#</b>
+          <span>플레이어 전투, 보스 패턴, 재도전·성장 시스템</span>
         </div>
-        <div>
-          <dt>개발 기술</dt>
-          <dd>
-            <div class="profile-skill">
-              <b>Unity 6 · C#</b>
-              <span>플레이어 전투, 보스 패턴, 재도전·성장 시스템</span>
-            </div>
-            <div class="profile-skill">
-              <b>Unreal Engine 5 · C++</b>
-              <span>설비 이벤트, 미션 진행 및 탈출 조건</span>
-            </div>
-          </dd>
+        <div class="profile-skill">
+          <b>Unreal Engine 5 · C++</b>
+          <span>설비 이벤트, 미션 진행 및 탈출 조건</span>
         </div>
-        <div>
-          <dt>버전 관리</dt>
-          <dd>Git · GitHub</dd>
-        </div>
-      </dl>
-      <a id="games" class="portfolio-action" href="./projects/">작품 보기 <span aria-hidden="true">→</span></a>
-    </div>
+      </div>
+    </section>
+    <section class="profile-field profile-version" aria-labelledby="version-title">
+      <h2 id="version-title">버전 관리</h2>
+      <p class="profile-field-body">Git · GitHub</p>
+    </section>
   </main>
 </div>
+  <!-- portfolio-navigation:start -->
+  <nav class="portfolio-dock" aria-label="사이트 메뉴">
+    <a href="./" aria-current="page">메인</a>
+    <a href="./steamheart/" id="games">작품</a>
+  </nav>
+  <!-- portfolio-navigation:end -->
 </body>
 </html>

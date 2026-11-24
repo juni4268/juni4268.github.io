@@ -13,9 +13,10 @@
   border-bottom: 2px solid var(--ink);
 }
 
+.project-intro { container-type: inline-size; }
 .project-intro h1 {
   margin-top: .22rem;
-  font-size: clamp(2.7rem, 6.2vw, 4.9rem);
+  font-size: clamp(2.45rem, 17.5cqi, 4.9rem);
   overflow-wrap: anywhere;
 }
 
@@ -69,9 +70,6 @@
 .boss-pattern-notes h3 { margin-bottom: .35rem; }
 .implementation-facts div { grid-template-columns: 5.5rem minmax(0, 1fr); }
 .team-credits div { grid-template-columns: 3rem minmax(0, 1fr); }
-.project-footer { border: 0; }
-.project-footer a { color: var(--brass); font-weight: 700; }
-
 @media (max-width: 760px) {
   .project-hero, .case-grid { grid-template-columns: minmax(0, 1fr); }
 }

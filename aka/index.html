@@ -9,20 +9,24 @@
   <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
   <link rel="stylesheet" href="../plain.css?v=projects-2">
-  <link rel="stylesheet" href="../portfolio.css">
-  <script type="module" src="../portfolio.js"></script>
+  <link rel="stylesheet" href="../portfolio.css?v=direct-work">
 </head>
-<body class="home-page portfolio-page">
+<body class="home-page portfolio-page portfolio-nav-page portfolio-detail-page">
 <div class="page">
   <header class="site-head">
     <a class="me" href="../">최준이</a>
-    <nav aria-label="사이트 메뉴">
-      <a href="../">메인</a>
-      <a href="../projects/" aria-current="location" data-work-list>작품</a>
-    </nav>
   </header>
+  <nav class="project-rail" aria-labelledby="project-rail-title">
+    <p id="project-rail-title">참여 작품</p>
+    <ul>
+      <li><a href="../steamheart/">SteamHeart</a></li>
+      <li><a href="../guardian/">수호의 창</a></li>
+      <li><a href="../aka/" aria-current="page">AKA</a></li>
+      <li><a href="../safe-out/">SAFE OUT</a></li>
+      <li><a href="../daeva/">DAEVA</a></li>
+    </ul>
+  </nav>
   <main class="portfolio-work">
-    <a class="work-back" href="../projects/" data-work-list><span aria-hidden="true">←&nbsp;</span>전체 작품</a>
     <div class="portfolio-work-header">
       <h1>AKA</h1>
       <p class="work-tech">Unreal Engine 5.6 · C++</p>
@@ -38,5 +42,9 @@
     </div>
   </main>
 </div>
+  <nav class="portfolio-dock" aria-label="사이트 메뉴">
+    <a href="../">메인</a>
+    <a href="../aka/" id="games" aria-current="page">작품</a>
+  </nav>
 </body>
 </html>

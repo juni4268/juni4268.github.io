@@ -6,15 +6,113 @@
   --brass: #9a2853;
 }
 
-.portfolio-page .site-head [aria-current] { color: var(--brass); font-weight: 750; }
+.portfolio-nav-page {
+  --dock-bottom: max(.75rem, env(safe-area-inset-bottom));
+  --dock-space: calc(var(--dock-bottom) + 4.25rem);
+  --dock-surface: #f4ded7;
+  padding-bottom: var(--dock-space);
+}
+
+.portfolio-dock {
+  position: fixed;
+  z-index: 5;
+  bottom: var(--dock-bottom);
+  left: 50%;
+  transform: translateX(-50%);
+  isolation: isolate;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  padding: .25rem;
+  border-radius: 999px;
+  background: var(--dock-surface);
+  box-shadow: 0 .4rem 1.4rem #38192b29;
+}
+
+.portfolio-dock::before {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  inset: .25rem auto .25rem .25rem;
+  width: calc(50% - .25rem);
+  border-radius: inherit;
+  background: var(--ink);
+}
+
+.portfolio-detail-page .portfolio-dock::before { transform: translateX(100%); }
+
+.portfolio-dock a {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 6.5rem;
+  min-height: 3.25rem;
+  padding-inline: .7rem;
+  border-radius: inherit;
+  color: var(--ink);
+  font: inherit;
+  font-weight: 780;
+  text-decoration: none;
+}
+
+.portfolio-dock a:hover { text-decoration: underline; }
+.portfolio-dock [aria-current] { color: var(--bg); }
+
+.project-rail { padding-block: .75rem .5rem; border-bottom: 1px solid var(--rule); }
+#project-rail-title { padding: 0 .65rem .5rem; color: var(--brass); font-size: .86rem; font-weight: 800; }
+.project-rail ul {
+  display: flex;
+  flex-wrap: wrap;
+  gap: .2rem;
+  border-top: 1px solid var(--rule);
+}
+.project-rail a {
+  display: flex;
+  align-items: center;
+  min-height: 2.75rem;
+  padding: .35rem .65rem;
+  font-weight: 710;
+  text-decoration: none;
+}
+.project-rail a:is(:hover, :focus-visible, [aria-current]) { background: var(--dock-surface); }
+.project-rail a:focus-visible { outline-offset: -2px; }
+.project-rail a[aria-current] {
+  box-shadow: inset 3px 0 var(--brass);
+  color: var(--brass);
+}
+
+@media (min-width: 64rem) {
+  .portfolio-detail-page .page {
+    width: min(92%, 104rem);
+    display: grid;
+    grid-template-columns: clamp(9rem, 14vw, 13rem) minmax(0, 1fr);
+    column-gap: clamp(1.3rem, 3.5vw, 3.2rem);
+  }
+  .portfolio-detail-page .site-head { grid-column: 1 / -1; }
+  .project-rail {
+    position: sticky;
+    top: 1.4rem;
+    align-self: start;
+    max-height: calc(100dvh - var(--dock-space) - 2.8rem);
+    margin-top: clamp(1.25rem, 4vw, 2.8rem);
+    padding: 0 clamp(.85rem, 2vw, 1.5rem) 0 0;
+    overflow-y: auto;
+    border-right: 1px solid var(--rule);
+    border-bottom: 0;
+  }
+  .project-rail ul { display: block; }
+}
 
 .portfolio-profile {
   position: relative;
   isolation: isolate;
   display: grid;
   grid-template-columns: minmax(0, 1fr) minmax(0, 1.25fr);
-  align-items: center;
-  gap: clamp(1.4rem, 5.2vw, 4.4rem);
+  grid-template-areas:
+    "identity education"
+    "identity skills"
+    "identity version";
+  align-content: center;
+  column-gap: clamp(1.4rem, 5.2vw, 4.4rem);
   min-height: clamp(26rem, 45vw, 34rem);
   padding-block: clamp(1.6rem, 5vw, 3.5rem);
 }
@@ -29,6 +127,7 @@
   pointer-events: none;
 }
 
+.profile-identity { grid-area: identity; align-self: center; }
 .profile-role { color: var(--brass); font-size: clamp(1.1rem, 2.6vw, 1.6rem); font-weight: 850; }
 .profile-identity h1 {
   margin: .1em 0 .19em -.035em;
@@ -53,8 +152,12 @@
 .profile-contact strong { overflow-wrap: anywhere; }
 .profile-contact a:is(:hover,:focus-visible) strong { text-decoration: underline; }
 
-.profile-records { margin: 0; border-top: 2px solid var(--ink); }
-.profile-records > div {
+.profile-education { grid-area: education; }
+.profile-development { grid-area: skills; }
+.profile-version { grid-area: version; }
+.profile-records, .profile-field { margin: 0; }
+.profile-records, .profile-education { border-top: 2px solid var(--ink); }
+.profile-records > div, .profile-field {
   display: grid;
   grid-template-columns: minmax(4.25rem, 1fr) minmax(0, 2.7fr);
   gap: .65rem;
@@ -62,29 +165,82 @@
   padding-block: clamp(.8rem, 2.15vw, 1.4rem);
   border-bottom: 1px solid var(--rule);
 }
-.profile-records dt { color: var(--brass); font-weight: 800; font-size: clamp(.82rem, 1.52vw, 1rem); }
-.profile-records dd { margin: 0; display: grid; gap: .16rem; line-height: 1.5; }
-.profile-records strong { font-size: clamp(.94rem, 2.05vw, 1.3rem); font-weight: 820; }
+.profile-records dt, .portfolio-home .profile-field h2 { color: var(--brass); font-weight: 800; font-size: clamp(.82rem, 1.52vw, 1rem); }
+.profile-records dd, .profile-field-body { margin: 0; display: grid; gap: .16rem; line-height: 1.5; }
+.profile-records strong, .profile-education strong { font-size: clamp(.94rem, 2.05vw, 1.3rem); font-weight: 820; }
 .profile-dates { margin-top: .23rem; }
 .profile-skill { display: grid; gap: .12rem; }
 .profile-skill + .profile-skill { margin-top: .55rem; }
 .profile-skill span { color: var(--soft); font-size: clamp(.8rem, 1.48vw, .96rem); }
-.portfolio-action {
-  display: inline-flex;
-  align-items: center;
-  gap: .6rem;
-  min-height: 2.75rem;
-  margin-top: 1rem;
-  padding-inline: .9rem;
-  color: white;
-  background: var(--ink);
-  text-decoration: none;
-  font-weight: 780;
-}
-.portfolio-action:hover { background: var(--brass); color: white; }
 
-.portfolio-list, .portfolio-work { padding-block: clamp(1.25rem, 4vw, 2.8rem); }
-.portfolio-list-header, .portfolio-work-header {
+@media (min-width: 80rem) {
+  .portfolio-home .page { width: min(91%, 128rem); }
+
+  .portfolio-profile {
+    grid-template-columns: minmax(0, 1.18fr) minmax(0, 1fr) minmax(0, .76fr);
+    grid-template-rows: 1fr auto;
+    grid-template-areas:
+      "identity education education"
+      "skills skills version";
+    gap: clamp(2rem, 5.4vh, 4.75rem) clamp(2rem, 3.9vw, 6rem);
+    min-height: clamp(35rem, calc(100svh - 3.8rem - var(--dock-space)), 82rem);
+    padding-block: clamp(2rem, 4.5vh, 4.2rem);
+  }
+
+  .portfolio-profile::before {
+    inset: 0 0 12% 28%;
+    background: linear-gradient(131deg, #f5c1b9, #f8d7cd 52%, transparent 87%);
+    clip-path: polygon(18% 0, 100% 0, 100% 100%, 0 61%);
+  }
+
+  .profile-role { font-size: clamp(1.5rem, 1.85vw, 2.2rem); }
+  .profile-identity h1 { font-size: clamp(8rem, 10.8vw, 15rem); }
+  .profile-contact { max-width: 26rem; }
+  .profile-contact a {
+    grid-template-columns: 4.4rem minmax(0, 1fr);
+    min-height: clamp(2.9rem, 4.85vh, 3.65rem);
+    font-size: 1.05rem;
+  }
+
+  .portfolio-home .profile-field h2 { font-size: clamp(1rem, 1vw, 1.22rem); }
+
+  .profile-field {
+    grid-template-columns: minmax(0, 1fr);
+    align-items: start;
+    gap: clamp(.7rem, 1.25vw, 1.45rem);
+    padding-top: clamp(1rem, 1.55vw, 1.8rem);
+    padding-bottom: 0;
+    border-bottom: 0;
+  }
+
+  .profile-education { align-self: center; }
+  .profile-education strong {
+    max-width: 18ch;
+    font-size: clamp(2rem, 3.15vw, 4.35rem);
+    line-height: 1.14;
+    letter-spacing: -.055em;
+  }
+  .profile-education span { font-size: clamp(1.15rem, 1.6vw, 1.8rem); }
+  .profile-dates { margin-top: .55rem; font-size: clamp(.94rem, 1.05vw, 1.23rem); }
+
+  .profile-development, .profile-version { border-top: 2px solid var(--ink); }
+  .profile-skillset {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: clamp(1rem, 2.9vw, 4rem);
+  }
+  .profile-skill { align-content: start; gap: .38rem; }
+  .profile-skill + .profile-skill { margin-top: 0; border-left: 1px solid var(--rule); padding-left: clamp(1rem, 2.9vw, 4rem); }
+  .profile-skill b, .profile-version p {
+    font-size: clamp(1.22rem, 1.8vw, 2.25rem);
+    font-weight: 820;
+    line-height: 1.16;
+    letter-spacing: -.035em;
+  }
+  .profile-skill span { font-size: clamp(.94rem, 1vw, 1.2rem); }
+}
+
+.portfolio-work { padding-block: clamp(1.25rem, 4vw, 2.8rem); }
+.portfolio-work-header {
   display: flex;
   flex-wrap: wrap;
   align-items: end;
@@ -93,60 +249,12 @@
   padding-bottom: .75rem;
   border-bottom: 2px solid var(--ink);
 }
-.portfolio-list-header h1, .portfolio-work-header h1 {
+.portfolio-work-header h1 {
   font-size: clamp(2.6rem, 8vw, 5.5rem);
   line-height: .99;
   letter-spacing: -.076em;
   overflow-wrap: anywhere;
 }
-.portfolio-filters { display: flex; flex-wrap: wrap; gap: .38rem; }
-.portfolio-filters[hidden], .portfolio-grid li[hidden] { display: none; }
-.portfolio-filters button {
-  min-height: 2.75rem;
-  padding: 0 .48rem;
-  border: 0;
-  border-bottom: 2px solid transparent;
-  background: transparent;
-  color: var(--ink);
-  font: inherit;
-  font-size: .87rem;
-  font-weight: 750;
-  cursor: pointer;
-}
-.portfolio-filters [aria-pressed="true"] { border-color: var(--brass); color: var(--brass); }
-.portfolio-filters button:focus-visible { outline: 2px solid var(--brass); outline-offset: 3px; }
-.portfolio-count { color: var(--soft); font-size: .87rem; margin-block: .65rem; }
-.portfolio-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(min(100%, 16rem), 1fr));
-  gap: clamp(1rem, 3vw, 2rem) clamp(.7rem, 2vw, 1.45rem);
-}
-.portfolio-grid li { min-width: 0; }
-.portfolio-card { display: block; text-decoration: none; }
-.portfolio-card:hover { color: inherit; }
-.portfolio-card-media {
-  display: grid;
-  align-items: end;
-  aspect-ratio: 16 / 9;
-  overflow: hidden;
-  background: #231a22;
-  color: white;
-}
-.portfolio-card-media > * { grid-area: 1 / 1; }
-.portfolio-card-media img { width: 100%; height: 100%; aspect-ratio: 16 / 9; object-fit: cover; }
-.portfolio-page .portfolio-card-media h2 {
-  z-index: 1;
-  padding: 1rem .6rem .42rem;
-  color: white;
-  background: linear-gradient(0deg, #17131ff0, transparent);
-  font-size: clamp(1.12rem, 2.4vw, 1.75rem);
-  line-height: 1.12;
-}
-.portfolio-card > p { margin-top: .25rem; font-size: clamp(.75rem, 1.27vw, .88rem); line-height: 1.45; }
-.portfolio-card .card-role { font-weight: 750; }
-
-.work-back { display: inline-flex; align-items: center; min-height: 2.75rem; color: var(--brass); text-decoration: none; font-weight: 750; }
-.work-back:hover { text-decoration: underline; }
 .portfolio-work-header { padding-top: .35rem; }
 .work-tech { color: var(--brass); font-size: .95rem; font-weight: 780; }
 .portfolio-work-layout {
@@ -160,11 +268,14 @@
 
 @media (max-width: 680px) {
   .portfolio-profile, .portfolio-work-layout { grid-template-columns: minmax(0, 1fr); }
-  .portfolio-profile { min-height: 0; }
+  .portfolio-profile {
+    grid-template-areas: "identity" "education" "skills" "version";
+    min-height: 0;
+  }
   .portfolio-profile::before { inset: 2% 0 0 17%; }
+  .profile-identity { margin-bottom: clamp(1.4rem, 5.2vw, 2.3rem); }
   .profile-contact { max-width: none; }
-  .profile-records > div { grid-template-columns: minmax(3.6rem,1fr) minmax(0,3.7fr); }
-  .portfolio-grid { grid-template-columns: repeat(auto-fill, minmax(min(100%, 8.2rem), 1fr)); }
+  .profile-records > div, .profile-field { grid-template-columns: minmax(3.6rem,1fr) minmax(0,3.7fr); }
 }
 
 @media (prefers-reduced-motion: no-preference) {
@@ -172,14 +283,13 @@
 
   ::view-transition-old(root) { animation: 150ms ease-out both portfolio-leave; }
   ::view-transition-new(root) { animation: 360ms cubic-bezier(.2,.72,.19,1) both portfolio-enter; }
-  .profile-identity, .profile-records > div { animation: 420ms cubic-bezier(.2,.72,.19,1) both portfolio-enter; }
-  .profile-records > div:nth-child(1) { animation-delay: 55ms; }
-  .profile-records > div:nth-child(2) { animation-delay: 110ms; }
-  .profile-records > div:nth-child(3) { animation-delay: 165ms; }
-  .portfolio-card-media img { transition: transform 260ms cubic-bezier(.2,.72,.19,1); }
-  .portfolio-card:is(:hover,:focus-visible) img { transform: scale(1.07); }
-  .portfolio-action span { transition: transform 160ms ease-out; }
-  .portfolio-action:hover span { transform: translateX(.26rem); }
+  .portfolio-dock { view-transition-name: portfolio-dock; }
+  .profile-identity, .profile-education, .profile-development, .profile-version, .profile-records > div {
+    animation: 420ms cubic-bezier(.2,.72,.19,1) both portfolio-enter;
+  }
+  .profile-education, .profile-records > div:nth-child(1) { animation-delay: 55ms; }
+  .profile-development, .profile-records > div:nth-child(2) { animation-delay: 110ms; }
+  .profile-version, .profile-records > div:nth-child(3) { animation-delay: 165ms; }
 }
 
 @keyframes portfolio-enter {
