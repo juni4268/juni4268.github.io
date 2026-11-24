@@ -68,6 +68,7 @@
 }
 .retry-values dt { font-size: .85rem; color: var(--soft); }
 .retry-values dd { color: var(--brass); font-size: clamp(1.1rem, 2.5vw, 1.5rem); font-weight: 800; }
+.implementation-facts div { grid-template-columns: 5.5rem minmax(0, 1fr); }
 .team-credits div { grid-template-columns: 3rem minmax(0, 1fr); }
 .project-footer { border: 0; }
 .project-footer a { color: var(--brass); font-weight: 700; }
@@ -77,6 +78,6 @@
 }
 
 @media (max-width: 480px) {
-  .steamheart-page .site-head nav { width: 100%; }
+  .steamheart-page .site-head nav { width: 100%; flex-wrap: wrap; row-gap: 0; }
   .frame-pair { grid-template-columns: minmax(0, 1fr); }
 }
