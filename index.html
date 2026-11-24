@@ -3,96 +3,70 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="theme-color" content="#f8f6ee">
-  <meta name="description" content="게임 프로그래머 최준이의 포트폴리오. 참여한 게임의 플레이 화면과 개발 환경, 작품별 담당 역할을 소개합니다.">
-  <title>최준이 | 게임 프로그래밍 포트폴리오</title>
+  <meta name="theme-color" content="#fff7e8">
+  <meta name="description" content="게임 프로그래머 최준이의 학력, 개발 기술과 참여 작품을 소개합니다.">
+  <title>최준이 | 게임 프로그래머</title>
   <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
   <link rel="stylesheet" href="./plain.css?v=projects-2">
+  <link rel="stylesheet" href="./portfolio.css">
 </head>
-<body class="home-page">
+<body class="home-page portfolio-page">
 <div class="page">
   <header class="site-head">
-    <a class="me" href="#home-title">포트폴리오</a>
-    <nav aria-label="메뉴">
-      <a href="#games">작품</a>
-      <a href="#process">작업 방식</a>
-      <a href="#contact">연락처</a>
+    <a class="me" href="./">최준이</a>
+    <nav aria-label="사이트 메뉴">
+      <a href="./" aria-current="page">메인</a>
+      <a href="./projects/">작품</a>
     </nav>
   </header>
 
-  <main>
-    <section class="home-hero" aria-labelledby="home-title">
-      <h1 id="home-title">
-        <span class="home-role">게임 프로그래머</span>
-        <span class="home-name">최준이</span>
-      </h1>
-      <div class="home-intro">
-        <p class="intro-lead">Unity와 Unreal Engine에서<br>게임플레이를 구현해 왔습니다.</p>
-        <p>게임 프로그래밍 전체를 맡은 작품도 있고, 다른 프로그래머와 역할을 나눠 개발한 작품도 있습니다.</p>
-      </div>
-    </section>
-
-    <section class="profile-section" id="games" aria-labelledby="games-title">
-      <h2 id="games-title">작품</h2>
-      <ul class="game-grid">
-        <li>
-          <a class="game-link" href="./steamheart/" aria-labelledby="steamheart-card-title">
-            <img class="game-cover" src="./assets/boss.webp" alt="SteamHeart의 보스전에서 붉은 광선이 전장을 가로지르는 장면" width="1280" height="720">
-            <h3 id="steamheart-card-title">SteamHeart <span aria-hidden="true">→</span></h3>
-            <p class="game-tools">Unity 6 · C#</p>
-            <p class="game-description">할아버지의 기계 심장을 되살릴 코어를 찾아 도시의 하층에서 상층으로 올라가는 2D 액션 어드벤처.</p>
-            <p class="game-role"><b>담당</b> 게임 프로그래밍 전체 · UI 제작(AI 활용)</p>
-          </a>
-        </li>
-        <li>
-          <img class="game-cover" src="./assets/guardian-title.webp" alt="수호의 창 타이틀 배경에서 창을 든 인물이 성을 바라보는 모습" width="960" height="548">
-          <h3>수호의 창</h3>
-          <p class="game-tools">Unreal Engine 5.6 · C++ · PaperZD</p>
-          <p class="game-description">몬스터와 싸워 경험치를 쌓고, 레벨이 오르면 강화할 능력을 선택하는 2D 픽셀 액션 게임.</p>
-          <p class="game-role"><b>담당</b> 게임 프로그래밍 · 프로그래머 2인 협업</p>
-        </li>
-        <li>
-          <img class="game-cover" src="./assets/aka-battle.webp" alt="AKA의 던전을 위에서 본 화면. 보스가 기둥 옆의 플레이어를 향해 공격한다." width="960" height="540" loading="lazy">
-          <h3>AKA</h3>
-          <p class="game-tools">Unreal Engine 5.6 · C++</p>
-          <p class="game-description">던전에서 보스의 돌진과 번개 공격을 피하며 싸우는 탑뷰 보스 러시 액션 게임.</p>
-          <p class="game-role"><b>담당</b> 게임 프로그래밍</p>
-        </li>
-        <li>
-          <img class="game-cover" src="./assets/safe-out-valve.webp" alt="SAFE OUT 공장의 설비와 배관 사이로 불길이 치솟는 장면" width="960" height="536" loading="lazy">
-          <h3>SAFE OUT</h3>
-          <p class="game-tools">Unreal Engine 5.7 · C++</p>
-          <p class="game-description">공장 설비의 과열과 사고에 대응하고, 모든 미션을 해결한 뒤 출구로 향하는 3D 탈출 게임.</p>
-          <p class="game-role"><b>담당</b> 게임 프로그래밍 전체</p>
-        </li>
-        <li>
-          <img class="game-cover" src="./assets/daeva-battle.webp" alt="DAEVA의 마법사가 사막 협곡에서 몬스터와 맞서는 3인칭 플레이 화면" width="960" height="540" loading="lazy">
-          <h3>DAEVA</h3>
-          <p class="game-tools">Unreal Engine 5.4 · C++</p>
-          <p class="game-description">떠돌이 마법사가 되어 점점 늘어나는 몬스터를 상대로 3분간 버티는 3인칭 생존 게임.</p>
-          <p class="game-role"><b>담당</b> 게임 프로그래밍</p>
-        </li>
-      </ul>
-    </section>
-
-    <section class="cols profile-section" id="process">
-      <h2>작업 방식</h2>
-      <div class="body">
-        <p>기능이 언제 시작되고 끝나야 하는지 정한 뒤, 코드 작성과 수정에 AI를 활용합니다. 직접 플레이하며 예상한 동작과 비교하고, 문제가 생기면 같은 상황을 재현해 원인을 찾습니다.</p>
-      </div>
-    </section>
-  </main>
-
-  <footer class="site-foot" id="contact">
-    <div class="cols">
-      <h2>연락처</h2>
-      <div class="body">
-        <a href="mailto:choijuni4268@gmail.com">choijuni4268@gmail.com</a>
-        <a href="https://github.com/juni4268">GitHub</a>
-      </div>
+  <main class="portfolio-profile">
+    <div class="profile-identity">
+      <p class="profile-role">게임 프로그래머</p>
+      <h1>최준이</h1>
+      <address id="contact" class="profile-contact" aria-label="연락처">
+        <a href="mailto:choijuni4268@gmail.com">
+          <span>이메일</span>
+          <strong>choijuni4268@gmail.com</strong>
+        </a>
+        <a href="https://github.com/juni4268">
+          <span>GitHub</span>
+          <strong>github.com/juni4268 <span aria-hidden="true">↗</span></strong>
+        </a>
+      </address>
     </div>
-  </footer>
+    <div>
+      <dl class="profile-records">
+        <div>
+          <dt>학력</dt>
+          <dd>
+            <strong>한국폴리텍대학 서울정수캠퍼스</strong>
+            <span>메타버스콘텐츠과</span>
+            <b class="profile-dates">2025년 입학 · 2027년 졸업 예정</b>
+          </dd>
+        </div>
+        <div>
+          <dt>개발 기술</dt>
+          <dd>
+            <div class="profile-skill">
+              <b>Unity 6 · C#</b>
+              <span>플레이어 전투, 보스 패턴, 재도전·성장 시스템</span>
+            </div>
+            <div class="profile-skill">
+              <b>Unreal Engine 5 · C++</b>
+              <span>설비 이벤트, 미션 진행 및 탈출 조건</span>
+            </div>
+          </dd>
+        </div>
+        <div>
+          <dt>버전 관리</dt>
+          <dd>Git · GitHub</dd>
+        </div>
+      </dl>
+      <a id="games" class="portfolio-action" href="./projects/">작품 보기 <span aria-hidden="true">→</span></a>
+    </div>
+  </main>
 </div>
 </body>
 </html>

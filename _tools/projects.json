@@ -1,0 +1,63 @@
+[
+  {
+    "slug": "steamheart",
+    "name": "SteamHeart",
+    "engine": "Unity",
+    "tech": "Unity 6 · C#",
+    "role": "게임 프로그래밍 전체 · UI 제작(AI 활용)",
+    "description": "할아버지의 기계 심장을 되살릴 코어를 찾아 도시의 하층에서 상층으로 올라가는 2D 액션 어드벤처.",
+    "image": "boss.webp",
+    "width": 1280,
+    "height": 720,
+    "alt": "SteamHeart 최종 보스전에서 붉은 광선이 교차하는 장면",
+    "customDetail": true
+  },
+  {
+    "slug": "guardian",
+    "name": "수호의 창",
+    "engine": "Unreal Engine",
+    "tech": "Unreal Engine 5.6 · C++ · PaperZD",
+    "role": "게임 프로그래밍 · 프로그래머 2인 협업",
+    "description": "몬스터를 쓰러뜨려 경험치를 쌓고, 레벨이 오를 때마다 강화할 능력을 고르는 2D 픽셀 액션 게임.",
+    "image": "guardian-title.webp",
+    "width": 960,
+    "height": 548,
+    "alt": "창을 든 인물이 멀리 있는 성을 바라보는 수호의 창 타이틀 배경"
+  },
+  {
+    "slug": "aka",
+    "name": "AKA",
+    "engine": "Unreal Engine",
+    "tech": "Unreal Engine 5.6 · C++",
+    "role": "게임 프로그래밍",
+    "description": "던전에서 보스의 돌진과 번개 공격을 피하며 싸우는 탑뷰 보스 러시 액션 게임.",
+    "image": "aka-battle.webp",
+    "width": 960,
+    "height": 540,
+    "alt": "위에서 본 AKA의 던전 보스전"
+  },
+  {
+    "slug": "safe-out",
+    "name": "SAFE OUT",
+    "engine": "Unreal Engine",
+    "tech": "Unreal Engine 5.7 · C++",
+    "role": "게임 프로그래밍 전체",
+    "description": "공장 설비의 과열과 사고에 대응하고, 모든 미션을 끝낸 뒤 출구로 향하는 3D 탈출 게임.",
+    "image": "safe-out-valve.webp",
+    "width": 960,
+    "height": 536,
+    "alt": "SAFE OUT 공장의 설비와 배관 사이로 불길이 치솟는 장면"
+  },
+  {
+    "slug": "daeva",
+    "name": "DAEVA",
+    "engine": "Unreal Engine",
+    "tech": "Unreal Engine 5.4 · C++",
+    "role": "게임 프로그래밍",
+    "description": "떠돌이 마법사가 되어 점점 늘어나는 몬스터를 상대로 3분간 버티는 3인칭 생존 게임.",
+    "image": "daeva-battle.webp",
+    "width": 960,
+    "height": 540,
+    "alt": "사막 협곡에서 마법사가 몬스터와 맞서는 DAEVA의 플레이 화면"
+  }
+]
