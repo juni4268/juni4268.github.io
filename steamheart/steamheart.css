@@ -31,7 +31,7 @@
 .project-facts dt { color: var(--soft); font-weight: 700; }
 .project-facts dd { margin: 0; }
 
-.project-media video, .frame-pair img { aspect-ratio: 16 / 9; object-fit: cover; }
+.project-media video { aspect-ratio: 16 / 9; object-fit: cover; }
 .project-section {
   margin: 0;
   padding-block: clamp(2rem, 5vw, 4rem);
@@ -39,8 +39,6 @@
 }
 .project-section > h2 { margin-bottom: 1.1rem; }
 .case-copy p + p { margin-top: .85rem; }
-.case-result { border-left: 3px solid var(--brass); padding-left: .85rem; }
-.case-result strong { color: var(--brass); }
 .project-disclosure {
   margin-top: 1.3rem;
   border-top: 1px solid var(--rule);
@@ -52,25 +50,23 @@
   font-weight: 700;
   cursor: pointer;
 }
-.frame-pair {
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 1rem;
-}
 .retry-copy { max-width: 42rem; }
-.retry-values {
+.retry-values, .boss-pattern-table {
   width: 100%;
-  margin-top: 1.15rem;
   border-collapse: collapse;
   text-align: left;
   font-size: .95rem;
-  font-variant-numeric: tabular-nums;
 }
+.retry-values { margin-top: 1.15rem; font-variant-numeric: tabular-nums; }
 .retry-values caption { margin-bottom: .35rem; color: var(--soft); text-align: left; font-size: .85rem; }
-.retry-values :is(th, td) { padding: .45rem .5rem; border-bottom: 1px solid var(--rule); }
-.retry-values :is(th, td):first-child { padding-left: 0; }
-.retry-values thead { color: var(--soft); }
+:is(.retry-values, .boss-pattern-table) :is(th, td) { padding: .45rem .5rem; border-bottom: 1px solid var(--rule); }
+:is(.retry-values, .boss-pattern-table) :is(th, td):first-child { padding-left: 0; }
+:is(.retry-values, .boss-pattern-table) thead { color: var(--soft); }
 .retry-values tbody td:last-child { color: var(--brass); font-weight: 700; }
+.boss-pattern-table { margin-top: 1.5rem; }
+.boss-pattern-table :is(th, td) { vertical-align: top; }
+.boss-pattern-table th[scope="row"] { white-space: nowrap; }
+.boss-pattern-notes h3 { margin-bottom: .35rem; }
 .implementation-facts div { grid-template-columns: 5.5rem minmax(0, 1fr); }
 .team-credits div { grid-template-columns: 3rem minmax(0, 1fr); }
 .project-footer { border: 0; }
@@ -82,5 +78,4 @@
 
 @media (max-width: 480px) {
   .steamheart-page .site-head nav { width: 100%; flex-wrap: wrap; row-gap: 0; }
-  .frame-pair { grid-template-columns: minmax(0, 1fr); }
 }
