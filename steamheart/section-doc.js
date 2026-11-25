@@ -18,6 +18,7 @@ for (const section of document.querySelectorAll(".project-section.has-doc")) {
   const swap = (showDoc) => {
     summary.hidden = showDoc;
     doc.hidden = !showDoc;
+    section.classList.toggle("is-doc", showDoc);
     toggle.setAttribute("aria-pressed", String(showDoc));
     toggle.textContent = showDoc ? "요약으로" : "기술 문서";
     if (showDoc) section.querySelector("video")?.pause();
