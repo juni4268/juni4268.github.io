@@ -73,7 +73,7 @@ ${links}
 function projectNavigation(prefix, activeSlug) {
   return `  <nav class="portfolio-dock" aria-label="사이트 메뉴">
     <a href="${prefix}"${activeSlug ? '' : ' aria-current="page"'}>메인</a>
-    <a href="${prefix}${activeSlug ?? firstProject}/" id="games"${activeSlug ? ' aria-current="page"' : ''}>작품</a>
+    <a href="${prefix}${activeSlug ?? firstProject}/" id="games"${activeSlug ? ' aria-current="page"' : ''}>작품 상세</a>
   </nav>`;
 }
 
