@@ -50,7 +50,7 @@ function page(project) {
   <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
   <link rel="stylesheet" href="../plain.css?v=projects-2">
-  <link rel="stylesheet" href="../portfolio.css?v=dock-hide">
+  <link rel="stylesheet" href="../portfolio.css?v=upcoming-2">
   <script type="module" src="../dock.js"></script>
 </head>
 <body class="home-page portfolio-page portfolio-nav-page portfolio-detail-page">
@@ -115,7 +115,7 @@ function featured() {
     const media = project.clip
       ? `<video muted loop playsinline preload="none" poster="./assets/${project.image}" width="${project.width}" height="${project.height}" aria-label="${html(project.alt)}"><source src="./assets/${project.clip}" type="video/mp4"></video>`
       : `<img src="./assets/${project.image}" width="${project.width}" height="${project.height}" alt="${html(project.alt)}"${index ? ' loading="lazy"' : ''}>`;
-    return `          <a class="featured-card${index ? '' : ' is-active'}" href="./${project.slug}/" data-work="${project.slug}">
+    return `          <a class="featured-card${index ? '' : ' is-active'}${project.upcoming ? ' is-upcoming' : ''}" href="./${project.slug}/" data-work="${project.slug}">
             ${media}
             <span class="featured-copy">
               <strong>${html(project.name)}</strong>
@@ -126,7 +126,7 @@ function featured() {
           </a>`;
   }).join('\n');
   const tabs = projects.map((project, index) =>
-    `        <li><a href="./${project.slug}/" data-work="${project.slug}"${index ? '' : ' aria-current="true"'}><strong>${html(project.name)}</strong><span>${html(project.tech)}</span></a></li>`).join('\n');
+    `        <li><a${project.upcoming ? ' class="is-upcoming"' : ''} href="./${project.slug}/" data-work="${project.slug}"${index ? '' : ' aria-current="true"'}><strong>${html(project.name)}</strong><span>${html(project.tech)}</span></a></li>`).join('\n');
 
   return `      <div class="featured-stage">
         <div class="featured-tilt">

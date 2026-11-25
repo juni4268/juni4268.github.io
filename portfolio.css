@@ -363,3 +363,13 @@
 .portfolio-dock { transition: translate .28s cubic-bezier(.2,.72,.19,1), opacity .2s ease; }
 .portfolio-dock.is-away:not(:focus-within) { translate: 0 calc(100% + var(--dock-bottom) + 1rem); opacity: 0; }
 @media (prefers-reduced-motion: reduce) { .portfolio-dock { transition: none; } }
+
+/* Works that will be written up later: listed in the same place, shown in grey. */
+.featured-more a.is-upcoming :is(strong, span) { color: #9a9892; }
+.featured-more a.is-upcoming::before { background: #9a9892; }
+.featured-more a.is-upcoming[aria-current] { background: color-mix(in srgb, #9a9892 12%, transparent); }
+.featured-more a.is-upcoming[aria-current] strong { color: #77756f; }
+.featured-card.is-upcoming :is(img, video) { filter: grayscale(1); opacity: .6; }
+.featured-card.is-upcoming .featured-copy { color: #77756f; }
+.featured-card.is-upcoming :is(.featured-tech, .featured-role, .featured-summary) { color: #8a8882; }
+@media (max-width: 760px) { .featured-stage { overflow-x: clip; } }
