@@ -204,3 +204,4 @@
 .section-doc { scroll-margin-top: 9rem; }
 
 @media (max-width: 1000px) and (min-width: 761px) { .credits-list { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+.project-media.is-native img { width: auto; max-width: 100%; height: auto; }

@@ -4,12 +4,12 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="theme-color" content="#f8f6ee">
-  <meta name="description" content="공장 설비의 과열과 사고에 대응하고, 모든 미션을 끝낸 뒤 출구로 향하는 3D 탈출 게임.">
-  <title>SAFE OUT | 최준이</title>
+  <meta name="description" content="SAFE OUT의 게임 프로그래밍을 맡은 최준이의 작업 기록. 사고 이벤트의 공통 구조, 소화기와 화재, 기계 과열, 루프와 퇴근 조건을 소개합니다.">
+  <title>SAFE OUT | 최준이 게임 프로그래밍 포트폴리오</title>
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="최준이 포트폴리오">
   <meta property="og:title" content="SAFE OUT | 최준이">
-  <meta property="og:description" content="공장 설비의 과열과 사고에 대응하고, 모든 미션을 끝낸 뒤 출구로 향하는 3D 탈출 게임.">
+  <meta property="og:description" content="공장의 사고를 모두 막고 퇴근해야 하루가 끝나는 루프 기반 서바이벌 시뮬레이션.">
   <meta property="og:url" content="https://juni4268.github.io/safe-out/">
   <meta property="og:image" content="https://juni4268.github.io/assets/og/safe-out.jpg">
   <meta property="og:image:width" content="1200">
@@ -20,13 +20,25 @@
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
   <link rel="stylesheet" href="../plain.css?v=projects-2">
   <link rel="stylesheet" href="../portfolio.css?v=upcoming-3">
+  <link rel="stylesheet" href="../steamheart/steamheart.css?v=native-img">
+  <script type="module" src="../steamheart/section-doc.js?v=rename"></script>
   <script type="module" src="../dock.js"></script>
 </head>
-<body class="home-page portfolio-page portfolio-nav-page portfolio-detail-page">
+<body class="home-page steamheart-page portfolio-nav-page portfolio-detail-page">
 <div class="page">
   <header class="site-head">
     <a class="me" href="../">최준이</a>
+    <nav aria-label="SAFE OUT 목차">
+      <a href="#events">이벤트 구조</a>
+      <a href="#fire">소화기</a>
+      <a href="#overheat">기계 과열</a>
+      <a href="#loop">루프</a>
+      <a href="#other-work">그 외 구현</a>
+      <a href="#team">크레딧</a>
+    </nav>
   </header>
+
+  <!-- portfolio-rail:start -->
   <nav class="project-rail" aria-labelledby="project-rail-title">
     <p id="project-rail-title">참여 작품</p>
     <ul>
@@ -37,25 +49,329 @@
       <li><a class="is-upcoming" href="../daeva/">DAEVA</a></li>
     </ul>
   </nav>
-  <main class="portfolio-work">
-    <div class="portfolio-work-header">
-      <h1>SAFE OUT</h1>
-      <p class="work-tech">Unreal Engine 5.7 · C++</p>
-    </div>
-    <div class="portfolio-work-layout">
-      <img src="../assets/safe-out-valve.webp" width="960" height="536" alt="SAFE OUT 공장의 설비와 배관 사이로 불길이 치솟는 장면">
-      <div class="portfolio-work-copy">
-        <p>공장 설비의 과열과 사고에 대응하고, 모든 미션을 끝낸 뒤 출구로 향하는 3D 탈출 게임.</p>
-        <dl class="profile-records">
-          <div><dt>담당</dt><dd>게임 프로그래밍 전체</dd></div>
+  <!-- portfolio-rail:end -->
+
+  <main>
+    <section class="project-hero" aria-labelledby="project-title">
+      <div class="project-intro">
+        <p class="game-tools">Unreal Engine 5.7 · C++</p>
+        <h1 id="project-title">SAFE OUT</h1>
+        <p class="project-summary">첫 출근한 공장에서 일어나는 사고를 모두 막고 무사히 퇴근해야 하루가 끝나는 루프 기반 서바이벌 시뮬레이션입니다.</p>
+        <dl class="project-facts">
+          <div>
+            <dt>담당</dt>
+            <dd><strong>게임 프로그래밍 전체</strong><br>C++ · 블루프린트 · UI 구현</dd>
+          </div>
+          <div>
+            <dt>제작</dt>
+            <dd>4인 팀 · 2026년 4월~6월</dd>
+          </div>
+          <div>
+            <dt>코드</dt>
+            <dd><a href="https://github.com/juni4268/SAFE_OUT">github.com/juni4268/SAFE_OUT <span aria-hidden="true">↗</span></a></dd>
+          </div>
         </dl>
       </div>
-    </div>
+      <figure class="project-media">
+        <img src="../assets/safe-out/factory.webp" width="1039" height="869" alt="SAFE OUT의 배경인 금속 가공 공장 내부">
+      </figure>
+    </section>
+
+    <section class="project-section has-doc" id="events" aria-labelledby="events-title">
+      <div class="section-head">
+        <h2 id="events-title">사고 이벤트의 공통 구조</h2>
+        <button type="button" class="doc-toggle" aria-pressed="false" aria-controls="events-doc">구현 방식</button>
+      </div>
+      <div class="section-view" data-view="summary">
+      <div class="case-grid">
+        <div class="case-copy">
+          <p>공장에서 일어나는 사고 여덟 가지를 이벤트로 만들었습니다. 이벤트마다 코드를 따로 만들지 않고, 공통 기능을 부모 클래스 하나에 모은 뒤 각 이벤트는 조건과 결과만 다르게 구현했습니다.</p>
+          <p>이벤트는 대기, 발생, 조작 중, 해결, 실패 다섯 상태를 가집니다. 상태가 바뀌면 위치 표시 마커와 상호작용, 화면 표시가 함께 바뀝니다.</p>
+        </div>
+        <figure class="project-media">
+          <img src="../assets/safe-out/ui-guide.webp" width="1536" height="715" alt="SAFE OUT 공장 안에서 안전 주의사항, 아이템 설명, 이벤트 상태 안내가 표시된 화면" loading="lazy">
+        </figure>
+      </div>
+      <table class="boss-pattern-table pattern-table-simple">
+        <thead>
+          <tr><th scope="col">사고</th><th scope="col">실패 조건</th><th scope="col">해결</th></tr>
+        </thead>
+        <tbody>
+              <tr><th scope="row">오일 · 금속 파편</th><td>밟으면 낙상</td><td>제습지로 제거</td></tr>
+              <tr><th scope="row">보일러 압력 상승</th><td>압력 180 도달 시 폭발</td><td>밸브 조작</td></tr>
+              <tr><th scope="row">공조기 고장</th><td>연기 농도가 한계를 넘으면 질식</td><td>공조기 필터</td></tr>
+              <tr><th scope="row">낙하물</th><td>안전모 미착용 시 압사</td><td>안전모 착용</td></tr>
+              <tr><th scope="row">전기 화재</th><td>진압하지 못하면 화재</td><td>CO2 소화기</td></tr>
+              <tr><th scope="row">금속 화재</th><td>진압하지 못하면 화재</td><td>D급 소화기</td></tr>
+              <tr><th scope="row">누전 차단기</th><td>절연 장갑 없이 만지면 감전</td><td>절연 장갑</td></tr>
+              <tr><th scope="row">기계 과열</th><td>250°C 도달 시 화재</td><td>오일 · 냉각수 보충</td></tr>
+        </tbody>
+      </table>
+      </div>
+      <div class="section-view section-doc" data-view="doc" id="events-doc" hidden>
+        <h3>이벤트의 다섯 상태</h3>
+        <p>모든 이벤트가 같은 상태 값을 씁니다. 상태를 바꾸는 함수는 하나이고, 여기서 마커와 화면에 변경을 알립니다.</p>
+        <details class="code-block">
+          <summary>상태 정의 코드 <span class="code-file">CPREventBase.h</span></summary>
+          <pre><code>UENUM(BlueprintType)
+enum class ECPREventStatus : uint8
+{
+    Idle UMETA(DisplayName = &quot;Idle&quot;),
+    Active UMETA(DisplayName = &quot;Active&quot;),
+    Interacting UMETA(DisplayName = &quot;Interacting&quot;),
+    Resolved UMETA(DisplayName = &quot;Resolved&quot;),
+    Failed UMETA(DisplayName = &quot;Failed&quot;)
+};</code></pre>
+          <p class="code-source"><a href="https://github.com/juni4268/SAFE_OUT/blob/main/Source/Project_CPR/CPREventBase.h">Source/Project_CPR/CPREventBase.h</a></p>
+        </details>
+        <h3>상호작용 조건</h3>
+        <p>플레이어가 이벤트를 조작하면 부모 클래스가 먼저 조건을 확인합니다. 사고가 나지 않은 설비이면 정상 가동 중이라고 알리고, 필요한 아이템이 없거나 다른 아이템을 들고 있으면 안내 문구를 띄웁니다. 조건을 통과한 뒤의 동작만 각 이벤트가 따로 구현합니다.</p>
+        <details class="code-block">
+          <summary>상호작용 검사 코드 <span class="code-file">CPREventBase.cpp</span></summary>
+          <pre><code>void ACPREventBase::ReceivePlayerInteraction_Implementation(ACPRCharacter* TargetCharacter)
+{
+    // ...
+    if (CurrentStatus == ECPREventStatus::Idle)
+    {
+        TargetCharacter-&gt;ShowErrorMessage(FText::FromString(TEXT(&quot;이상 없음. 정상 가동 중&quot;)));
+        return;
+    }
+
+    if (!IsInProgress())
+    {
+        return;
+    }
+
+    if (RequiredItemTag != FName(&quot;None&quot;))
+    {
+        if (!TargetCharacter-&gt;CurrentHeldItem)
+        {
+            TargetCharacter-&gt;ShowErrorMessage(FText::FromString(TEXT(&quot;아이템이 없습니다!&quot;)));
+            return;
+        }
+
+        if (TargetCharacter-&gt;CurrentHeldItem-&gt;ItemTag != RequiredItemTag)
+        {
+            TargetCharacter-&gt;ShowErrorMessage(FText::FromString(TEXT(&quot;잘못된 아이템입니다!&quot;)));
+            return;
+        }
+    }
+
+    ReceiveInteractionValidated(TargetCharacter);
+}</code></pre>
+          <p class="code-source"><a href="https://github.com/juni4268/SAFE_OUT/blob/main/Source/Project_CPR/CPREventBase.cpp">Source/Project_CPR/CPREventBase.cpp</a></p>
+        </details>
+      </div>
+    </section>
+
+    <section class="project-section has-doc" id="fire" aria-labelledby="fire-title">
+      <div class="section-head">
+        <h2 id="fire-title">소화기와 화재</h2>
+        <button type="button" class="doc-toggle" aria-pressed="false" aria-controls="fire-doc">구현 방식</button>
+      </div>
+      <div class="section-view" data-view="summary">
+      <div class="case-grid">
+        <div class="case-copy">
+          <p>화재는 종류에 맞는 소화기로만 끌 수 있습니다. 전기 화재는 CO2 소화기, 금속 화재는 D급 소화기를 써야 하고, 다른 소화기를 뿌리면 불이 줄지 않습니다.</p>
+          <p>소화기는 불이 어떤 이벤트인지 알지 못합니다. 맞은 대상이 소화할 수 있는 대상인지만 확인하고, 불이 줄어드는 처리는 각 화재가 맡습니다. 전기 화재, 금속 화재, 기계 과열로 난 불이 같은 방식으로 꺼집니다.</p>
+        </div>
+        <figure class="project-media">
+          <img src="../assets/safe-out-valve.webp" width="960" height="536" alt="SAFE OUT 공장의 설비와 배관 사이로 불길이 치솟는 장면" loading="lazy">
+        </figure>
+      </div>
+      </div>
+      <div class="section-view section-doc" data-view="doc" id="fire-doc" hidden>
+        <h3>소화 가능한 대상</h3>
+        <p>소화할 수 있는 대상은 인터페이스 하나를 구현합니다. 함수는 소화량과 소화기 종류를 받습니다.</p>
+        <details class="code-block">
+          <summary>소화 인터페이스 코드 <span class="code-file">CPRExtinguishable.h</span></summary>
+          <pre><code>class PROJECT_CPR_API ICPRExtinguishable
+{
+    GENERATED_BODY()
+
+public:
+
+    UFUNCTION(BlueprintNativeEvent, BlueprintCallable, Category = &quot;Fire&quot;)
+    bool ApplyExtinguisher(float Amount, FName ExtinguisherTag);
+};</code></pre>
+          <p class="code-source"><a href="https://github.com/juni4268/SAFE_OUT/blob/main/Source/Project_CPR/CPRExtinguishable.h">Source/Project_CPR/CPRExtinguishable.h</a></p>
+        </details>
+        <h3>소화기를 쏠 때</h3>
+        <p>소화기를 쏘면 앞쪽을 검사해 맞은 대상이 이 인터페이스를 구현했는지 확인합니다. 구현했다면 들고 있는 소화기의 종류와 함께 소화량을 넘깁니다.</p>
+        <details class="code-block">
+          <summary>소화기 발사 코드 <span class="code-file">CPRCharacter.cpp</span></summary>
+          <pre><code>ICPRExtinguishable *Extinguishable = Cast&lt;ICPRExtinguishable&gt;(HitActor);
+if (!Extinguishable)
+{
+    Extinguishable = Cast&lt;ICPRExtinguishable&gt;(HitActor-&gt;GetOwner());
+}
+
+if (Extinguishable &amp;&amp; CurrentHeldItem)
+{
+    const FName HeldTag = CurrentHeldItem-&gt;ItemTag;
+    ICPRExtinguishable::Execute_ApplyExtinguisher(Extinguishable-&gt;_getUObject(), ExtinguisherPower * DeltaTime,
+                                                  HeldTag);
+}</code></pre>
+          <p class="code-source"><a href="https://github.com/juni4268/SAFE_OUT/blob/main/Source/Project_CPR/CPRCharacter.cpp">Source/Project_CPR/CPRCharacter.cpp</a></p>
+        </details>
+        <h3>화재 쪽의 판정</h3>
+        <p>화재는 자기에게 맞는 소화기인지 확인한 뒤 불 세기를 줄입니다. 불 세기가 0이 되면 이벤트를 해결 상태로 바꿉니다.</p>
+        <details class="code-block">
+          <summary>전기 화재 소화 코드 <span class="code-file">CPREvent_FireElec.cpp</span></summary>
+          <pre><code>bool ACPREvent_FireElec::ApplyExtinguisher_Implementation(float Amount, FName ExtinguisherTag)
+{
+    if (ExtinguisherTag != AcceptedExtinguisherTag)
+    {
+        return false;
+    }
+    // ...
+    FireLevel -= Amount;
+    FireLevel = FMath::Max(FireLevel, 0.f);
+
+    ReceiveFireLevelChanged(FireLevel);
+
+    if (FireLevel &lt;= 0.f)
+    {
+        // ...
+        bIsOnFire = false;
+        GetWorldTimerManager().ClearTimer(FireTimerHandle);
+        ResolveEvent();
+    }
+
+    return true;
+}</code></pre>
+          <p class="code-source"><a href="https://github.com/juni4268/SAFE_OUT/blob/main/Source/Project_CPR/CPREvent_FireElec.cpp">Source/Project_CPR/CPREvent_FireElec.cpp</a></p>
+        </details>
+      </div>
+    </section>
+
+    <section class="project-section has-doc" id="overheat" aria-labelledby="overheat-title">
+      <div class="section-head">
+        <h2 id="overheat-title">기계 과열</h2>
+        <button type="button" class="doc-toggle" aria-pressed="false" aria-controls="overheat-doc">구현 방식</button>
+      </div>
+      <div class="section-view" data-view="summary">
+      <div class="case-grid">
+        <div class="case-copy">
+          <p>기계는 오일과 냉각수를 계속 소모합니다. 둘 중 하나가 바닥나면 온도가 오르고, 둘 다 바닥나면 더 빨리 오릅니다. 250°C에 닿으면 불이 납니다.</p>
+          <p>플레이어는 기계 앞에서 오일과 냉각수를 채워 온도를 내립니다. 두 게이지가 모두 일정 비율 이상일 때만 온도가 내려갑니다.</p>
+        </div>
+        <figure class="project-media is-native">
+          <img src="../assets/safe-out/ui-machine.webp" width="365" height="311" alt="오일 게이지, 냉각수 게이지, 온도 게이지가 표시된 기계 상태 화면" loading="lazy">
+        </figure>
+      </div>
+      </div>
+      <div class="section-view section-doc" data-view="doc" id="overheat-doc" hidden>
+        <h3>온도 계산</h3>
+        <p>매 프레임 오일과 냉각수의 남은 양으로 온도 변화를 정합니다. 온도가 최대치에 닿으면 과열을 일으키고, 그 뒤로는 화재 이벤트와 같은 방식으로 소화기로 끕니다.</p>
+        <details class="code-block">
+          <summary>온도 계산 코드 <span class="code-file">CPREvent_Overheat.cpp</span></summary>
+          <pre><code>const bool bOilEmpty     = (OilCurrent &lt;= 0.f);
+const bool bCoolantEmpty = (CoolantCurrent &lt;= 0.f);
+
+if (bOilEmpty || bCoolantEmpty)
+{
+    const float RiseRate = (bOilEmpty &amp;&amp; bCoolantEmpty) ? TempRiseBothEmpty : TempRiseRateOneEmpty;
+    TempCurrent += RiseRate * DeltaTime;
+}
+else
+{
+    const float OilRatio     = (OilMax &gt; 0.f)     ? (OilCurrent / OilMax)         : 0.f;
+    const float CoolantRatio = (CoolantMax &gt; 0.f) ? (CoolantCurrent / CoolantMax)  : 0.f;
+    if (OilRatio &gt;= TempDecreaseThresholdRatio &amp;&amp; CoolantRatio &gt;= TempDecreaseThresholdRatio)
+    {
+        TempCurrent -= TempDecreaseRate * DeltaTime;
+    }
+}
+
+TempCurrent = FMath::Clamp(TempCurrent, TempMin, TempMax);
+// ...
+if (TempCurrent &gt;= TempMax)
+{
+    TriggerOverheat();
+    return;
+}</code></pre>
+          <p class="code-source"><a href="https://github.com/juni4268/SAFE_OUT/blob/main/Source/Project_CPR/CPREvent_Overheat.cpp">Source/Project_CPR/CPREvent_Overheat.cpp</a></p>
+        </details>
+      </div>
+    </section>
+
+    <section class="project-section has-doc" id="loop" aria-labelledby="loop-title">
+      <div class="section-head">
+        <h2 id="loop-title">루프와 퇴근 조건</h2>
+        <button type="button" class="doc-toggle" aria-pressed="false" aria-controls="loop-doc">구현 방식</button>
+      </div>
+      <div class="section-view" data-view="summary">
+      <div class="case-grid">
+        <div class="case-copy">
+          <p>사고를 막지 못해 쓰러지면 결과 화면이 나온 뒤 같은 날 출근부터 다시 시작합니다. 안전 점검 목록의 항목을 모두 끝내야 퇴근할 수 있고, 그 전에는 출구에 가도 끝나지 않습니다.</p>
+          <p>목록이 모두 끝나면 출구 표시가 바뀌고, 플레이어가 출구에 들어섰을 때 남은 과열 진행과 소리를 멈춘 뒤 엔딩으로 넘어갑니다.</p>
+        </div>
+        <figure class="project-media is-native">
+          <img src="../assets/safe-out/ui-todo.webp" width="367" height="427" alt="폭발물 보관 정리, 보일러 압력 점검 등 항목이 나열된 안전 점검 목록 화면" loading="lazy">
+        </figure>
+      </div>
+      </div>
+      <div class="section-view section-doc" data-view="doc" id="loop-doc" hidden>
+        <h3>퇴근 조건</h3>
+        <p>출구는 안전 점검 목록이 모두 끝났다는 신호를 받아야 열립니다. 조건이 충족된 상태에서 플레이어가 들어오면 한 번만 클리어를 처리합니다.</p>
+        <details class="code-block">
+          <summary>퇴근 처리 코드 <span class="code-file">CPRClearTrigger.cpp</span></summary>
+          <pre><code>if (bConditionsMet)
+{
+    bCleared = true;
+    SuspendOverheatsForClear();
+    StopTaggedWorldAudio();
+    if (bLockOnClear)
+    {
+        LockForClear();
+    }
+    ReceiveLevelCleared();
+}</code></pre>
+          <p class="code-source"><a href="https://github.com/juni4268/SAFE_OUT/blob/main/Source/Project_CPR/CPRClearTrigger.cpp">Source/Project_CPR/CPRClearTrigger.cpp</a></p>
+        </details>
+        <h3>실패했을 때</h3>
+        <p>사망 결과 화면이 끝나면 현재 레벨을 다시 불러옵니다.</p>
+        <details class="code-block">
+          <summary>다시 시작 코드 <span class="code-file">CPRDieUI.cpp</span></summary>
+          <pre><code>void UCPRDieUI::RestartLevel()
+{
+    UGameplayStatics::OpenLevel(GetWorld(), FName(*UGameplayStatics::GetCurrentLevelName(GetWorld())));
+}</code></pre>
+          <p class="code-source"><a href="https://github.com/juni4268/SAFE_OUT/blob/main/Source/Project_CPR/CPRDieUI.cpp">Source/Project_CPR/CPRDieUI.cpp</a></p>
+        </details>
+      </div>
+    </section>
+
+    <section class="project-section" id="other-work" aria-labelledby="other-work-title">
+      <h2 id="other-work-title">그 외 구현</h2>
+      <dl class="project-facts implementation-facts">
+        <div><dt>이벤트 배치</dt><dd>지정한 지점들 가운데 겹치지 않게 골라 이벤트를 생성</dd></div>
+        <div><dt>위치 표시</dt><dd>이벤트 위치, 정상 작동, 문제 발생, 위급 상황, 해결을 마커로 구분</dd></div>
+        <div><dt>아이템</dt><dd>줍기, 버리기, 사용. 이벤트마다 필요한 아이템을 확인</dd></div>
+        <div><dt>UI 구현</dt><dd>안전 주의사항, 안전 점검 목록, 기계 상태, 일시정지, 사망 결과, 타이틀</dd></div>
+        <div><dt>진행</dt><dd>컷신이 끝난 뒤 이벤트가 시작되도록 처리, 레벨 전환 시 로딩 화면</dd></div>
+      </dl>
+    </section>
+
+    <section class="project-credits" id="team" aria-labelledby="team-title">
+      <h2 id="team-title">크레딧</h2>
+      <p class="credits-result">팀 H2 project(4인) · 사고 이벤트 8종</p>
+      <dl class="credits-list">
+        <div><dt>최준이</dt><dd>프로그래밍</dd></div>
+        <div><dt>박정환</dt><dd>팀장, 기획</dd></div>
+        <div><dt>이수림</dt><dd>레벨 디자인, 시네마틱</dd></div>
+        <div><dt>최지환</dt><dd>3D 모델링</dd></div>
+      </dl>
+    </section>
   </main>
+
 </div>
+  <!-- portfolio-navigation:start -->
   <nav class="portfolio-dock" aria-label="사이트 메뉴">
     <a href="../">메인</a>
     <a href="../safe-out/" id="games" aria-current="page">작품 상세</a>
   </nav>
+  <!-- portfolio-navigation:end -->
 </body>
 </html>

@@ -16,12 +16,13 @@
     "slug": "safe-out",
     "name": "SAFE OUT",
     "tech": "Unreal Engine 5.7 · C++",
-    "role": "게임 프로그래밍 전체",
-    "description": "공장 설비의 과열과 사고에 대응하고, 모든 미션을 끝낸 뒤 출구로 향하는 3D 탈출 게임.",
+    "role": "게임 프로그래밍 전체 · UI 구현",
+    "description": "공장의 사고를 모두 막고 퇴근해야 하루가 끝나는 루프 기반 서바이벌 시뮬레이션.",
     "image": "safe-out-valve.webp",
     "width": 960,
     "height": 536,
-    "alt": "SAFE OUT 공장의 설비와 배관 사이로 불길이 치솟는 장면"
+    "alt": "SAFE OUT 공장의 설비와 배관 사이로 불길이 치솟는 장면",
+    "customDetail": true
   },
   {
     "slug": "aka",
