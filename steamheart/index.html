@@ -20,7 +20,7 @@
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
   <link rel="stylesheet" href="../plain.css?v=projects-2">
   <link rel="stylesheet" href="../portfolio.css?v=dock-hide">
-  <link rel="stylesheet" href="./steamheart.css?v=head-align">
+  <link rel="stylesheet" href="./steamheart.css?v=retry-team">
   <script type="module" src="./boss-pattern-player.js?v=groups"></script>
   <script type="module" src="./section-doc.js?v=rename"></script>
   <script type="module" src="../dock.js"></script>
@@ -64,7 +64,7 @@
           </div>
           <div>
             <dt>제작</dt>
-            <dd>4인 팀 · 기획 제외 약 3개월</dd>
+            <dd>5인 팀 · 기획 제외 약 3개월</dd>
           </div>
           <div>
             <dt>코드</dt>
@@ -306,34 +306,33 @@ for (int i = 0; i &lt; count; i++)
         <h2 id="retry-title">사망 후에도 이어지는 성장</h2>
         <button type="button" class="doc-toggle" aria-pressed="false" aria-controls="retry-doc">구현 방식</button>
       </div>
-      <div class="section-view retry-copy" data-view="summary">
-        <p>한 번의 도전에서만 쓰는 상태와 영구 진행도를 분리했습니다. 플레이어는 사망하면 처리장 입구에서 최대 체력으로 다시 시작합니다.</p>
-        <table class="retry-values">
-          <caption>재도전 테스트에서 확인한 값</caption>
-          <thead>
-            <tr>
-              <th scope="col">항목</th>
-              <th scope="col">사망 전</th>
-              <th scope="col">재도전 후</th>
-              <th scope="col">결과</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr><th scope="row">보유 고철</th><td>50</td><td>50</td><td>유지</td></tr>
-            <tr><th scope="row">공격력 보너스</th><td>+1</td><td>+1</td><td>유지</td></tr>
-            <tr><th scope="row">무기</th><td>강화 무기</td><td>처음 무기</td><td>초기화</td></tr>
-          </tbody>
-        </table>
-        <details class="project-disclosure">
-          <summary>재도전 테스트 영상 보기</summary>
-          <figure class="project-media">
-            <video controls muted playsinline preload="metadata" poster="../assets/steamheart/workshop-after-death.webp" width="1280" height="720" aria-label="사망 후 처리장 입구로 돌아와 제작대의 고철과 강화 수치를 확인하는 테스트 영상, 무음">
-              <source src="../assets/steamheart/03-respawn-and-upgrades.mp4" type="video/mp4">
-            </video>
-          </figure>
-        </details>
+      <div class="section-view" data-view="summary">
+      <div class="case-grid">
+        <div class="retry-copy">
+          <p>죽으면 처리장 입구에서 최대 체력으로 다시 시작합니다. 모아 둔 고철과 강화는 그대로 남아서, 제작대에서 더 강화한 뒤 다시 도전할 수 있습니다.</p>
+          <p>남는 값은 파일로 저장해서 게임을 껐다 켜도 유지됩니다.</p>
+          <table class="retry-values">
+            <thead>
+              <tr>
+                <th scope="col">사망 후</th>
+                <th scope="col">항목</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr><th scope="row">유지</th><td>고철 · 공격력, 최대 체력, 피격 무적 시간 강화 · 무기 스킨</td></tr>
+              <tr><th scope="row">초기화</th><td>현재 체력 · 무기 강화 단계</td></tr>
+            </tbody>
+          </table>
+          <p class="retry-note">재도전 테스트에서 고철 50, 공격력 보너스 +1이 사망 전후로 같은 것을 확인했습니다.</p>
+        </div>
+        <figure class="project-media">
+          <video controls muted playsinline preload="metadata" poster="../assets/steamheart/workshop-after-death.webp" width="1280" height="720" aria-label="사망 후 처리장 입구로 돌아와 제작대의 고철과 강화 수치를 확인하는 테스트 영상, 무음">
+            <source src="../assets/steamheart/03-respawn-and-upgrades.mp4" type="video/mp4">
+          </video>
+        </figure>
       </div>
-          <div class="section-view section-doc" data-view="doc" id="retry-doc" hidden>
+      </div>
+      <div class="section-view section-doc" data-view="doc" id="retry-doc" hidden>
         <h3>도전 상태와 영구 진행도</h3>
         <p>현재 체력, 무기 보유 여부, 무기 단계는 한 번의 도전 상태에 둡니다. 고철과 강화 수치는 영구 진행도에 따로 두고, 값이 바뀔 때마다 저장합니다.</p>
         <details class="code-block">
@@ -380,10 +379,11 @@ for (int i = 0; i &lt; count; i++)
 
     <section class="project-credits" id="team" aria-labelledby="team-title">
       <h2 id="team-title">크레딧</h2>
-      <p class="credits-result">팀 석복동(4인) · 씬 8개 · 보스 2종 · 일반 적 3종 · 함정 2종 · 컷신 6편</p>
+      <p class="credits-result">팀 석복동(5인) · 씬 8개 · 보스 2종 · 일반 적 3종 · 함정 2종 · 컷신 6편</p>
       <dl class="credits-list">
         <div><dt>최준이</dt><dd>프로그래밍, 애니메이션·연출 적용, 맵 구성·레벨 구현, UI 제작·구현</dd></div>
-        <div><dt>전진범</dt><dd>총괄, 기획, 배경·레벨 그래픽, 비주얼 디자인, 사운드 디렉팅</dd></div>
+        <div><dt>전진범</dt><dd>총괄, 기획, 배경 디자인, 레벨 그래픽 디자인</dd></div>
+        <div><dt>남궁석</dt><dd>비주얼 디자인(보스·주인공·상인·NPC·무기·스킬 이펙트), 사운드 디렉팅</dd></div>
         <div><dt>임경섭</dt><dd>기획, 사운드 디자인</dd></div>
         <div><dt>최지환</dt><dd>스토리보드, 편집</dd></div>
       </dl>
