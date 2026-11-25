@@ -18,7 +18,7 @@
     "name": "SAFE OUT",
     "tech": "Unreal Engine 5.7 · C++",
     "role": "게임 프로그래밍 전체 · UI 구현",
-    "description": "공장의 사고를 모두 막고 퇴근해야 하루가 끝나는 루프 기반 서바이벌 시뮬레이션.",
+    "description": "공장의 안전사고를 모두 막아야 퇴근할 수 있는 루프 기반 서바이벌 시뮬레이션.",
     "image": "safe-out-valve.webp",
     "width": 960,
     "height": 536,
