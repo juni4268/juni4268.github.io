@@ -9,7 +9,8 @@
     "width": 1280,
     "height": 720,
     "alt": "SteamHeart 최종 보스전에서 붉은 광선이 교차하는 장면",
-    "customDetail": true
+    "customDetail": true,
+    "clip": "steamheart/boss-patterns/ring-burst.mp4"
   },
   {
     "slug": "guardian",

@@ -16,6 +16,9 @@ for (const project of projects) {
       ![width, height].every(value => Number.isInteger(value) && value > 0)) {
     throw new Error('Invalid cover for ' + slug);
   }
+  if (project.clip && (!/^[a-z0-9/-]+\.mp4$/.test(project.clip) || !existsSync(new URL('assets/' + project.clip, root)))) {
+    throw new Error('Invalid clip for ' + slug);
+  }
   if (customDetail && !existsSync(new URL(slug + '/index.html', root))) {
     throw new Error('Missing custom detail page: ' + slug);
   }
@@ -92,23 +95,33 @@ function detail(project) {
   </main>`;
 }
 
-// 메인의 참여 작품: 목록의 첫 작품은 이미지가 있는 큰 카드, 나머지는 이름과 개발 환경 한 줄
+// 메인의 참여 작품: 작품 카드를 한 자리에 겹쳐 두고, 오른쪽 목록에서 고른 작품의 카드를 보여준다.
+// projects.json의 clip(선택)은 카드가 선택됐을 때 재생할 무음 반복 영상이다.
 function featured() {
-  const [first, ...rest] = projects;
-  const others = rest.map(project =>
-    `        <li><a href="./${project.slug}/"><strong>${html(project.name)}</strong><span>${html(project.tech)}</span></a></li>`).join('\n');
+  const cards = projects.map((project, index) => {
+    const media = project.clip
+      ? `<video muted loop playsinline preload="none" poster="./assets/${project.image}" width="${project.width}" height="${project.height}" aria-label="${html(project.alt)}"><source src="./assets/${project.clip}" type="video/mp4"></video>`
+      : `<img src="./assets/${project.image}" width="${project.width}" height="${project.height}" alt="${html(project.alt)}"${index ? ' loading="lazy"' : ''}>`;
+    return `          <a class="featured-card${index ? '' : ' is-active'}" href="./${project.slug}/" data-work="${project.slug}">
+            ${media}
+            <span class="featured-copy">
+              <strong>${html(project.name)}</strong>
+              <span class="featured-tech">${html(project.tech)}</span>
+              <span class="featured-role">${html(project.role)}</span>
+              <span class="featured-summary">${html(project.description)}</span>
+            </span>
+          </a>`;
+  }).join('\n');
+  const tabs = projects.map((project, index) =>
+    `        <li><a href="./${project.slug}/" data-work="${project.slug}"${index ? '' : ' aria-current="true"'}><strong>${html(project.name)}</strong><span>${html(project.tech)}</span></a></li>`).join('\n');
 
-  return `      <a class="featured-card" href="./${first.slug}/">
-        <img src="./assets/${first.image}" width="${first.width}" height="${first.height}" alt="${html(first.alt)}">
-        <span class="featured-copy">
-          <strong>${html(first.name)}</strong>
-          <span class="featured-tech">${html(first.tech)}</span>
-          <span class="featured-role">${html(first.role)}</span>
-          <span class="featured-summary">${html(first.description)}</span>
-        </span>
-      </a>
+  return `      <div class="featured-stage">
+        <div class="featured-tilt">
+${cards}
+        </div>
+      </div>
       <ul class="featured-more">
-${others}
+${tabs}
       </ul>`;
 }
 

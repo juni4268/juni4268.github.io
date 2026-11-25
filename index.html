@@ -10,7 +10,8 @@
   <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
   <link rel="stylesheet" href="./plain.css?v=projects-2">
-  <link rel="stylesheet" href="./portfolio.css?v=home-works">
+  <link rel="stylesheet" href="./portfolio.css?v=work-deck">
+  <script type="module" src="./work-deck.js"></script>
 </head>
 <body class="home-page portfolio-page portfolio-home portfolio-nav-page">
 <div class="page">
@@ -34,20 +35,61 @@
       <h2 id="featured-title">참여 작품</h2>
       <div class="profile-field-body featured-body">
   <!-- portfolio-featured:start -->
-      <a class="featured-card" href="./steamheart/">
-        <img src="./assets/boss.webp" width="1280" height="720" alt="SteamHeart 최종 보스전에서 붉은 광선이 교차하는 장면">
-        <span class="featured-copy">
-          <strong>SteamHeart</strong>
-          <span class="featured-tech">Unity 6 · C#</span>
-          <span class="featured-role">게임 프로그래밍 전체 · UI 제작(AI 활용)</span>
-          <span class="featured-summary">할아버지의 기계 심장을 되살릴 코어를 찾아 도시의 하층에서 상층으로 올라가는 2D 액션 어드벤처.</span>
-        </span>
-      </a>
+      <div class="featured-stage">
+        <div class="featured-tilt">
+          <a class="featured-card is-active" href="./steamheart/" data-work="steamheart">
+            <video muted loop playsinline preload="none" poster="./assets/boss.webp" width="1280" height="720" aria-label="SteamHeart 최종 보스전에서 붉은 광선이 교차하는 장면"><source src="./assets/steamheart/boss-patterns/ring-burst.mp4" type="video/mp4"></video>
+            <span class="featured-copy">
+              <strong>SteamHeart</strong>
+              <span class="featured-tech">Unity 6 · C#</span>
+              <span class="featured-role">게임 프로그래밍 전체 · UI 제작(AI 활용)</span>
+              <span class="featured-summary">할아버지의 기계 심장을 되살릴 코어를 찾아 도시의 하층에서 상층으로 올라가는 2D 액션 어드벤처.</span>
+            </span>
+          </a>
+          <a class="featured-card" href="./guardian/" data-work="guardian">
+            <img src="./assets/guardian-title.webp" width="960" height="548" alt="창을 든 인물이 멀리 있는 성을 바라보는 수호의 창 타이틀 배경" loading="lazy">
+            <span class="featured-copy">
+              <strong>수호의 창</strong>
+              <span class="featured-tech">Unreal Engine 5.6 · C++ · PaperZD</span>
+              <span class="featured-role">게임 프로그래밍 · 프로그래머 2인 협업</span>
+              <span class="featured-summary">몬스터를 쓰러뜨려 경험치를 쌓고, 레벨이 오를 때마다 강화할 능력을 고르는 2D 픽셀 액션 게임.</span>
+            </span>
+          </a>
+          <a class="featured-card" href="./aka/" data-work="aka">
+            <img src="./assets/aka-battle.webp" width="960" height="540" alt="위에서 본 AKA의 던전 보스전" loading="lazy">
+            <span class="featured-copy">
+              <strong>AKA</strong>
+              <span class="featured-tech">Unreal Engine 5.6 · C++</span>
+              <span class="featured-role">게임 프로그래밍</span>
+              <span class="featured-summary">던전에서 보스의 돌진과 번개 공격을 피하며 싸우는 탑뷰 보스 러시 액션 게임.</span>
+            </span>
+          </a>
+          <a class="featured-card" href="./safe-out/" data-work="safe-out">
+            <img src="./assets/safe-out-valve.webp" width="960" height="536" alt="SAFE OUT 공장의 설비와 배관 사이로 불길이 치솟는 장면" loading="lazy">
+            <span class="featured-copy">
+              <strong>SAFE OUT</strong>
+              <span class="featured-tech">Unreal Engine 5.7 · C++</span>
+              <span class="featured-role">게임 프로그래밍 전체</span>
+              <span class="featured-summary">공장 설비의 과열과 사고에 대응하고, 모든 미션을 끝낸 뒤 출구로 향하는 3D 탈출 게임.</span>
+            </span>
+          </a>
+          <a class="featured-card" href="./daeva/" data-work="daeva">
+            <img src="./assets/daeva-battle.webp" width="960" height="540" alt="사막 협곡에서 마법사가 몬스터와 맞서는 DAEVA의 플레이 화면" loading="lazy">
+            <span class="featured-copy">
+              <strong>DAEVA</strong>
+              <span class="featured-tech">Unreal Engine 5.4 · C++</span>
+              <span class="featured-role">게임 프로그래밍</span>
+              <span class="featured-summary">떠돌이 마법사가 되어 점점 늘어나는 몬스터를 상대로 3분간 버티는 3인칭 생존 게임.</span>
+            </span>
+          </a>
+        </div>
+      </div>
       <ul class="featured-more">
-        <li><a href="./guardian/"><strong>수호의 창</strong><span>Unreal Engine 5.6 · C++ · PaperZD</span></a></li>
-        <li><a href="./aka/"><strong>AKA</strong><span>Unreal Engine 5.6 · C++</span></a></li>
-        <li><a href="./safe-out/"><strong>SAFE OUT</strong><span>Unreal Engine 5.7 · C++</span></a></li>
-        <li><a href="./daeva/"><strong>DAEVA</strong><span>Unreal Engine 5.4 · C++</span></a></li>
+        <li><a href="./steamheart/" data-work="steamheart" aria-current="true"><strong>SteamHeart</strong><span>Unity 6 · C#</span></a></li>
+        <li><a href="./guardian/" data-work="guardian"><strong>수호의 창</strong><span>Unreal Engine 5.6 · C++ · PaperZD</span></a></li>
+        <li><a href="./aka/" data-work="aka"><strong>AKA</strong><span>Unreal Engine 5.6 · C++</span></a></li>
+        <li><a href="./safe-out/" data-work="safe-out"><strong>SAFE OUT</strong><span>Unreal Engine 5.7 · C++</span></a></li>
+        <li><a href="./daeva/" data-work="daeva"><strong>DAEVA</strong><span>Unreal Engine 5.4 · C++</span></a></li>
       </ul>
   <!-- portfolio-featured:end -->
       </div>
