@@ -20,9 +20,9 @@
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
   <link rel="stylesheet" href="../plain.css?v=projects-2">
   <link rel="stylesheet" href="../portfolio.css?v=dock-hide">
-  <link rel="stylesheet" href="./steamheart.css?v=section-doc">
+  <link rel="stylesheet" href="./steamheart.css?v=code-doc">
   <script type="module" src="./boss-pattern-player.js?v=groups"></script>
-  <script type="module" src="./section-doc.js"></script>
+  <script type="module" src="./section-doc.js?v=push"></script>
   <script type="module" src="../dock.js"></script>
 </head>
 <body class="home-page steamheart-page portfolio-nav-page portfolio-detail-page">
@@ -93,10 +93,10 @@
           <p>아래 표에서 패턴 이름을 누르면 그 패턴의 영상이 재생됩니다.</p>
         </div>
         <figure class="project-media">
-          <video id="boss-pattern-video" data-pattern-video controls muted playsinline preload="none" poster="../assets/boss2-poster.webp" width="1280" height="720" aria-label="SteamHeart 최종 보스의 패턴을 차례로 보여주는 영상, 무음">
-            <source src="../assets/video/boss2.mp4" type="video/mp4">
+          <video id="boss-pattern-video" data-pattern-video controls muted playsinline preload="none" poster="../assets/steamheart/final-boss-poster.webp" width="1280" height="720" aria-label="SteamHeart 최종 보스전 플레이 영상, 무음">
+            <source src="../assets/steamheart/final-boss.mp4" type="video/mp4">
           </video>
-          <figcaption class="pattern-caption"><span id="boss-pattern-caption" class="visually-hidden" data-pattern-caption aria-live="polite">최종 보스의 패턴을 차례로 보여주는 영상 · 56초 · 무음</span> <button type="button" class="boss-pattern-reset" hidden>전체 영상으로</button></figcaption>
+          <figcaption class="pattern-caption"><span id="boss-pattern-caption" class="visually-hidden" data-pattern-caption aria-live="polite">최종 보스전 플레이 영상 · 26초 · 무음</span> <button type="button" class="boss-pattern-reset" hidden>전체 영상으로</button></figcaption>
         </figure>
       </div>
       <table class="boss-pattern-table" aria-labelledby="boss-title">
@@ -154,9 +154,69 @@
       </table>
       </div>
       <div class="section-view section-doc" data-view="doc" id="boss-doc" hidden>
+        <h3>부위 예약</h3>
+        <p>패턴은 실행 전에 쓸 부위를 한꺼번에 예약합니다. 필요한 부위 중 하나라도 이미 다음 예약이 잡혀 있거나 다른 주요 패턴이 쓰고 있으면 예약 전체가 거절됩니다. 기본 공격이 쓰고 있는 부위는 예약만 걸어 두고, 그 공격이 끝난 뒤에 넘겨받습니다.</p>
+        <details class="code-block">
+          <summary>부위 예약 코드 <span class="code-file">Boss2PartUsage.cs</span></summary>
+          <pre><code>for (int i = 0; i &lt; owners.Length; i++)
+{
+    if ((parts &amp; (Boss2Parts)(1 &lt;&lt; i)) == 0) continue;
+    if (nextOwners[i] != null) return false;
+    if (owners[i] != null &amp;&amp; (kind == Boss2PatternKind.Basic || owners[i].Kind == Boss2PatternKind.Main))
+        return false;
+}
+
+reservation = new Reservation(parts, kind, pauseBasicParts);
+reservations.Add(reservation);
+for (int i = 0; i &lt; nextOwners.Length; i++)
+    if ((parts &amp; (Boss2Parts)(1 &lt;&lt; i)) != 0) nextOwners[i] = reservation;
+return true;</code></pre>
+          <p class="code-source"><a href="https://github.com/juni4268/Project_K/blob/main/Assets/Scripts/Boss/Boss2/Core/Boss2PartUsage.cs">Assets/Scripts/Boss/Boss2/Core/Boss2PartUsage.cs</a></p>
+        </details>
         <h3>공격이 중단될 때의 처리</h3>
         <p>공격이 끝났을 때와 도중에 끊겼을 때는 같은 종료 처리를 탑니다. 여기서 경고 표시와 공격 판정을 지우고 예약을 풀어서, 그 부위를 다음 패턴이 다시 쓸 수 있습니다.</p>
+        <details class="code-block">
+          <summary>종료 처리 코드 <span class="code-file">Boss2PatternRunner.cs</span></summary>
+          <pre><code>private void Finish(Boss2PatternResult result, Exception failure)
+{
+    isFinishing = true;
+    while (routines.Count &gt; 0)
+    {
+        try { (routines.Pop() as IDisposable)?.Dispose(); }
+        catch (Exception error) { failure = Combine(failure, error); }
+    }
+    if (failure != null) result = Boss2PatternResult.Failed;
+    try { execution?.Cleanup(result); }
+    catch (Exception error) { failure = Combine(failure, error); }
+    // ...
+    usage.Release(reservation);
+    Result = result;
+    Error = failure;
+    State = Boss2ExecutionState.Finished;
+    isFinishing = false;
+    Finished?.Invoke(this);
+}</code></pre>
+          <p class="code-source"><a href="https://github.com/juni4268/Project_K/blob/main/Assets/Scripts/Boss/Boss2/Core/Boss2PatternRunner.cs">Assets/Scripts/Boss/Boss2/Core/Boss2PatternRunner.cs</a></p>
+        </details>
         <p>끊기는 도중에 정리가 한 번만 실행되는지, 다른 패턴이 쓰고 있는 부위에 영향을 주지 않는지는 회귀 테스트로 확인합니다.</p>
+        <details class="code-block">
+          <summary>중단 테스트 코드 <span class="code-file">Boss2PatternRunnerTests.cs</span></summary>
+          <pre><code>[Test]
+public void CancellingInsideIteratorDefersDisposalAndCleansUpExactlyOnce()
+{
+    // ...
+    Assert.That(boss.TryRequestPattern(pattern, out runner), Is.True);
+    Tick(runner);
+    runner.Cancel();
+    Tick(runner);
+
+    Assert.That(disposedAfterStep, Is.True);
+    Assert.That(cleanups, Is.EqualTo(1));
+    Assert.That(boss.Executions, Is.Empty);
+    Assert.That(boss.PartUsage.GetOwner(Boss2PartId.Ring), Is.Null);
+}</code></pre>
+          <p class="code-source"><a href="https://github.com/juni4268/Project_K/blob/main/Assets/Editor/Tests/Boss2/Boss2PatternRunnerTests.cs">Assets/Editor/Tests/Boss2/Boss2PatternRunnerTests.cs</a></p>
+        </details>
         <div class="disclosure-pair">
           <figure class="project-media">
             <img src="../assets/steamheart/boss-cancellation-before.webp" width="1280" height="720" alt="최종 보스의 손 두 개가 광선을 쏘고 링이 플레이어 앞에 떠 있는 장면" loading="lazy">
@@ -219,9 +279,63 @@
       </div>
       <div class="section-view section-doc" data-view="doc" id="boss-one-doc" hidden>
         <h3>내려찍기만 반복하던 문제</h3>
-        <p>5분 시연을 준비하면서 구간별 시간을 기록하며 직접 플레이했습니다. 그 과정에서 내려찍기가 반복해서 선택되어 다른 공격이 나오지 않는 상황을 발견했습니다. 아직 나오지 않은 공격을 먼저 고르고, 가장 위협적인 패턴인 과부하는 첫 순환의 마지막에 나오도록 조건을 정했습니다. 수정 후 패턴 선택 관련 테스트 8개가 통과했습니다.</p>
+        <p>5분 시연을 준비하면서 구간별 시간을 기록하며 직접 플레이했습니다. 그 과정에서 내려찍기가 반복해서 선택되어 다른 공격이 나오지 않는 상황을 발견했습니다. 아직 나오지 않은 공격을 먼저 고르고, 가장 위협적인 패턴인 과부하는 첫 순환의 마지막에 나오도록 조건을 정했습니다.</p>
+        <details class="code-block">
+          <summary>패턴 선택 코드 <span class="code-file">Boss1PatternSelector.cs</span></summary>
+          <pre><code>// Overdrive requests a refill Slam; show every other active pattern before that sequence.
+bool deferOverdrive = false;
+foreach (Boss1PatternBase pattern in patterns)
+{
+    if (pattern != null &amp;&amp; pattern.isActiveAndEnabled &amp;&amp; pattern.Owner == owner
+        &amp;&amp; !(pattern is Boss1OverdrivePattern) &amp;&amp; !presentedPatterns.Contains(pattern))
+    {
+        deferOverdrive = true;
+        break;
+    }
+}
+// ...
+private bool IsCandidate(Boss1PatternBase pattern, Boss1Controller owner, bool preferUnseen, bool deferOverdrive) =&gt;
+    !(deferOverdrive &amp;&amp; pattern is Boss1OverdrivePattern)
+    &amp;&amp; IsEligible(pattern, owner) &amp;&amp; (!preferUnseen || !presentedPatterns.Contains(pattern));</code></pre>
+          <p class="code-source"><a href="https://github.com/juni4268/Project_K/blob/main/Assets/Scripts/Boss/Boss1/Core/Boss1PatternSelector.cs">Assets/Scripts/Boss/Boss1/Core/Boss1PatternSelector.cs</a></p>
+        </details>
+        <p>수정 후 패턴 선택 관련 테스트 8개가 통과했습니다. 아래는 과부하가 첫 순환의 마지막에 나오는지 확인하는 테스트입니다.</p>
+        <details class="code-block">
+          <summary>패턴 선택 테스트 코드 <span class="code-file">Boss1PatternPresentationTests.cs</span></summary>
+          <pre><code>[Test]
+public void OverdriveIsLastInTheFirstPassAndThenReturnsToTheRandomPool()
+{
+    var first = Pattern();
+    var second = Pattern();
+    var overdrive = Overdrive();
+    var patterns = new Boss1PatternBase[] { overdrive, first, second };
+    for (int i = 0; i &lt; 2; i++)
+    {
+        var selected = Select(patterns);
+        Assert.That(selected, Is.Not.SameAs(overdrive));
+        selector.MarkPresented(selected);
+    }
+    Assert.That(Select(patterns), Is.SameAs(overdrive));
+    // ...
+}</code></pre>
+          <p class="code-source"><a href="https://github.com/juni4268/Project_K/blob/main/Assets/Editor/Tests/Boss1/Boss1PatternPresentationTests.cs">Assets/Editor/Tests/Boss1/Boss1PatternPresentationTests.cs</a></p>
+        </details>
         <h3>지나갈 수 없는 잔해 틈</h3>
-        <p>잔해 사이에 틈이 있어 보이는데 캐릭터가 지나가지 못하는 문제를 발견했습니다. 잔해를 서로 붙이거나, 캐릭터가 통과할 만큼 간격을 확보한다는 규칙을 제안했습니다.</p>
+        <p>잔해 사이에 틈이 있어 보이는데 캐릭터가 지나가지 못하는 문제를 발견했습니다. 잔해를 서로 붙이거나, 캐릭터가 통과할 만큼 간격을 확보한다는 규칙을 제안했습니다. 낙하 위치를 정할 때 플레이어 폭보다 좁은 틈은 붙이고, 그보다 넓은 틈만 남깁니다.</p>
+        <details class="code-block">
+          <summary>잔해 간격 코드 <span class="code-file">Boss1DebrisField.cs</span></summary>
+          <pre><code>float spacing = debrisWidth + Physics2D.defaultContactOffset * 2f;
+float minimumGap = playerCollider.bounds.size.x + Physics2D.defaultContactOffset * 4f;
+// ...
+for (int i = 0; i &lt; count; i++)
+{
+    dropPositions[i] += spacing * i;
+    // Close narrow gaps; leave open gaps wide enough for the player and both contact skins.
+    if (i &gt; 0 &amp;&amp; dropPositions[i] - dropPositions[i - 1] - debrisWidth &lt; minimumGap)
+        dropPositions[i] = dropPositions[i - 1] + spacing;
+}</code></pre>
+          <p class="code-source"><a href="https://github.com/juni4268/Project_K/blob/main/Assets/Scripts/Boss/Boss1/Patterns/Debris/Boss1DebrisField.cs">Assets/Scripts/Boss/Boss1/Patterns/Debris/Boss1DebrisField.cs</a></p>
+        </details>
       </div>
     </section>
 

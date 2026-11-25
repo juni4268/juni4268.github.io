@@ -1,5 +1,13 @@
-// 섹션의 "기술 문서" 버튼: 같은 자리에서 요약 화면과 기술 문서 화면을 바꾼다.
 const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
+
+// Elements after the section in document order; they slide to their new position during the swap.
+const following = (section) => {
+  const list = [];
+  for (let node = section; node && node !== document.body; node = node.parentElement)
+    for (let next = node.nextElementSibling; next; next = next.nextElementSibling)
+      if (next.tagName !== "SCRIPT") list.push(next);
+  return list.filter((el) => getComputedStyle(el).position !== "fixed");
+};
 
 for (const section of document.querySelectorAll(".project-section.has-doc")) {
   const toggle = section.querySelector(".doc-toggle");
@@ -13,19 +21,21 @@ for (const section of document.querySelectorAll(".project-section.has-doc")) {
     toggle.setAttribute("aria-pressed", String(showDoc));
     toggle.textContent = showDoc ? "요약으로" : "기술 문서";
     if (showDoc) section.querySelector("video")?.pause();
+    if (section.getBoundingClientRect().top < 0) section.scrollIntoView({ block: "start", behavior: "instant" });
   };
 
   toggle.addEventListener("click", () => {
     const showDoc = doc.hidden;
     if (!document.startViewTransition || reduceMotion.matches) { swap(showDoc); return; }
-
-    // 바뀌는 섹션만 부드럽게 넘기고, 페이지의 나머지는 움직이지 않게 한다
     const root = document.documentElement;
+    const moved = following(section);
     root.classList.add("is-swapping-section");
     section.style.viewTransitionName = "section-swap";
+    moved.forEach((el, i) => { el.style.viewTransitionName = `section-after-${i}`; });
     const transition = document.startViewTransition(() => swap(showDoc));
     transition.finished.finally(() => {
       section.style.viewTransitionName = "";
+      moved.forEach((el) => { el.style.viewTransitionName = ""; });
       root.classList.remove("is-swapping-section");
     });
   });
