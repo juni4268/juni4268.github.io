@@ -173,11 +173,15 @@
 
 .is-swapping-section::view-transition-old(root), .is-swapping-section::view-transition-new(root) { animation: none; }
 ::view-transition-group(section-swap) { animation-duration: .5s; animation-timing-function: cubic-bezier(.2,.72,.19,1); }
-::view-transition-old(section-swap) { animation: .22s ease-out both section-out; }
-::view-transition-new(section-swap) { animation: .5s cubic-bezier(.2,.72,.19,1) both section-in; }
-::view-transition-old(section-swap), ::view-transition-new(section-swap) { height: auto; width: 100%; }
-@keyframes section-out { to { opacity: 0; transform: translateY(-.6rem); } }
-@keyframes section-in { from { opacity: 0; transform: translateY(1.2rem); } }
+::view-transition-old(section-swap) { animation: .3s ease-out both section-out; }
+::view-transition-new(section-swap) { background: var(--swap-bg, #f8f6ee); animation: .65s cubic-bezier(.3,.6,.2,1) both section-spread; }
+::view-transition-old(section-swap), ::view-transition-new(section-swap) { height: auto; width: 100%; mix-blend-mode: normal; }
+@keyframes section-out { to { opacity: 0; } }
+/* The new view opens as a circle growing from the toggle button. */
+@keyframes section-spread {
+  from { clip-path: circle(0 at var(--swap-x, 100%) var(--swap-y, 0)); }
+  to { clip-path: circle(var(--swap-r, 150vmax) at var(--swap-x, 100%) var(--swap-y, 0)); }
+}
 
 .code-block { margin-top: .9rem; border: 1px solid var(--rule); border-radius: .35rem; }
 .code-block + p, .code-block + h3 { margin-top: 1.1rem; }

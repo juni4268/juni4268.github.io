@@ -42,7 +42,19 @@ for (const section of document.querySelectorAll(".project-section.has-doc")) {
     root.classList.add("is-swapping-section");
     section.style.viewTransitionName = "section-swap";
     moved.forEach((el, i) => { el.style.viewTransitionName = `section-after-${i}`; });
-    const transition = document.startViewTransition(() => swap(showDoc));
+    const transition = document.startViewTransition(() => {
+      swap(showDoc);
+      // Origin and reach of the circular reveal, measured from the toggle in the new layout.
+      const box = section.getBoundingClientRect();
+      const button = toggle.getBoundingClientRect();
+      const x = button.left + button.width / 2 - box.left;
+      const y = button.top + button.height / 2 - box.top;
+      const reach = Math.hypot(Math.max(x, box.width - x), Math.min(box.height, innerHeight * 1.2));
+      root.style.setProperty("--swap-bg", getComputedStyle(section).getPropertyValue("--bg"));
+      root.style.setProperty("--swap-x", `${x}px`);
+      root.style.setProperty("--swap-y", `${y}px`);
+      root.style.setProperty("--swap-r", `${Math.ceil(reach)}px`);
+    });
     transition.finished.finally(() => {
       section.style.viewTransitionName = "";
       moved.forEach((el) => { el.style.viewTransitionName = ""; });
