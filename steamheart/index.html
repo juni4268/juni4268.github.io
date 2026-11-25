@@ -113,7 +113,7 @@
             <td>네 손으로 링을 충전해 벽에 반사되는 광선 발사</td>
           </tr>
           <tr>
-            <th scope="row">중심 폭발</th>
+            <th scope="row">코어 버스트(중심폭발)</th>
             <td>네 손 + 링</td>
             <td>2페이즈에서 발동하며 보호막 안에서 회피 가능</td>
           </tr>
@@ -125,14 +125,14 @@
       <h2 id="boss-one-title">보스 1의 잔해를 활용한 연계 공격</h2>
       <div class="case-grid">
         <div class="case-copy">
-          <p>양손 내려찍기로 생긴 잔해는 바닥에 닿으면 장애물로 남습니다. 이후 Overdrive 패턴에서 손으로 그 잔해를 쳐서 발사할 수 있도록 낙하·착지·발사 상태를 따로 관리했습니다.</p>
-          <p>잔해를 모두 소진하면 Overdrive가 끝난 뒤 양손 내려찍기를 우선 실행해 잔해를 다시 공급합니다.</p>
+          <p>양손 내려찍기로 만든 잔해는 착지하면 장애물로 남고, 과부하에서는 그 잔해를 쳐서 날립니다.</p>
+          <p>잔해가 착지하면 낙하 피해 판정을 끄고, 과부하로 발사하면 잔해가 이동한 구간을 검사해 충돌을 처리했습니다. 잔해가 모두 소진되면 내려찍기를 다시 예약해 공급합니다.</p>
         </div>
         <figure class="project-media">
-          <video controls playsinline preload="none" poster="../assets/boss1-poster.webp" width="1280" height="720" aria-label="SteamHeart 보스 1 폐기물 파괴자 플레이 영상">
-            <source src="../assets/video/boss1.mp4" type="video/mp4">
+          <video controls playsinline preload="none" poster="../assets/boss1-poster.webp" width="1280" height="720" aria-label="보스 1 폐기물 파괴자의 양손 내려찍기와 잔해 발사, 무음">
+            <source src="../assets/steamheart/04-boss-one-debris-chain.mp4" type="video/mp4">
           </video>
-          <figcaption>보스 1 ‘폐기물 파괴자’ 플레이 영상 · 0:43부터 잔해 활용 장면</figcaption>
+          <figcaption>보스 1 ‘폐기물 파괴자’ 양손 내려찍기와 잔해 발사</figcaption>
         </figure>
       </div>
     </section>
