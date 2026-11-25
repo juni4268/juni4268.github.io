@@ -108,9 +108,9 @@
               <tr><th scope="row"><button type="button" class="boss-pattern-play" data-clip="../assets/safe-out/events/boiler.mp4" aria-pressed="false">보일러 압력 상승</button></th><td>압력 180 도달 시 폭발</td><td>밸브 조작</td></tr>
               <tr><th scope="row"><button type="button" class="boss-pattern-play" data-clip="../assets/safe-out/events/ventilation.mp4" aria-pressed="false">공조기 고장</button></th><td>연기 농도가 한계를 넘으면 질식</td><td>공조기 필터</td></tr>
               <tr><th scope="row"><button type="button" class="boss-pattern-play" data-clip="../assets/safe-out/events/falling-object.mp4" aria-pressed="false">낙하물</button></th><td>안전모 미착용 시 압사</td><td>안전모 착용</td></tr>
-              <tr><th scope="row"><button type="button" class="boss-pattern-play" data-clip="../assets/safe-out/events/electric-fire.mp4" aria-pressed="false">전기 화재</button></th><td>진압하지 못하면 화재</td><td>CO2 소화기</td></tr>
-              <tr><th scope="row"><button type="button" class="boss-pattern-play" data-clip="../assets/safe-out/events/metal-fire.mp4" aria-pressed="false">금속 화재</button></th><td>진압하지 못하면 화재</td><td>D급 소화기</td></tr>
-              <tr><th scope="row"><button type="button" class="boss-pattern-play" data-clip="../assets/safe-out/events/breaker.mp4" aria-pressed="false">누전 차단기</button></th><td>절연 장갑 없이 만지면 감전</td><td>절연 장갑</td></tr>
+              <tr><th scope="row"><button type="button" class="boss-pattern-play" data-clip="../assets/safe-out/events/electric-fire.mp4" aria-pressed="false">전기 화재</button></th><td>제한 시간 안에 끄지 못하거나 불에 닿으면 사망</td><td>CO2 소화기</td></tr>
+              <tr><th scope="row"><button type="button" class="boss-pattern-play" data-clip="../assets/safe-out/events/metal-fire.mp4" aria-pressed="false">금속 화재</button></th><td>제한 시간 안에 끄지 못하거나 불에 닿으면 사망</td><td>D급 소화기</td></tr>
+              <tr><th scope="row"><button type="button" class="boss-pattern-play" data-clip="../assets/safe-out/events/breaker.mp4" aria-pressed="false">누전 차단기</button></th><td>절연 장갑 없이 만지면 감전</td><td>절연 장갑을 끼고 레버 조작</td></tr>
               <tr><th scope="row"><button type="button" class="boss-pattern-play" data-clip="../assets/safe-out/events/overheat.mp4" aria-pressed="false">기계 과열</button></th><td>250°C 도달 시 화재</td><td>오일 · 냉각수 보충</td></tr>
         </tbody>
       </table>
@@ -179,7 +179,7 @@ enum class ECPREventStatus : uint8
       <div class="section-view" data-view="summary">
       <div class="case-grid">
         <div class="case-copy">
-          <p>화재는 종류에 맞는 소화기로만 끌 수 있습니다. 전기 화재는 CO2 소화기, 금속 화재는 D급 소화기를 써야 하고, 다른 소화기를 뿌리면 불이 줄지 않습니다.</p>
+          <p>소화기는 일반, CO2, D급 세 종류이고, 화재는 종류에 맞는 소화기로만 끌 수 있습니다. 전기 화재는 CO2 소화기, 금속 화재는 D급 소화기를 써야 하고, 다른 소화기를 뿌리면 불이 줄지 않습니다.</p>
           <p>소화기는 불이 어떤 이벤트인지 알지 못합니다. 맞은 대상이 소화할 수 있는 대상인지만 확인하고, 불이 줄어드는 처리는 각 화재가 맡습니다. 전기 화재, 금속 화재, 기계 과열로 난 불이 같은 방식으로 꺼집니다.</p>
         </div>
         <figure class="project-media">
@@ -369,7 +369,7 @@ if (TempCurrent &gt;= TempMax)
 
     <section class="project-credits" id="team" aria-labelledby="team-title">
       <h2 id="team-title">크레딧</h2>
-      <p class="credits-result">팀 H2 project(4인) · 사고 이벤트 8종</p>
+      <p class="credits-result">팀 H2(4인) · 사고 이벤트 8종</p>
       <dl class="credits-list">
         <div><dt>최준이</dt><dd>프로그래밍</dd></div>
         <div><dt>박정환</dt><dd>팀장, 기획</dd></div>
