@@ -157,3 +157,24 @@
 .visually-hidden { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
 .pattern-caption { margin-top: 0; }
 .pattern-caption .boss-pattern-reset { margin: .45rem 0 0; }
+
+/* 섹션 제목 옆의 기술 문서 버튼과, 같은 자리에서 바뀌는 두 화면 */
+.section-head { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: .6rem 1.5rem; margin-bottom: 1.1rem; }
+.section-head h2 { margin: 0; }
+.doc-toggle { min-height: 2.4rem; padding: .3rem .9rem; border: 1px solid var(--brass); border-radius: .35rem; background: transparent; color: var(--brass); font: inherit; font-weight: 700; cursor: pointer; }
+.doc-toggle:hover { background: color-mix(in srgb, var(--brass) 8%, var(--bg)); }
+.doc-toggle[aria-pressed="true"] { background: var(--brass); color: var(--bg); }
+.doc-toggle:focus-visible { outline: 2px solid var(--brass); outline-offset: 2px; }
+.section-view[hidden] { display: none; }
+.section-doc { max-width: 52rem; }
+.section-doc h3 { margin-bottom: .35rem; font-size: 1.15rem; }
+.section-doc p + p { margin-top: .85rem; }
+.section-doc p + h3, .section-doc .disclosure-pair + h3 { margin-top: 1.6rem; }
+
+.is-swapping-section::view-transition-old(root), .is-swapping-section::view-transition-new(root) { animation: none; }
+::view-transition-group(section-swap) { animation-duration: .5s; animation-timing-function: cubic-bezier(.2,.72,.19,1); }
+::view-transition-old(section-swap) { animation: .22s ease-out both section-out; }
+::view-transition-new(section-swap) { animation: .5s cubic-bezier(.2,.72,.19,1) both section-in; }
+::view-transition-old(section-swap), ::view-transition-new(section-swap) { height: auto; width: 100%; }
+@keyframes section-out { to { opacity: 0; transform: translateY(-.6rem); } }
+@keyframes section-in { from { opacity: 0; transform: translateY(1.2rem); } }
