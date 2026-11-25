@@ -19,6 +19,9 @@ for (const project of projects) {
   if (project.clip && (!/^[a-z0-9/-]+\.mp4$/.test(project.clip) || !existsSync(new URL('assets/' + project.clip, root)))) {
     throw new Error('Invalid clip for ' + slug);
   }
+  if (!existsSync(new URL('assets/og/' + slug + '.jpg', root))) {
+    throw new Error('Missing share image assets/og/' + slug + '.jpg (1200x630)');
+  }
   if (customDetail && !existsSync(new URL(slug + '/index.html', root))) {
     throw new Error('Missing custom detail page: ' + slug);
   }
@@ -34,11 +37,21 @@ function page(project) {
   <meta name="theme-color" content="#f8f6ee">
   <meta name="description" content="${html(project.description)}">
   <title>${html(project.name)} | 최준이</title>
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="최준이 포트폴리오">
+  <meta property="og:title" content="${html(project.name)} | 최준이">
+  <meta property="og:description" content="${html(project.description)}">
+  <meta property="og:url" content="https://juni4268.github.io/${project.slug}/">
+  <meta property="og:image" content="https://juni4268.github.io/assets/og/${project.slug}.jpg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta name="twitter:card" content="summary_large_image">
   <link rel="icon" href="../favicon.svg" type="image/svg+xml">
   <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
   <link rel="stylesheet" href="../plain.css?v=projects-2">
-  <link rel="stylesheet" href="../portfolio.css?v=detail-colors">
+  <link rel="stylesheet" href="../portfolio.css?v=dock-hide">
+  <script type="module" src="../dock.js"></script>
 </head>
 <body class="home-page portfolio-page portfolio-nav-page portfolio-detail-page">
 <div class="page">

@@ -6,13 +6,23 @@
   <meta name="theme-color" content="#f8f6ee">
   <meta name="description" content="SteamHeart의 게임 프로그래밍을 맡은 최준이의 작업 기록. 최종 보스의 부위별 공격 패턴, 보스 1의 잔해 활용, 재도전과 영구 성장을 소개합니다.">
   <title>SteamHeart | 최준이 게임 프로그래밍 포트폴리오</title>
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="최준이 포트폴리오">
+  <meta property="og:title" content="SteamHeart | 최준이">
+  <meta property="og:description" content="최종 보스의 부위별 공격 패턴, 보스 1의 잔해 연계, 사망 후에도 이어지는 성장을 구현한 2D 액션 어드벤처.">
+  <meta property="og:url" content="https://juni4268.github.io/steamheart/">
+  <meta property="og:image" content="https://juni4268.github.io/assets/og/steamheart.jpg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta name="twitter:card" content="summary_large_image">
   <link rel="icon" href="../favicon.svg" type="image/svg+xml">
   <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
   <link rel="stylesheet" href="../plain.css?v=projects-2">
-  <link rel="stylesheet" href="../portfolio.css?v=detail-colors">
-  <link rel="stylesheet" href="./steamheart.css?v=boss-pattern-player">
-  <script type="module" src="./boss-pattern-player.js"></script>
+  <link rel="stylesheet" href="../portfolio.css?v=dock-hide">
+  <link rel="stylesheet" href="./steamheart.css?v=pattern-loop">
+  <script type="module" src="./boss-pattern-player.js?v=loop"></script>
+  <script type="module" src="../dock.js"></script>
 </head>
 <body class="home-page steamheart-page portfolio-nav-page portfolio-detail-page">
 <div class="page">
@@ -49,7 +59,7 @@
         <dl class="project-facts">
           <div>
             <dt>담당</dt>
-            <dd><strong>게임 프로그래밍 전체</strong><br>UI 제작(AI 활용) · 레벨 구현·연출 적용</dd>
+            <dd><strong>게임 프로그래밍 전체</strong><br>UI 제작 · 레벨 구현·연출 적용</dd>
           </div>
           <div>
             <dt>제작</dt>
@@ -67,14 +77,15 @@
       <div class="case-grid">
         <div class="case-copy boss-pattern-notes">
           <h3>부위 예약</h3>
-          <p>손 네 개와 링을 각각 제어하고, 패턴마다 필요한 부위를 미리 예약했습니다. 예약된 부위는 새 기본 공격을 시작하지 않고, 진행 중인 공격이 끝나 부위가 준비되면 패턴을 실행합니다.</p>
-          <p>블랙홀이 위쪽 손 하나와 링을 쓰는 동안 다른 손은 대포 빔을 발사할 수 있습니다.</p>
+          <p>최종 보스는 손 네 개와 링으로 여섯 가지 패턴을 씁니다. 손 네 개와 링을 각각 제어하고, 패턴마다 필요한 부위를 미리 예약했습니다.</p>
+          <p>예약된 부위는 새 공격을 시작하지 않습니다. 하던 공격이 끝나 필요한 부위가 모두 준비되면 패턴을 실행합니다.</p>
+          <p>아래 표에서 패턴 이름을 누르면 그 패턴의 영상이 재생됩니다.</p>
         </div>
         <figure class="project-media">
-          <video id="boss-pattern-video" controls playsinline preload="none" poster="../assets/boss2-poster.webp" width="1280" height="720" aria-label="SteamHeart 최종 보스 공격 패턴 플레이 영상">
+          <video id="boss-pattern-video" controls muted playsinline preload="none" poster="../assets/boss2-poster.webp" width="1280" height="720" aria-label="SteamHeart 최종 보스의 패턴을 차례로 보여주는 영상, 무음">
             <source src="../assets/video/boss2.mp4" type="video/mp4">
           </video>
-          <figcaption id="boss-pattern-caption" aria-live="polite">최종 보스 공격 패턴 플레이 영상</figcaption>
+          <figcaption><span id="boss-pattern-caption" aria-live="polite">최종 보스의 패턴을 차례로 보여주는 영상 · 56초 · 무음</span> <button type="button" class="boss-pattern-reset" hidden>전체 영상으로</button></figcaption>
         </figure>
       </div>
       <table class="boss-pattern-table" aria-labelledby="boss-title">
@@ -140,10 +151,10 @@
           <p>잔해가 착지하면 낙하 피해 판정을 끄고, 과부하로 발사하면 잔해가 이동한 구간을 검사해 충돌을 처리했습니다. 잔해가 모두 소진되면 내려찍기를 다시 예약해 공급합니다.</p>
         </div>
         <figure class="project-media">
-          <video controls playsinline preload="none" poster="../assets/boss1-poster.webp" width="1280" height="720" aria-label="보스 1 폐기된 파괴자의 양손 내려찍기와 잔해 발사, 무음">
+          <video controls muted playsinline preload="none" poster="../assets/boss1-poster.webp" width="1280" height="720" aria-label="보스 1 폐기된 파괴자의 양손 내려찍기와 잔해 발사, 무음">
             <source src="../assets/steamheart/04-boss-one-debris-chain.mp4" type="video/mp4">
           </video>
-          <figcaption>보스 1 ‘폐기된 파괴자’ 양손 내려찍기와 잔해 발사</figcaption>
+          <figcaption>보스 1 ‘폐기된 파괴자’ 양손 내려찍기와 잔해 발사 · 14초 · 무음</figcaption>
         </figure>
       </div>
     </section>
@@ -171,7 +182,7 @@
         <details class="project-disclosure">
           <summary>재도전 테스트 영상 보기</summary>
           <figure class="project-media">
-            <video controls playsinline preload="metadata" poster="../assets/steamheart/workshop-after-death.webp" width="1280" height="720" aria-label="사망 후 처리장 입구로 돌아와 제작대의 고철과 강화 수치를 확인하는 테스트 영상, 무음">
+            <video controls muted playsinline preload="metadata" poster="../assets/steamheart/workshop-after-death.webp" width="1280" height="720" aria-label="사망 후 처리장 입구로 돌아와 제작대의 고철과 강화 수치를 확인하는 테스트 영상, 무음">
               <source src="../assets/steamheart/03-respawn-and-upgrades.mp4" type="video/mp4">
             </video>
             <figcaption>제작대 확인 → 사망 유발 → 재도전 → 강화 유지 확인 · 16초 · 무음</figcaption>
@@ -188,23 +199,15 @@
       </dl>
     </section>
 
-    <section class="project-section" id="team" aria-labelledby="team-title">
-      <h2 id="team-title">팀 결과물과 크레딧</h2>
-      <div class="case-grid">
-        <div class="case-copy">
-          <p>팀 석복동(4인) · 8개 씬 · 보스 2종</p>
-          <dl class="project-facts team-credits">
-            <div><dt>최준이</dt><dd>게임 프로그래밍</dd></div>
-            <div><dt>전진범</dt><dd>총괄·기획, 아트, 사운드 디렉팅</dd></div>
-            <div><dt>임경섭</dt><dd>기획·사운드 디자인</dd></div>
-            <div><dt>최지환</dt><dd>스토리보드·편집</dd></div>
-          </dl>
-        </div>
-        <figure class="project-media">
-          <img src="../assets/steamheart/scene-upper.webp" width="720" height="363" alt="SteamHeart의 도시 상층에서 군중과 건물 사이로 이어지는 길" loading="lazy">
-          <figcaption>도시의 상층</figcaption>
-        </figure>
-      </div>
+    <section class="project-credits" id="team" aria-labelledby="team-title">
+      <h2 id="team-title">크레딧</h2>
+      <p class="credits-result">팀 석복동(4인) · 씬 8개 · 보스 2종 · 일반 적 3종 · 함정 2종 · 컷신 6편</p>
+      <dl class="credits-list">
+        <div><dt>최준이</dt><dd>프로그래밍, 애니메이션·연출 적용, 맵 구성·레벨 구현, UI 제작·구현</dd></div>
+        <div><dt>전진범</dt><dd>총괄, 기획, 배경·레벨 그래픽, 비주얼 디자인, 사운드 디렉팅</dd></div>
+        <div><dt>임경섭</dt><dd>기획, 사운드 디자인</dd></div>
+        <div><dt>최지환</dt><dd>스토리보드, 편집</dd></div>
+      </dl>
     </section>
   </main>
 

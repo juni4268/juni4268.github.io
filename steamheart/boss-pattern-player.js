@@ -1,5 +1,11 @@
 const video = document.querySelector("#boss-pattern-video");
 const caption = document.querySelector("#boss-pattern-caption");
+const reset = document.querySelector(".boss-pattern-reset");
+const full = {
+  src: video.querySelector("source").getAttribute("src"),
+  caption: caption.textContent,
+  label: video.getAttribute("aria-label"),
+};
 let selectedButton;
 
 for (const button of document.querySelectorAll(".boss-pattern-play")) {
@@ -9,9 +15,11 @@ for (const button of document.querySelectorAll(".boss-pattern-play")) {
     button.setAttribute("aria-pressed", "true");
 
     const title = `${button.textContent.trim()} 플레이 영상`;
-    caption.textContent = title;
-    video.setAttribute("aria-label", title);
+    caption.textContent = `${title} · 반복 재생 · 무음`;
+    video.setAttribute("aria-label", `${title}, 무음`);
+    video.loop = true;
     video.src = button.dataset.clip;
+    reset.hidden = false;
     video.play().catch((error) => {
       if (selectedButton === button && error.name !== "AbortError" && error.name !== "NotAllowedError") {
         caption.textContent = `${title}을 재생할 수 없습니다.`;
@@ -25,3 +33,13 @@ for (const button of document.querySelectorAll(".boss-pattern-play")) {
     }
   });
 }
+
+reset.addEventListener("click", () => {
+  selectedButton?.setAttribute("aria-pressed", "false");
+  selectedButton = undefined;
+  video.loop = false;
+  video.src = full.src;
+  video.setAttribute("aria-label", full.label);
+  caption.textContent = full.caption;
+  reset.hidden = true;
+});

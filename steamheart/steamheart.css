@@ -114,3 +114,27 @@
 @media (max-width: 480px) {
   .steamheart-page .site-head nav { width: 100%; flex-wrap: wrap; row-gap: 0; }
 }
+
+.boss-pattern-reset { margin-left: .5rem; padding: 0; border: 0; background: none; color: var(--brass); font: inherit; font-weight: 700; text-decoration: underline; text-underline-offset: .2em; cursor: pointer; }
+.boss-pattern-reset:focus-visible { outline: 2px solid var(--brass); outline-offset: 2px; }
+
+/* 크레딧: 본문 사례보다 작게, 이미지 없이 */
+.project-credits { padding-block: clamp(1.6rem, 4vw, 2.6rem); color: var(--soft); font-size: .92rem; }
+.project-credits h2 { margin: 0 0 .5rem; color: var(--ink); font-size: 1rem; font-weight: 800; letter-spacing: 0; }
+.credits-result { color: var(--ink); font-weight: 600; }
+.credits-list { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 1rem clamp(1rem, 2.5vw, 2rem); margin: 1rem 0 0; padding-top: 1rem; border-top: 1px solid var(--rule); }
+.credits-list dt { color: var(--ink); font-weight: 800; }
+.credits-list dd { margin: .15rem 0 0; line-height: 1.55; }
+@media (max-width: 760px) { .credits-list { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+
+/* 좁은 화면의 패턴 표: 칸을 세로로 쌓는다 */
+@media (max-width: 560px) {
+  .boss-pattern-table thead { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); }
+  .boss-pattern-table tbody tr { display: grid; gap: .2rem; padding-block: .7rem; border-bottom: 1px solid color-mix(in srgb, var(--rule) 55%, var(--bg)); }
+  .boss-pattern-table tbody tr:last-child { border-bottom: 0; }
+  .boss-pattern-table tbody :is(th, td) { display: block; padding: 0; border: 0; }
+  .boss-pattern-table tbody th { margin-bottom: .25rem; }
+  .boss-pattern-table tbody td::before { display: inline-block; min-width: 4.6rem; color: var(--soft); font-weight: 700; }
+  .boss-pattern-table tbody td:nth-child(2)::before { content: "사용 부위"; }
+  .boss-pattern-table tbody td:nth-child(3)::before { content: "동작"; }
+}

@@ -358,3 +358,8 @@
 @keyframes portfolio-leave {
   to { opacity: 0; }
 }
+
+/* 아래 메뉴: 아래로 스크롤하는 동안 숨김 (dock.js) */
+.portfolio-dock { transition: translate .28s cubic-bezier(.2,.72,.19,1), opacity .2s ease; }
+.portfolio-dock.is-away:not(:focus-within) { translate: 0 calc(100% + var(--dock-bottom) + 1rem); opacity: 0; }
+@media (prefers-reduced-motion: reduce) { .portfolio-dock { transition: none; } }
