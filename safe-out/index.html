@@ -69,7 +69,7 @@
           </div>
           <div>
             <dt>코드</dt>
-            <dd><a href="https://github.com/juni4268/SAFE_OUT">github.com/juni4268/SAFE_OUT <span aria-hidden="true">↗</span></a></dd>
+            <dd><a href="https://github.com/juni4268/SAFE_OUT-Portfolio">github.com/juni4268/SAFE_OUT-Portfolio <span aria-hidden="true">↗</span></a></dd>
           </div>
         </dl>
       </div>
@@ -129,7 +129,7 @@ enum class ECPREventStatus : uint8
     Resolved UMETA(DisplayName = &quot;Resolved&quot;),
     Failed UMETA(DisplayName = &quot;Failed&quot;)
 };</code></pre>
-          <p class="code-source"><a href="https://github.com/juni4268/SAFE_OUT/blob/main/Source/Project_CPR/CPREventBase.h">Source/Project_CPR/CPREventBase.h</a></p>
+          <p class="code-source"><a href="https://github.com/juni4268/SAFE_OUT-Portfolio/blob/main/Source/Project_CPR/CPREventBase.h">Source/Project_CPR/CPREventBase.h</a></p>
         </details>
         <h3>상호작용 조건</h3>
         <p>플레이어가 이벤트를 조작하면 부모 클래스가 먼저 조건을 확인합니다. 사고가 나지 않은 설비이면 정상 가동 중이라고 알리고, 필요한 아이템이 없거나 다른 아이템을 들고 있으면 안내 문구를 띄웁니다. 조건을 통과한 뒤의 동작만 각 이벤트가 따로 구현합니다.</p>
@@ -166,7 +166,7 @@ enum class ECPREventStatus : uint8
 
     ReceiveInteractionValidated(TargetCharacter);
 }</code></pre>
-          <p class="code-source"><a href="https://github.com/juni4268/SAFE_OUT/blob/main/Source/Project_CPR/CPREventBase.cpp">Source/Project_CPR/CPREventBase.cpp</a></p>
+          <p class="code-source"><a href="https://github.com/juni4268/SAFE_OUT-Portfolio/blob/main/Source/Project_CPR/CPREventBase.cpp">Source/Project_CPR/CPREventBase.cpp</a></p>
         </details>
       </div>
     </section>
@@ -203,7 +203,7 @@ public:
     UFUNCTION(BlueprintNativeEvent, BlueprintCallable, Category = &quot;Fire&quot;)
     bool ApplyExtinguisher(float Amount, FName ExtinguisherTag);
 };</code></pre>
-          <p class="code-source"><a href="https://github.com/juni4268/SAFE_OUT/blob/main/Source/Project_CPR/CPRExtinguishable.h">Source/Project_CPR/CPRExtinguishable.h</a></p>
+          <p class="code-source"><a href="https://github.com/juni4268/SAFE_OUT-Portfolio/blob/main/Source/Project_CPR/CPRExtinguishable.h">Source/Project_CPR/CPRExtinguishable.h</a></p>
         </details>
         <h3>소화기를 쏠 때</h3>
         <p>소화기를 쏘면 앞쪽을 검사해 맞은 대상이 이 인터페이스를 구현했는지 확인합니다. 구현했다면 들고 있는 소화기의 종류와 함께 소화량을 넘깁니다.</p>
@@ -221,7 +221,7 @@ if (Extinguishable &amp;&amp; CurrentHeldItem)
     ICPRExtinguishable::Execute_ApplyExtinguisher(Extinguishable-&gt;_getUObject(), ExtinguisherPower * DeltaTime,
                                                   HeldTag);
 }</code></pre>
-          <p class="code-source"><a href="https://github.com/juni4268/SAFE_OUT/blob/main/Source/Project_CPR/CPRCharacter.cpp">Source/Project_CPR/CPRCharacter.cpp</a></p>
+          <p class="code-source"><a href="https://github.com/juni4268/SAFE_OUT-Portfolio/blob/main/Source/Project_CPR/CPRCharacter.cpp">Source/Project_CPR/CPRCharacter.cpp</a></p>
         </details>
         <h3>화재 쪽의 판정</h3>
         <p>화재는 자기에게 맞는 소화기인지 확인한 뒤 불 세기를 줄입니다. 불 세기가 0이 되면 이벤트를 해결 상태로 바꿉니다.</p>
@@ -249,7 +249,7 @@ if (Extinguishable &amp;&amp; CurrentHeldItem)
 
     return true;
 }</code></pre>
-          <p class="code-source"><a href="https://github.com/juni4268/SAFE_OUT/blob/main/Source/Project_CPR/CPREvent_FireElec.cpp">Source/Project_CPR/CPREvent_FireElec.cpp</a></p>
+          <p class="code-source"><a href="https://github.com/juni4268/SAFE_OUT-Portfolio/blob/main/Source/Project_CPR/CPREvent_FireElec.cpp">Source/Project_CPR/CPREvent_FireElec.cpp</a></p>
         </details>
       </div>
     </section>
@@ -302,7 +302,7 @@ if (TempCurrent &gt;= TempMax)
     TriggerOverheat();
     return;
 }</code></pre>
-          <p class="code-source"><a href="https://github.com/juni4268/SAFE_OUT/blob/main/Source/Project_CPR/CPREvent_Overheat.cpp">Source/Project_CPR/CPREvent_Overheat.cpp</a></p>
+          <p class="code-source"><a href="https://github.com/juni4268/SAFE_OUT-Portfolio/blob/main/Source/Project_CPR/CPREvent_Overheat.cpp">Source/Project_CPR/CPREvent_Overheat.cpp</a></p>
         </details>
       </div>
     </section>
@@ -341,7 +341,7 @@ if (TempCurrent &gt;= TempMax)
     }
     ReceiveLevelCleared();
 }</code></pre>
-          <p class="code-source"><a href="https://github.com/juni4268/SAFE_OUT/blob/main/Source/Project_CPR/CPRClearTrigger.cpp">Source/Project_CPR/CPRClearTrigger.cpp</a></p>
+          <p class="code-source"><a href="https://github.com/juni4268/SAFE_OUT-Portfolio/blob/main/Source/Project_CPR/CPRClearTrigger.cpp">Source/Project_CPR/CPRClearTrigger.cpp</a></p>
         </details>
         <h3>실패했을 때</h3>
         <p>사망 결과 화면이 끝나면 현재 레벨을 다시 불러옵니다.</p>
@@ -351,7 +351,7 @@ if (TempCurrent &gt;= TempMax)
 {
     UGameplayStatics::OpenLevel(GetWorld(), FName(*UGameplayStatics::GetCurrentLevelName(GetWorld())));
 }</code></pre>
-          <p class="code-source"><a href="https://github.com/juni4268/SAFE_OUT/blob/main/Source/Project_CPR/CPRDieUI.cpp">Source/Project_CPR/CPRDieUI.cpp</a></p>
+          <p class="code-source"><a href="https://github.com/juni4268/SAFE_OUT-Portfolio/blob/main/Source/Project_CPR/CPRDieUI.cpp">Source/Project_CPR/CPRDieUI.cpp</a></p>
         </details>
       </div>
     </section>

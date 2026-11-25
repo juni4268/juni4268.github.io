@@ -22,6 +22,9 @@ for (const project of projects) {
   if (!existsSync(new URL('assets/og/' + slug + '.jpg', root))) {
     throw new Error('Missing share image assets/og/' + slug + '.jpg (1200x630)');
   }
+  if (project.repo && !/^https:\/\/github\.com\/[\w.-]+\/[\w.-]+$/.test(project.repo)) {
+    throw new Error('Invalid repo for ' + slug);
+  }
   if (customDetail && !existsSync(new URL(slug + '/index.html', root))) {
     throw new Error('Missing custom detail page: ' + slug);
   }
@@ -90,6 +93,13 @@ function projectNavigation(prefix, activeSlug) {
   </nav>`;
 }
 
+// projects.json의 repo(선택)는 공개 코드 저장소 주소다. 있으면 상세 페이지에 '코드' 행을 붙인다.
+function repoRecord(project) {
+  if (!project.repo) return '';
+  const label = project.repo.replace(/^https:\/\//, '');
+  return `\n          <div><dt>코드</dt><dd><a href="${html(project.repo)}">${html(label)} <span aria-hidden="true">↗</span></a></dd></div>`;
+}
+
 function detail(project) {
   return `  <main class="portfolio-work">
     <div class="portfolio-work-header">
@@ -101,7 +111,7 @@ function detail(project) {
       <div class="portfolio-work-copy">
         <p>${html(project.description)}</p>
         <dl class="profile-records">
-          <div><dt>담당</dt><dd>${html(project.role)}</dd></div>
+          <div><dt>담당</dt><dd>${html(project.role)}</dd></div>${repoRecord(project)}
         </dl>
       </div>
     </div>
