@@ -373,3 +373,5 @@
 .featured-card.is-upcoming .featured-copy { color: #77756f; }
 .featured-card.is-upcoming :is(.featured-tech, .featured-role, .featured-summary) { color: #8a8882; }
 @media (max-width: 760px) { .featured-stage { overflow-x: clip; } }
+.project-rail a.is-upcoming { color: #9a9892; }
+.project-rail a.is-upcoming[aria-current] { box-shadow: inset 3px 0 #9a9892; color: #77756f; }

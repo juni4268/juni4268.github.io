@@ -50,7 +50,7 @@ function page(project) {
   <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
   <link rel="stylesheet" href="../plain.css?v=projects-2">
-  <link rel="stylesheet" href="../portfolio.css?v=upcoming-2">
+  <link rel="stylesheet" href="../portfolio.css?v=upcoming-3">
   <script type="module" src="../dock.js"></script>
 </head>
 <body class="home-page portfolio-page portfolio-nav-page portfolio-detail-page">
@@ -73,7 +73,7 @@ function cover(project) {
 
 function projectRail(activeSlug) {
   const links = projects.map(project =>
-    `      <li><a href="../${project.slug}/"${project.slug === activeSlug ? ' aria-current="page"' : ''}>${html(project.name)}</a></li>`).join('\n');
+    `      <li><a${project.upcoming ? ' class="is-upcoming"' : ''} href="../${project.slug}/"${project.slug === activeSlug ? ' aria-current="page"' : ''}>${html(project.name)}</a></li>`).join('\n');
 
   return `  <nav class="project-rail" aria-labelledby="project-rail-title">
     <p id="project-rail-title">참여 작품</p>
