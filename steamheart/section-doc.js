@@ -25,6 +25,15 @@ for (const section of document.querySelectorAll(".project-section.has-doc")) {
     if (section.getBoundingClientRect().top < 0) section.scrollIntoView({ block: "start", behavior: "instant" });
   };
 
+  // /steamheart/#boss-doc opens that section's technical notes directly.
+  const openFromHash = () => {
+    if (location.hash.slice(1) !== doc.id) return;
+    if (doc.hidden) swap(true);
+    section.scrollIntoView({ block: "start", behavior: "instant" });
+  };
+  openFromHash();
+  window.addEventListener("hashchange", openFromHash);
+
   toggle.addEventListener("click", () => {
     const showDoc = doc.hidden;
     if (!document.startViewTransition || reduceMotion.matches) { swap(showDoc); return; }

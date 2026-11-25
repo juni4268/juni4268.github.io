@@ -20,9 +20,9 @@
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
   <link rel="stylesheet" href="../plain.css?v=projects-2">
   <link rel="stylesheet" href="../portfolio.css?v=dock-hide">
-  <link rel="stylesheet" href="./steamheart.css?v=sticky-head">
+  <link rel="stylesheet" href="./steamheart.css?v=docs-4">
   <script type="module" src="./boss-pattern-player.js?v=groups"></script>
-  <script type="module" src="./section-doc.js?v=sticky"></script>
+  <script type="module" src="./section-doc.js?v=hash"></script>
   <script type="module" src="../dock.js"></script>
 </head>
 <body class="home-page steamheart-page portfolio-nav-page portfolio-detail-page">
@@ -155,7 +155,7 @@
       </div>
       <div class="section-view section-doc" data-view="doc" id="boss-doc" hidden>
         <h3>부위 예약</h3>
-        <p>패턴은 실행 전에 쓸 부위를 한꺼번에 예약합니다. 필요한 부위 중 하나라도 이미 다음 예약이 잡혀 있거나 다른 주요 패턴이 쓰고 있으면 예약 전체가 거절됩니다. 기본 공격이 쓰고 있는 부위는 예약만 걸어 두고, 그 공격이 끝난 뒤에 넘겨받습니다.</p>
+        <p>패턴은 실행 전에 쓸 부위를 한꺼번에 예약합니다. 필요한 부위 중 하나라도 이미 다음 예약이 잡혀 있거나 다른 주요 패턴(Main)이 쓰고 있으면 예약 전체가 거절됩니다. 기본 공격(Basic)이 쓰고 있는 부위는 예약만 걸어 두고, 그 공격이 끝난 뒤에 넘겨받습니다.</p>
         <details class="code-block">
           <summary>부위 예약 코드 <span class="code-file">Boss2PartUsage.cs</span></summary>
           <pre><code>for (int i = 0; i &lt; owners.Length; i++)
@@ -198,25 +198,7 @@ return true;</code></pre>
 }</code></pre>
           <p class="code-source"><a href="https://github.com/juni4268/Project_K/blob/main/Assets/Scripts/Boss/Boss2/Core/Boss2PatternRunner.cs">Assets/Scripts/Boss/Boss2/Core/Boss2PatternRunner.cs</a></p>
         </details>
-        <p>끊기는 도중에 정리가 한 번만 실행되는지, 다른 패턴이 쓰고 있는 부위에 영향을 주지 않는지는 회귀 테스트로 확인합니다.</p>
-        <details class="code-block">
-          <summary>중단 테스트 코드 <span class="code-file">Boss2PatternRunnerTests.cs</span></summary>
-          <pre><code>[Test]
-public void CancellingInsideIteratorDefersDisposalAndCleansUpExactlyOnce()
-{
-    // ...
-    Assert.That(boss.TryRequestPattern(pattern, out runner), Is.True);
-    Tick(runner);
-    runner.Cancel();
-    Tick(runner);
-
-    Assert.That(disposedAfterStep, Is.True);
-    Assert.That(cleanups, Is.EqualTo(1));
-    Assert.That(boss.Executions, Is.Empty);
-    Assert.That(boss.PartUsage.GetOwner(Boss2PartId.Ring), Is.Null);
-}</code></pre>
-          <p class="code-source"><a href="https://github.com/juni4268/Project_K/blob/main/Assets/Editor/Tests/Boss2/Boss2PatternRunnerTests.cs">Assets/Editor/Tests/Boss2/Boss2PatternRunnerTests.cs</a></p>
-        </details>
+        <p>끊기는 도중에 정리가 한 번만 실행되는지, 다른 패턴이 쓰고 있는 부위에 영향을 주지 않는지는 <a href="https://github.com/juni4268/Project_K/blob/main/Assets/Editor/Tests/Boss2/Boss2PatternRunnerTests.cs">회귀 테스트</a>로 확인합니다.</p>
         <div class="disclosure-pair">
           <figure class="project-media">
             <img src="../assets/steamheart/boss-cancellation-before.webp" width="1280" height="720" alt="최종 보스의 손 두 개가 광선을 쏘고 링이 플레이어 앞에 떠 있는 장면" loading="lazy">
@@ -279,7 +261,7 @@ public void CancellingInsideIteratorDefersDisposalAndCleansUpExactlyOnce()
       </div>
       <div class="section-view section-doc" data-view="doc" id="boss-one-doc" hidden>
         <h3>내려찍기만 반복하던 문제</h3>
-        <p>5분 시연을 준비하면서 구간별 시간을 기록하며 직접 플레이했습니다. 그 과정에서 내려찍기가 반복해서 선택되어 다른 공격이 나오지 않는 상황을 발견했습니다. 아직 나오지 않은 공격을 먼저 고르고, 가장 위협적인 패턴인 과부하는 첫 순환의 마지막에 나오도록 조건을 정했습니다.</p>
+        <p>5분 시연을 준비하면서 구간별 시간을 기록하며 직접 플레이했습니다. 그 과정에서 내려찍기가 반복해서 선택되어 다른 공격이 나오지 않는 상황을 발견했습니다. 아직 나오지 않은 공격을 먼저 고르고, 가장 위협적인 패턴인 과부하(Overdrive)는 첫 순환의 마지막에 나오도록 조건을 정했습니다.</p>
         <details class="code-block">
           <summary>패턴 선택 코드 <span class="code-file">Boss1PatternSelector.cs</span></summary>
           <pre><code>// Overdrive requests a refill Slam; show every other active pattern before that sequence.
@@ -299,27 +281,7 @@ private bool IsCandidate(Boss1PatternBase pattern, Boss1Controller owner, bool p
     &amp;&amp; IsEligible(pattern, owner) &amp;&amp; (!preferUnseen || !presentedPatterns.Contains(pattern));</code></pre>
           <p class="code-source"><a href="https://github.com/juni4268/Project_K/blob/main/Assets/Scripts/Boss/Boss1/Core/Boss1PatternSelector.cs">Assets/Scripts/Boss/Boss1/Core/Boss1PatternSelector.cs</a></p>
         </details>
-        <p>수정 후 패턴 선택 관련 테스트 8개가 통과했습니다. 아래는 과부하가 첫 순환의 마지막에 나오는지 확인하는 테스트입니다.</p>
-        <details class="code-block">
-          <summary>패턴 선택 테스트 코드 <span class="code-file">Boss1PatternPresentationTests.cs</span></summary>
-          <pre><code>[Test]
-public void OverdriveIsLastInTheFirstPassAndThenReturnsToTheRandomPool()
-{
-    var first = Pattern();
-    var second = Pattern();
-    var overdrive = Overdrive();
-    var patterns = new Boss1PatternBase[] { overdrive, first, second };
-    for (int i = 0; i &lt; 2; i++)
-    {
-        var selected = Select(patterns);
-        Assert.That(selected, Is.Not.SameAs(overdrive));
-        selector.MarkPresented(selected);
-    }
-    Assert.That(Select(patterns), Is.SameAs(overdrive));
-    // ...
-}</code></pre>
-          <p class="code-source"><a href="https://github.com/juni4268/Project_K/blob/main/Assets/Editor/Tests/Boss1/Boss1PatternPresentationTests.cs">Assets/Editor/Tests/Boss1/Boss1PatternPresentationTests.cs</a></p>
-        </details>
+        <p>수정 후 패턴 선택 관련 <a href="https://github.com/juni4268/Project_K/blob/main/Assets/Editor/Tests/Boss1/Boss1PatternPresentationTests.cs">테스트 8개</a>가 통과했습니다.</p>
         <h3>지나갈 수 없는 잔해 틈</h3>
         <p>잔해 사이에 틈이 있어 보이는데 캐릭터가 지나가지 못하는 문제를 발견했습니다. 잔해를 서로 붙이거나, 캐릭터가 통과할 만큼 간격을 확보한다는 규칙을 제안했습니다. 낙하 위치를 정할 때 플레이어 폭보다 좁은 틈은 붙이고, 그보다 넓은 틈만 남깁니다.</p>
         <details class="code-block">
@@ -339,9 +301,12 @@ for (int i = 0; i &lt; count; i++)
       </div>
     </section>
 
-    <section class="project-section" id="retry" aria-labelledby="retry-title">
-      <h2 id="retry-title">사망 후에도 이어지는 성장</h2>
-      <div class="retry-copy">
+    <section class="project-section has-doc" id="retry" aria-labelledby="retry-title">
+      <div class="section-head">
+        <h2 id="retry-title">사망 후에도 이어지는 성장</h2>
+        <button type="button" class="doc-toggle" aria-pressed="false" aria-controls="retry-doc">기술 문서</button>
+      </div>
+      <div class="section-view retry-copy" data-view="summary">
         <p>한 번의 도전에서만 쓰는 상태와 영구 진행도를 분리했습니다. 플레이어는 사망하면 처리장 입구에서 최대 체력으로 다시 시작합니다.</p>
         <table class="retry-values">
           <caption>재도전 테스트에서 확인한 값</caption>
@@ -366,6 +331,37 @@ for (int i = 0; i &lt; count; i++)
               <source src="../assets/steamheart/03-respawn-and-upgrades.mp4" type="video/mp4">
             </video>
           </figure>
+        </details>
+      </div>
+          <div class="section-view section-doc" data-view="doc" id="retry-doc" hidden>
+        <h3>도전 상태와 영구 진행도</h3>
+        <p>현재 체력, 무기 보유 여부, 무기 단계는 한 번의 도전 상태에 둡니다. 고철과 강화 수치는 영구 진행도에 따로 두고, 값이 바뀔 때마다 저장합니다.</p>
+        <details class="code-block">
+          <summary>도전 상태 초기화 코드 <span class="code-file">PlayerRuntimeState.cs</span></summary>
+          <pre><code>public static void ResetRunProgress()
+{
+    IsInitialized = false;
+    CurrentHP = 0;
+    HasWeapon = false;
+    WeaponStageIndex = 0;
+}</code></pre>
+          <p class="code-source"><a href="https://github.com/juni4268/Project_K/blob/main/Assets/Scripts/Player/Progress/PlayerRuntimeState.cs">Assets/Scripts/Player/Progress/PlayerRuntimeState.cs</a></p>
+        </details>
+        <h3>사망했을 때</h3>
+        <p>사망하면 도전 상태만 초기화한 뒤 지정된 재시작 씬을 불러옵니다. 영구 진행도는 건드리지 않아서 고철과 공격력 보너스가 그대로 남습니다.</p>
+        <details class="code-block">
+          <summary>재시작 코드 <span class="code-file">PlayerRespawnController.cs</span></summary>
+          <pre><code>public void Tick()
+{
+    if (!respawnPending || Time.time &lt; respawnAt || SceneTransitionOverlay.IsTransitioning) return;
+
+    // A death starts a fresh run in the explicitly assigned respawn scene.
+    PlayerRuntimeState.ResetRunProgress();
+    if (!SceneTransitionOverlay.TryLoadScene(
+            respawnScenePath, fadeOutDuration, fadeInDuration, fadeColor))
+    // ...
+}</code></pre>
+          <p class="code-source"><a href="https://github.com/juni4268/Project_K/blob/main/Assets/Scripts/Player/PlayerRespawnController.cs">Assets/Scripts/Player/PlayerRespawnController.cs</a></p>
         </details>
       </div>
     </section>
