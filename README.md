@@ -8,3 +8,6 @@
 직접 작성한 상세 페이지에는 `customDetail: true`를 지정합니다.
 SteamHeart와 동일하게 `portfolio-rail`과 `portfolio-navigation`의
 `:start`·`:end` HTML 주석을 두면 생성기가 해당 구간을 갱신합니다.
+
+메인의 `참여 작품` 구간(`portfolio-featured` 주석 사이)도 생성기가 만듭니다.
+목록의 첫 작품이 이미지 카드로, 나머지는 이름과 개발 환경 한 줄로 표시됩니다.

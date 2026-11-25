@@ -117,9 +117,9 @@
   display: grid;
   grid-template-columns: minmax(0, 1fr) minmax(0, 1.25fr);
   grid-template-areas:
+    "identity featured"
     "identity education"
-    "identity skills"
-    "identity version";
+    "identity skills";
   align-content: center;
   column-gap: clamp(1.4rem, 5.2vw, 4.4rem);
   min-height: clamp(26rem, 45vw, 34rem);
@@ -161,11 +161,11 @@
 .profile-contact strong { overflow-wrap: anywhere; }
 .profile-contact a:is(:hover,:focus-visible) strong { text-decoration: underline; }
 
+.profile-featured { grid-area: featured; }
 .profile-education { grid-area: education; }
 .profile-development { grid-area: skills; }
-.profile-version { grid-area: version; }
 .profile-records, .profile-field { margin: 0; }
-.profile-records, .profile-education { border-top: 2px solid var(--ink); }
+.profile-records, .profile-featured { border-top: 2px solid var(--ink); }
 .profile-records > div, .profile-field {
   display: grid;
   grid-template-columns: minmax(4.25rem, 1fr) minmax(0, 2.7fr);
@@ -178,6 +178,25 @@
 .profile-records dd, .profile-field-body { margin: 0; display: grid; gap: .16rem; line-height: 1.5; }
 .profile-records strong, .profile-education strong { font-size: clamp(.94rem, 2.05vw, 1.3rem); font-weight: 820; }
 .profile-dates { margin-top: .23rem; }
+.profile-tagline { margin: -.1em 0 1.1em; font-size: clamp(1rem, 2.1vw, 1.3rem); font-weight: 750; letter-spacing: -.02em; }
+
+/* 메인의 참여 작품: 첫 작품은 이미지 카드, 나머지는 한 줄씩 */
+.featured-body { gap: clamp(.7rem, 1.6vw, 1.1rem); }
+.profile-featured { align-items: start; }
+.featured-card { display: grid; grid-template-columns: minmax(0, 1fr); gap: clamp(.7rem, 1.6vw, 1rem); text-decoration: none; }
+.featured-card img { aspect-ratio: 16 / 9; object-fit: cover; }
+.featured-copy { display: grid; gap: .18rem; }
+.featured-copy strong { font-size: clamp(1.5rem, 3.4vw, 2.3rem); font-weight: 880; line-height: 1.05; letter-spacing: -.055em; }
+.featured-card:is(:hover, :focus-visible) strong { text-decoration: underline; text-decoration-thickness: .08em; text-underline-offset: .12em; }
+.featured-tech { color: var(--brass); font-size: .92rem; font-weight: 780; }
+.featured-role { font-size: .92rem; font-weight: 700; }
+.featured-summary { margin-top: .3rem; color: var(--soft); font-size: .92rem; line-height: 1.55; }
+.featured-more { margin: 0; padding: 0; list-style: none; border-top: 1px solid var(--rule); }
+.featured-more a { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: .1rem 1rem; min-height: 2.5rem; padding-block: .45rem; border-bottom: 1px solid var(--rule); text-decoration: none; }
+.featured-more strong { font-size: 1rem; font-weight: 800; }
+.featured-more span { color: var(--soft); font-size: .88rem; }
+.featured-more a:is(:hover, :focus-visible) strong { text-decoration: underline; }
+
 .profile-skill { display: grid; gap: .12rem; }
 .profile-skill + .profile-skill { margin-top: .55rem; }
 .profile-skill span { color: var(--soft); font-size: clamp(.8rem, 1.48vw, .96rem); }
@@ -189,8 +208,8 @@
     grid-template-columns: minmax(0, 1.18fr) minmax(0, 1fr) minmax(0, .76fr);
     grid-template-rows: 1fr auto;
     grid-template-areas:
-      "identity education education"
-      "skills skills version";
+      "identity featured featured"
+      "education skills skills";
     gap: clamp(2rem, 5.4vh, 4.75rem) clamp(2rem, 3.9vw, 6rem);
     min-height: clamp(35rem, calc(100svh - var(--dock-space)), 82rem);
     padding-block: clamp(2rem, 4.5vh, 4.2rem);
@@ -222,24 +241,32 @@
     border-bottom: 0;
   }
 
-  .profile-education { align-self: center; }
-  .profile-education strong {
-    max-width: 18ch;
-    font-size: clamp(2rem, 3.15vw, 4.35rem);
-    line-height: 1.14;
-    letter-spacing: -.055em;
-  }
-  .profile-education span { font-size: clamp(1.15rem, 1.6vw, 1.8rem); }
-  .profile-dates { margin-top: .55rem; font-size: clamp(.94rem, 1.05vw, 1.23rem); }
+  .profile-featured { align-self: center; }
+  .featured-body { grid-template-columns: minmax(0, 1.75fr) minmax(0, 1fr); gap: clamp(1.4rem, 2.6vw, 3.5rem); align-items: center; }
+  .featured-card { gap: clamp(.8rem, 1.6vh, 1.4rem); }
+  .featured-copy { grid-template-columns: auto minmax(0, 1fr); column-gap: clamp(1rem, 1.6vw, 2rem); align-items: baseline; }
+  .featured-copy strong { grid-row: span 2; font-size: clamp(2.1rem, 3vw, 4rem); }
+  .featured-summary { grid-column: 1 / -1; margin-top: .45rem; }
+  .featured-tech, .featured-role, .featured-summary { font-size: clamp(.94rem, 1vw, 1.2rem); }
+  .featured-more strong { font-size: clamp(1rem, 1.1vw, 1.3rem); }
+  .featured-more a { display: grid; justify-content: stretch; gap: 0; padding-block: clamp(.5rem, .9vh, .85rem); }
 
-  .profile-development, .profile-version { border-top: 2px solid var(--ink); }
+  .profile-education strong {
+    font-size: clamp(1.22rem, 1.8vw, 2.25rem);
+    line-height: 1.16;
+    letter-spacing: -.035em;
+  }
+  .profile-education span { font-size: clamp(.94rem, 1vw, 1.2rem); }
+  .profile-dates { margin-top: .2rem; font-size: clamp(.94rem, 1vw, 1.2rem); font-weight: 600; }
+
+  .profile-education, .profile-development { border-top: 2px solid var(--ink); }
   .profile-skillset {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
+    grid-template-columns: repeat(3, minmax(0, 1fr));
     gap: clamp(1rem, 2.9vw, 4rem);
   }
   .profile-skill { align-content: start; gap: .38rem; }
   .profile-skill + .profile-skill { margin-top: 0; border-left: 1px solid var(--rule); padding-left: clamp(1rem, 2.9vw, 4rem); }
-  .profile-skill b, .profile-version p {
+  .profile-skill b {
     font-size: clamp(1.22rem, 1.8vw, 2.25rem);
     font-weight: 820;
     line-height: 1.16;
@@ -278,7 +305,7 @@
 @media (max-width: 680px) {
   .portfolio-profile, .portfolio-work-layout { grid-template-columns: minmax(0, 1fr); }
   .portfolio-profile {
-    grid-template-areas: "identity" "education" "skills" "version";
+    grid-template-areas: "identity" "featured" "education" "skills";
     min-height: 0;
   }
   .portfolio-profile::before { inset: 2% 0 0 17%; }
@@ -293,12 +320,14 @@
   ::view-transition-old(root) { animation: 150ms ease-out both portfolio-leave; }
   ::view-transition-new(root) { animation: 360ms cubic-bezier(.2,.72,.19,1) both portfolio-enter; }
   .portfolio-dock { view-transition-name: portfolio-dock; }
-  .profile-identity, .profile-education, .profile-development, .profile-version, .profile-records > div {
+  .profile-identity, .profile-featured, .profile-education, .profile-development, .profile-records > div {
     animation: 420ms cubic-bezier(.2,.72,.19,1) both portfolio-enter;
   }
-  .profile-education, .profile-records > div:nth-child(1) { animation-delay: 55ms; }
-  .profile-development, .profile-records > div:nth-child(2) { animation-delay: 110ms; }
-  .profile-version, .profile-records > div:nth-child(3) { animation-delay: 165ms; }
+  .profile-featured, .profile-records > div:nth-child(1) { animation-delay: 55ms; }
+  .profile-education { animation-delay: 110ms; }
+  .profile-development { animation-delay: 165ms; }
+  .profile-records > div:nth-child(2) { animation-delay: 110ms; }
+  .profile-records > div:nth-child(3) { animation-delay: 165ms; }
 }
 
 @keyframes portfolio-enter {

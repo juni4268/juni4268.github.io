@@ -92,6 +92,26 @@ function detail(project) {
   </main>`;
 }
 
+// 메인의 참여 작품: 목록의 첫 작품은 이미지가 있는 큰 카드, 나머지는 이름과 개발 환경 한 줄
+function featured() {
+  const [first, ...rest] = projects;
+  const others = rest.map(project =>
+    `        <li><a href="./${project.slug}/"><strong>${html(project.name)}</strong><span>${html(project.tech)}</span></a></li>`).join('\n');
+
+  return `      <a class="featured-card" href="./${first.slug}/">
+        <img src="./assets/${first.image}" width="${first.width}" height="${first.height}" alt="${html(first.alt)}">
+        <span class="featured-copy">
+          <strong>${html(first.name)}</strong>
+          <span class="featured-tech">${html(first.tech)}</span>
+          <span class="featured-role">${html(first.role)}</span>
+          <span class="featured-summary">${html(first.description)}</span>
+        </span>
+      </a>
+      <ul class="featured-more">
+${others}
+      </ul>`;
+}
+
 function write(slug, contents) {
   const directory = new URL(slug + '/', root);
   mkdirSync(directory, { recursive: true });
@@ -111,6 +131,7 @@ function updateCustomPage(file, prefix, activeSlug) {
   const target = new URL(file, root);
   let contents = readFileSync(target, 'utf8');
   contents = updateSlot(contents, 'navigation', projectNavigation(prefix, activeSlug), file);
+  if (!activeSlug) contents = updateSlot(contents, 'featured', featured(), file);
   if (activeSlug) contents = updateSlot(contents, 'rail', projectRail(activeSlug), file);
   writeFileSync(target, contents, 'utf8');
 }
