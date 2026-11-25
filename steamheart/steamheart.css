@@ -152,3 +152,8 @@
   .disclosure-pair { grid-template-columns: minmax(0, 1fr); }
   .boss-pattern-table.pattern-table-simple tbody td:nth-child(2)::before { content: "동작"; }
 }
+
+/* 영상 아래 설명은 보이지 않게 두고(화면 낭독기용), 패턴을 고른 뒤의 되돌리기 버튼만 보인다 */
+.visually-hidden { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+.pattern-caption { margin-top: 0; }
+.pattern-caption .boss-pattern-reset { margin: .45rem 0 0; }

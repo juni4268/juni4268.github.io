@@ -20,7 +20,7 @@
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
   <link rel="stylesheet" href="../plain.css?v=projects-2">
   <link rel="stylesheet" href="../portfolio.css?v=dock-hide">
-  <link rel="stylesheet" href="./steamheart.css?v=boss-one-table">
+  <link rel="stylesheet" href="./steamheart.css?v=no-captions">
   <script type="module" src="./boss-pattern-player.js?v=groups"></script>
   <script type="module" src="../dock.js"></script>
 </head>
@@ -75,7 +75,6 @@
         <video autoplay muted loop playsinline poster="../assets/steamheart/hero-patterns.webp" width="960" height="540" aria-label="최종 보스의 여섯 가지 패턴이 차례로 나오는 반복 영상, 무음">
           <source src="../assets/steamheart/hero-patterns.mp4" type="video/mp4">
         </video>
-        <figcaption>최종 보스의 여섯 가지 패턴 · 무음</figcaption>
       </figure>
     </section>
 
@@ -92,7 +91,7 @@
           <video id="boss-pattern-video" data-pattern-video controls muted playsinline preload="none" poster="../assets/boss2-poster.webp" width="1280" height="720" aria-label="SteamHeart 최종 보스의 패턴을 차례로 보여주는 영상, 무음">
             <source src="../assets/video/boss2.mp4" type="video/mp4">
           </video>
-          <figcaption><span id="boss-pattern-caption" data-pattern-caption aria-live="polite">최종 보스의 패턴을 차례로 보여주는 영상 · 56초 · 무음</span> <button type="button" class="boss-pattern-reset" hidden>전체 영상으로</button></figcaption>
+          <figcaption class="pattern-caption"><span id="boss-pattern-caption" class="visually-hidden" data-pattern-caption aria-live="polite">최종 보스의 패턴을 차례로 보여주는 영상 · 56초 · 무음</span> <button type="button" class="boss-pattern-reset" hidden>전체 영상으로</button></figcaption>
         </figure>
       </div>
       <table class="boss-pattern-table" aria-labelledby="boss-title">
@@ -180,7 +179,7 @@
           <video data-pattern-video controls muted playsinline preload="none" poster="../assets/boss1-poster.webp" width="1280" height="720" aria-label="보스 1 폐기된 파괴자의 양손 내려찍기와 잔해 발사, 무음">
             <source src="../assets/steamheart/04-boss-one-debris-chain.mp4" type="video/mp4">
           </video>
-          <figcaption><span data-pattern-caption aria-live="polite">양손 내려찍기와 잔해 발사 · 14초 · 무음</span> <button type="button" class="boss-pattern-reset" hidden>처음 영상으로</button></figcaption>
+          <figcaption class="pattern-caption"><span class="visually-hidden" data-pattern-caption aria-live="polite">양손 내려찍기와 잔해 발사 · 14초 · 무음</span> <button type="button" class="boss-pattern-reset" hidden>처음 영상으로</button></figcaption>
         </figure>
       </div>
       <table class="boss-pattern-table pattern-table-simple" aria-labelledby="boss-one-title">
@@ -246,7 +245,6 @@
             <video controls muted playsinline preload="metadata" poster="../assets/steamheart/workshop-after-death.webp" width="1280" height="720" aria-label="사망 후 처리장 입구로 돌아와 제작대의 고철과 강화 수치를 확인하는 테스트 영상, 무음">
               <source src="../assets/steamheart/03-respawn-and-upgrades.mp4" type="video/mp4">
             </video>
-            <figcaption>제작대 확인 → 사망 유발 → 재도전 → 강화 유지 확인 · 16초 · 무음</figcaption>
           </figure>
         </details>
       </div>
