@@ -138,3 +138,17 @@
   .boss-pattern-table tbody td:nth-child(2)::before { content: "사용 부위"; }
   .boss-pattern-table tbody td:nth-child(3)::before { content: "동작"; }
 }
+
+/* 자세히(접기) 안의 본문 */
+.project-disclosure summary::marker { color: var(--brass); }
+.disclosure-body { max-width: 46rem; padding-bottom: 1.2rem; }
+.disclosure-body p + p { margin-top: .85rem; }
+.disclosure-body h3 { margin-bottom: .3rem; }
+.disclosure-body p + h3 { margin-top: 1.3rem; }
+.disclosure-pair { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1rem; margin-top: 1.2rem; }
+.boss-pattern-notes p + h3 { margin-top: 1.2rem; }
+.implementation-facts div { grid-template-columns: 6.5rem minmax(0, 1fr); }
+@media (max-width: 560px) {
+  .disclosure-pair { grid-template-columns: minmax(0, 1fr); }
+  .boss-pattern-table.pattern-table-simple tbody td:nth-child(2)::before { content: "동작"; }
+}

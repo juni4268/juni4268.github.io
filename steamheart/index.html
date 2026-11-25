@@ -20,8 +20,8 @@
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
   <link rel="stylesheet" href="../plain.css?v=projects-2">
   <link rel="stylesheet" href="../portfolio.css?v=dock-hide">
-  <link rel="stylesheet" href="./steamheart.css?v=pattern-loop">
-  <script type="module" src="./boss-pattern-player.js?v=loop"></script>
+  <link rel="stylesheet" href="./steamheart.css?v=boss-one-table">
+  <script type="module" src="./boss-pattern-player.js?v=groups"></script>
   <script type="module" src="../dock.js"></script>
 </head>
 <body class="home-page steamheart-page portfolio-nav-page portfolio-detail-page">
@@ -68,7 +68,10 @@
         </dl>
       </div>
       <figure class="project-media">
-        <img src="../assets/steamheart/lowertown.webp" width="1672" height="941" alt="주인공이 나무 발판에서 따뜻한 조명이 켜진 하층 도시를 바라보는 모습">
+        <video autoplay muted loop playsinline poster="../assets/steamheart/hero-patterns.webp" width="960" height="540" aria-label="최종 보스의 여섯 가지 패턴이 차례로 나오는 반복 영상, 무음">
+          <source src="../assets/steamheart/hero-patterns.mp4" type="video/mp4">
+        </video>
+        <figcaption>최종 보스의 여섯 가지 패턴 · 무음</figcaption>
       </figure>
     </section>
 
@@ -82,10 +85,10 @@
           <p>아래 표에서 패턴 이름을 누르면 그 패턴의 영상이 재생됩니다.</p>
         </div>
         <figure class="project-media">
-          <video id="boss-pattern-video" controls muted playsinline preload="none" poster="../assets/boss2-poster.webp" width="1280" height="720" aria-label="SteamHeart 최종 보스의 패턴을 차례로 보여주는 영상, 무음">
+          <video id="boss-pattern-video" data-pattern-video controls muted playsinline preload="none" poster="../assets/boss2-poster.webp" width="1280" height="720" aria-label="SteamHeart 최종 보스의 패턴을 차례로 보여주는 영상, 무음">
             <source src="../assets/video/boss2.mp4" type="video/mp4">
           </video>
-          <figcaption><span id="boss-pattern-caption" aria-live="polite">최종 보스의 패턴을 차례로 보여주는 영상 · 56초 · 무음</span> <button type="button" class="boss-pattern-reset" hidden>전체 영상으로</button></figcaption>
+          <figcaption><span id="boss-pattern-caption" data-pattern-caption aria-live="polite">최종 보스의 패턴을 차례로 보여주는 영상 · 56초 · 무음</span> <button type="button" class="boss-pattern-reset" hidden>전체 영상으로</button></figcaption>
         </figure>
       </div>
       <table class="boss-pattern-table" aria-labelledby="boss-title">
@@ -141,22 +144,76 @@
           </tr>
         </tbody>
       </table>
+      <details class="project-disclosure">
+        <summary>자세히: 공격이 중단될 때의 처리</summary>
+        <div class="disclosure-body">
+          <p>공격이 끝났을 때와 도중에 끊겼을 때는 같은 종료 처리를 탑니다. 여기서 경고 표시와 공격 판정을 지우고 예약을 풀어서, 그 부위를 다음 패턴이 다시 쓸 수 있습니다.</p>
+          <p>끊기는 도중에 정리가 한 번만 실행되는지, 다른 패턴이 쓰고 있는 부위에 영향을 주지 않는지는 회귀 테스트로 확인합니다.</p>
+          <div class="disclosure-pair">
+            <figure class="project-media">
+              <img src="../assets/steamheart/boss-cancellation-before.webp" width="1280" height="720" alt="최종 보스의 손 두 개가 광선을 쏘고 링이 플레이어 앞에 떠 있는 장면" loading="lazy">
+              <figcaption>중단 전</figcaption>
+            </figure>
+            <figure class="project-media">
+              <img src="../assets/steamheart/boss-cancellation-after.webp" width="1280" height="720" alt="광선이 하나만 남고 링이 떠 있는 장면" loading="lazy">
+              <figcaption>중단 후</figcaption>
+            </figure>
+          </div>
+        </div>
+      </details>
     </section>
 
     <section class="project-section" id="boss-one" aria-labelledby="boss-one-title">
-      <h2 id="boss-one-title">보스 1의 잔해를 활용한 연계 공격</h2>
+      <h2 id="boss-one-title">보스 1의 공격 패턴과 잔해 연계</h2>
       <div class="case-grid">
-        <div class="case-copy">
-          <p>양손 내려찍기로 만든 잔해는 착지하면 장애물로 남고, 과부하에서는 그 잔해를 쳐서 날립니다.</p>
+        <div class="case-copy boss-pattern-notes">
+          <p>보스 1 ‘폐기된 파괴자’는 양손으로 네 가지 패턴을 씁니다. 과부하가 끝나면 본체가 아래로 내려오고, 이때가 공격 기회입니다.</p>
+          <h3>잔해 연계</h3>
+          <p>양손 내려찍기로 만든 잔해는 착지하면 장애물로 남습니다. 과부하는 바닥에 잔해가 있을 때 나오는 패턴으로, 손으로 그 잔해를 쳐서 날립니다.</p>
           <p>잔해가 착지하면 낙하 피해 판정을 끄고, 과부하로 발사하면 잔해가 이동한 구간을 검사해 충돌을 처리했습니다. 잔해가 모두 소진되면 내려찍기를 다시 예약해 공급합니다.</p>
         </div>
         <figure class="project-media">
-          <video controls muted playsinline preload="none" poster="../assets/boss1-poster.webp" width="1280" height="720" aria-label="보스 1 폐기된 파괴자의 양손 내려찍기와 잔해 발사, 무음">
+          <video data-pattern-video controls muted playsinline preload="none" poster="../assets/boss1-poster.webp" width="1280" height="720" aria-label="보스 1 폐기된 파괴자의 양손 내려찍기와 잔해 발사, 무음">
             <source src="../assets/steamheart/04-boss-one-debris-chain.mp4" type="video/mp4">
           </video>
-          <figcaption>보스 1 ‘폐기된 파괴자’ 양손 내려찍기와 잔해 발사 · 14초 · 무음</figcaption>
+          <figcaption><span data-pattern-caption aria-live="polite">양손 내려찍기와 잔해 발사 · 14초 · 무음</span> <button type="button" class="boss-pattern-reset" hidden>처음 영상으로</button></figcaption>
         </figure>
       </div>
+      <table class="boss-pattern-table pattern-table-simple" aria-labelledby="boss-one-title">
+        <thead>
+          <tr>
+            <th scope="col">패턴</th>
+            <th scope="col">동작</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <th scope="row"><button type="button" class="boss-pattern-play" data-clip="../assets/steamheart/boss-one-patterns/propeller.mp4" aria-pressed="false">프로펠러 흡입</button></th>
+            <td>손을 프로펠러로 바꿔 플레이어를 끌어당김</td>
+          </tr>
+          <tr>
+            <th scope="row"><button type="button" class="boss-pattern-play" data-clip="../assets/steamheart/boss-one-patterns/slam.mp4" aria-pressed="false">양손 내려찍기</button></th>
+            <td>경고가 표시된 자리를 내려찍고 잔해를 남김</td>
+          </tr>
+          <tr>
+            <th scope="row"><button type="button" class="boss-pattern-play" data-clip="../assets/steamheart/boss-one-patterns/crush.mp4" aria-pressed="false">양손 압착</button></th>
+            <td>바닥을 따라 양손이 가운데로 모이며 압착</td>
+          </tr>
+          <tr>
+            <th scope="row"><button type="button" class="boss-pattern-play" data-clip="../assets/steamheart/boss-one-patterns/overdrive.mp4" aria-pressed="false">과부하</button></th>
+            <td>바닥의 잔해를 손으로 쳐서 날림</td>
+          </tr>
+        </tbody>
+      </table>
+      <details class="project-disclosure">
+        <summary>자세히: 만들면서 고친 문제</summary>
+        <div class="disclosure-body">
+          <h3>내려찍기만 반복하던 문제</h3>
+          <p>5분 시연을 준비하면서 구간별 시간을 기록하며 직접 플레이했습니다. 그 과정에서 내려찍기가 반복해서 선택되어 다른 공격이 나오지 않는 상황을 발견했습니다. 아직 나오지 않은 공격을 먼저 고르고, 가장 위협적인 패턴인 과부하는 첫 순환의 마지막에 나오도록 조건을 정했습니다. 수정 후 패턴 선택 관련 테스트 8개가 통과했습니다.</p>
+          <h3>지나갈 수 없는 잔해 틈</h3>
+          <p>잔해 사이에 틈이 있어 보이는데 캐릭터가 지나가지 못하는 문제를 발견했습니다. 잔해를 서로 붙이거나, 캐릭터가 통과할 만큼 간격을 확보한다는 규칙을 제안했습니다.</p>
+        </div>
+      </details>
     </section>
 
     <section class="project-section" id="retry" aria-labelledby="retry-title">
@@ -176,7 +233,7 @@
           <tbody>
             <tr><th scope="row">보유 고철</th><td>50</td><td>50</td><td>유지</td></tr>
             <tr><th scope="row">공격력 보너스</th><td>+1</td><td>+1</td><td>유지</td></tr>
-            <tr><th scope="row">무기 단계</th><td>1단계</td><td>0단계</td><td>초기화</td></tr>
+            <tr><th scope="row">무기</th><td>강화 무기</td><td>처음 무기</td><td>초기화</td></tr>
           </tbody>
         </table>
         <details class="project-disclosure">
@@ -194,8 +251,12 @@
     <section class="project-section" id="other-work" aria-labelledby="other-work-title">
       <h2 id="other-work-title">그 외 구현</h2>
       <dl class="project-facts implementation-facts">
-        <div><dt>플레이어 전투</dt><dd>지상 2타 콤보의 입력 예약과 타격당 중복 피해 방지</dd></div>
+        <div><dt>플레이어 전투</dt><dd>기본 공격 2타, 공중 공격, 강타, 카운터, 대시. 지상 2타 콤보의 입력 예약과 타격당 중복 피해 방지</dd></div>
+        <div><dt>무기 강화</dt><dd>보스 1을 쓰러뜨리면 기본 공격 피해량이 8 · 12에서 12 · 16으로 증가</dd></div>
+        <div><dt>제작대</dt><dd>고철 5로 재료를 사고, 재료 3개로 공격력·최대 체력·피격 무적 시간을 각각 +10까지 강화</dd></div>
+        <div><dt>적·함정</dt><dd>일반 적 3종, 함정 2종</dd></div>
         <div><dt>레벨·연출</dt><dd>포털 이동과 컷신을 연결한 씬 전환</dd></div>
+        <div><dt>기타</dt><dd>일시정지</dd></div>
       </dl>
     </section>
 
