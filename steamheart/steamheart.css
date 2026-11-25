@@ -158,7 +158,7 @@
 .pattern-caption { margin-top: 0; }
 .pattern-caption .boss-pattern-reset { margin: .45rem 0 0; }
 
-/* 섹션 제목 옆의 기술 문서 버튼과, 같은 자리에서 바뀌는 두 화면 */
+/* 섹션 제목 옆의 구현 방식 버튼과, 같은 자리에서 바뀌는 두 화면 */
 .section-head { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: .6rem 1.5rem; margin-bottom: 1.1rem; }
 .section-head h2 { margin: 0; }
 .doc-toggle { min-height: 2.4rem; padding: .3rem .9rem; border: 1px solid var(--brass); border-radius: .35rem; background: transparent; color: var(--brass); font: inherit; font-weight: 700; cursor: pointer; }
@@ -193,5 +193,8 @@
 .code-source { padding: .5rem .85rem; font-size: .8rem; overflow-wrap: anywhere; }
 .is-swapping-section::view-transition-group(*) { animation-duration: .5s; animation-timing-function: cubic-bezier(.2,.72,.19,1); }
 
-.project-section.is-doc .section-head { position: sticky; top: 0; z-index: 3; margin-inline: -.5rem; padding: .6rem .5rem; background: color-mix(in srgb, var(--bg) 92%, transparent); backdrop-filter: blur(6px); border-bottom: 1px solid var(--rule); }
+/* Same box in both views so the title and button do not shift when the view switches. */
+.has-doc .section-head { margin-inline: -.5rem; padding: .6rem .5rem; border-bottom: 1px solid transparent; }
+.has-doc .doc-toggle { min-width: 6rem; text-align: center; }
+.project-section.is-doc .section-head { position: sticky; top: 0; z-index: 3; background: color-mix(in srgb, var(--bg) 92%, transparent); backdrop-filter: blur(6px); border-bottom-color: var(--rule); }
 .section-doc { scroll-margin-top: 9rem; }

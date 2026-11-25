@@ -20,7 +20,7 @@ for (const section of document.querySelectorAll(".project-section.has-doc")) {
     doc.hidden = !showDoc;
     section.classList.toggle("is-doc", showDoc);
     toggle.setAttribute("aria-pressed", String(showDoc));
-    toggle.textContent = showDoc ? "요약으로" : "기술 문서";
+    toggle.textContent = showDoc ? "요약으로" : "구현 방식";
     if (showDoc) section.querySelector("video")?.pause();
     if (section.getBoundingClientRect().top < 0) section.scrollIntoView({ block: "start", behavior: "instant" });
   };
