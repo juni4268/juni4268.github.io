@@ -199,16 +199,6 @@ return true;</code></pre>
           <p class="code-source"><a href="https://github.com/juni4268/SteamHeart-Portfolio/blob/main/Assets/Scripts/Boss/Boss2/Core/Boss2PatternRunner.cs">Assets/Scripts/Boss/Boss2/Core/Boss2PatternRunner.cs</a></p>
         </details>
         <p>끊기는 도중에 정리가 한 번만 실행되는지, 다른 패턴이 쓰고 있는 부위에 영향을 주지 않는지는 <a href="https://github.com/juni4268/SteamHeart-Portfolio/blob/main/Assets/Editor/Tests/Boss2/Boss2PatternRunnerTests.cs">회귀 테스트</a>로 확인합니다.</p>
-        <div class="disclosure-pair">
-          <figure class="project-media">
-            <img src="../assets/steamheart/boss-cancellation-before.webp" width="1280" height="720" alt="최종 보스의 손 두 개가 광선을 쏘고 링이 플레이어 앞에 떠 있는 장면" loading="lazy">
-            <figcaption>중단 전</figcaption>
-          </figure>
-          <figure class="project-media">
-            <img src="../assets/steamheart/boss-cancellation-after.webp" width="1280" height="720" alt="광선이 하나만 남고 링이 떠 있는 장면" loading="lazy">
-            <figcaption>중단 후</figcaption>
-          </figure>
-        </div>
       </div>
     </section>
 
@@ -370,7 +360,7 @@ for (int i = 0; i &lt; count; i++)
       <dl class="project-facts implementation-facts">
         <div><dt>플레이어 전투</dt><dd>기본 공격 2타, 공중 공격, 강타, 카운터, 대시. 지상 2타 콤보의 입력 예약과 타격당 중복 피해 방지</dd></div>
         <div><dt>무기 강화</dt><dd>보스 1을 쓰러뜨리면 기본 공격 피해량이 8 · 12에서 12 · 16으로 증가</dd></div>
-        <div><dt>제작대</dt><dd>고철 5로 재료를 사고, 재료 3개로 공격력·최대 체력·피격 무적 시간을 각각 +10까지 강화</dd></div>
+        <div><dt>제작대</dt><dd>고철 5로 재료를 사고, 재료 3개로 공격력·최대 체력·피격 무적 시간을 각각 10번까지 강화</dd></div>
         <div><dt>적·함정</dt><dd>일반 적 3종, 함정 2종</dd></div>
         <div><dt>레벨·연출</dt><dd>포털 이동과 컷신을 연결한 씬 전환</dd></div>
         <div><dt>기타</dt><dd>일시정지</dd></div>
@@ -379,7 +369,7 @@ for (int i = 0; i &lt; count; i++)
 
     <section class="project-credits" id="team" aria-labelledby="team-title">
       <h2 id="team-title">크레딧</h2>
-      <p class="credits-result">팀 석복동(5인) · 씬 8개 · 보스 2종 · 일반 적 3종 · 함정 2종 · 컷신 6편</p>
+      <p class="credits-result">팀 석복동(5인) · 씬 8개 · 보스 2종 · 컷신 6편</p>
       <dl class="credits-list">
         <div><dt>최준이</dt><dd>프로그래밍, 애니메이션·연출 적용, 맵 구성·레벨 구현, UI 제작·구현</dd></div>
         <div><dt>전진범</dt><dd>총괄, 기획, 배경 디자인, 레벨 그래픽 디자인</dd></div>
