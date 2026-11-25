@@ -10,7 +10,8 @@
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
   <link rel="stylesheet" href="../plain.css?v=projects-2">
   <link rel="stylesheet" href="../portfolio.css?v=direct-work">
-  <link rel="stylesheet" href="./steamheart.css?v=direct-work">
+  <link rel="stylesheet" href="./steamheart.css?v=boss-pattern-player">
+  <script type="module" src="./boss-pattern-player.js"></script>
 </head>
 <body class="home-page steamheart-page portfolio-nav-page portfolio-detail-page">
 <div class="page">
@@ -56,10 +57,7 @@
         </dl>
       </div>
       <figure class="project-media">
-        <video controls playsinline preload="metadata" poster="../assets/steamheart/final-boss-beams.webp" width="1280" height="720" aria-label="SteamHeart 최종 보스전 플레이 영상, 무음">
-          <source src="../assets/steamheart/01-final-boss-gameplay.mp4" type="video/mp4">
-        </video>
-        <figcaption>최종 보스 ‘코어의 지배자’ 플레이 영상 · 26초 · 무음</figcaption>
+        <img src="../assets/steamheart/lowertown.webp" width="1672" height="941" alt="주인공이 나무 발판에서 따뜻한 조명이 켜진 하층 도시를 바라보는 모습">
       </figure>
     </section>
 
@@ -72,10 +70,10 @@
           <p>블랙홀이 위쪽 손 하나와 링을 쓰는 동안 다른 손은 대포 빔을 발사할 수 있습니다.</p>
         </div>
         <figure class="project-media">
-          <video controls playsinline preload="none" poster="../assets/boss2-poster.webp" width="1280" height="720" aria-label="SteamHeart 최종 보스 공격 패턴 플레이 영상">
+          <video id="boss-pattern-video" controls playsinline preload="none" poster="../assets/boss2-poster.webp" width="1280" height="720" aria-label="SteamHeart 최종 보스 공격 패턴 플레이 영상">
             <source src="../assets/video/boss2.mp4" type="video/mp4">
           </video>
-          <figcaption>최종 보스 공격 패턴 플레이 영상</figcaption>
+          <figcaption id="boss-pattern-caption" aria-live="polite">최종 보스 공격 패턴 플레이 영상</figcaption>
         </figure>
       </div>
       <table class="boss-pattern-table" aria-labelledby="boss-title">
@@ -88,32 +86,44 @@
         </thead>
         <tbody>
           <tr>
-            <th scope="row">대포 빔</th>
+            <th scope="row">
+              <button type="button" class="boss-pattern-play" data-clip="../assets/steamheart/boss-patterns/cannon-beam.mp4" aria-controls="boss-pattern-video" aria-pressed="false">대포 빔</button>
+            </th>
             <td>손마다 독립</td>
             <td>각 손이 따로 조준하고 광선 발사</td>
           </tr>
           <tr>
-            <th scope="row">중력장</th>
+            <th scope="row">
+              <button type="button" class="boss-pattern-play" data-clip="../assets/steamheart/boss-patterns/gravity-field.mp4" aria-controls="boss-pattern-video" aria-pressed="false">중력장</button>
+            </th>
             <td>아래쪽 손 하나</td>
-            <td>플레이어의 이동을 느리게 하는 구역 생성</td>
+            <td>플레이어의 이동을 방해하는 구역 생성</td>
           </tr>
           <tr>
-            <th scope="row">블랙홀(흡수)</th>
+            <th scope="row">
+              <button type="button" class="boss-pattern-play" data-clip="../assets/steamheart/boss-patterns/black-hole.mp4" aria-controls="boss-pattern-video" aria-pressed="false">블랙홀(흡수)</button>
+            </th>
             <td>위쪽 손 하나 + 링</td>
             <td>링에서 발동해 플레이어를 끌어당김</td>
           </tr>
           <tr>
-            <th scope="row">추적 광선</th>
+            <th scope="row">
+              <button type="button" class="boss-pattern-play" data-clip="../assets/steamheart/boss-patterns/tracking-laser.mp4" aria-controls="boss-pattern-video" aria-pressed="false">추적 광선</button>
+            </th>
             <td>위쪽 손 하나 + 링</td>
             <td>플레이어의 위치를 따라가는 광선 발사</td>
           </tr>
           <tr>
-            <th scope="row">링 버스트(반사 광선)</th>
+            <th scope="row">
+              <button type="button" class="boss-pattern-play" data-clip="../assets/steamheart/boss-patterns/ring-burst.mp4" aria-controls="boss-pattern-video" aria-pressed="false">링 버스트(반사 광선)</button>
+            </th>
             <td>네 손 + 링</td>
             <td>네 손으로 링을 충전해 벽에 반사되는 광선 발사</td>
           </tr>
           <tr>
-            <th scope="row">코어 버스트(중심폭발)</th>
+            <th scope="row">
+              <button type="button" class="boss-pattern-play" data-clip="../assets/steamheart/boss-patterns/core-burst.mp4" aria-controls="boss-pattern-video" aria-pressed="false">코어 버스트(중심폭발)</button>
+            </th>
             <td>네 손 + 링</td>
             <td>2페이즈에서 발동하며 보호막 안에서 회피 가능</td>
           </tr>
