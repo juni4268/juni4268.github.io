@@ -28,13 +28,14 @@ function page(project) {
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="theme-color" content="#fff7e8">
+  <meta name="theme-color" content="#f8f6ee">
   <meta name="description" content="${html(project.description)}">
   <title>${html(project.name)} | 최준이</title>
+  <link rel="icon" href="../favicon.svg" type="image/svg+xml">
   <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
   <link rel="stylesheet" href="../plain.css?v=projects-2">
-  <link rel="stylesheet" href="../portfolio.css?v=direct-work">
+  <link rel="stylesheet" href="../portfolio.css?v=detail-colors">
 </head>
 <body class="home-page portfolio-page portfolio-nav-page portfolio-detail-page">
 <div class="page">

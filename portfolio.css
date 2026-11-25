@@ -6,6 +6,15 @@
   --brass: #9a2853;
 }
 
+/* 작품 상세 페이지는 모두 SteamHeart와 같은 색을 쓴다 (메인만 위의 크림·자주색) */
+.portfolio-detail-page {
+  --bg: #f8f6ee;
+  --ink: #191c23;
+  --soft: #565a64;
+  --rule: #c8c8c5;
+  --brass: #173dd6;
+}
+
 .portfolio-nav-page {
   --dock-bottom: max(.75rem, env(safe-area-inset-bottom));
   --dock-space: calc(var(--dock-bottom) + 4.25rem);
