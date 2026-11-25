@@ -168,6 +168,30 @@ enum class ECPREventStatus : uint8
 }</code></pre>
           <p class="code-source"><a href="https://github.com/juni4268/SAFE_OUT-Portfolio/blob/main/Source/Project_CPR/CPREventBase.cpp">Source/Project_CPR/CPREventBase.cpp</a></p>
         </details>
+        <h3>제한 시간</h3>
+        <p>이벤트가 발생 상태가 되면 부모 클래스가 제한 시간 타이머를 겁니다. 시간이 다 되면 실패 상태로 바꾸고 사망 연출을 실행합니다. 화면에서는 폭발, 화재처럼 사고마다 다르게 보이지만, 시간이 다 됐을 때의 처리는 이 함수에서 시작합니다. 화재, 기계 과열, 보일러는 이 함수를 이어받아 각자의 사망 연출만 바꿉니다.</p>
+        <details class="code-block">
+          <summary>제한 시간 코드 <span class="code-file">CPREventBase.cpp</span></summary>
+          <pre><code>case ECPREventStatus::Active:
+    if (bHasTimeLimit &amp;&amp; TimeLimit &gt; 0.0f &amp;&amp; !EventTimerHandle.IsValid())
+    {
+        GetWorldTimerManager().SetTimer(EventTimerHandle, this, &amp;ACPREventBase::OnTimerExpired, TimeLimit, false);
+    }
+    break;
+// ...
+void ACPREventBase::OnTimerExpired()
+{
+    if (CurrentStatus == ECPREventStatus::Resolved || CurrentStatus == ECPREventStatus::Failed)
+    {
+        return;
+    }
+
+    ReceiveEventTimeOut();
+    SetEventStatus(ECPREventStatus::Failed);
+    HandleDieSequence();
+}</code></pre>
+          <p class="code-source"><a href="https://github.com/juni4268/SAFE_OUT-Portfolio/blob/main/Source/Project_CPR/CPREventBase.cpp">Source/Project_CPR/CPREventBase.cpp</a></p>
+        </details>
       </div>
     </section>
 
