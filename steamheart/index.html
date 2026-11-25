@@ -68,7 +68,7 @@
           </div>
           <div>
             <dt>코드</dt>
-            <dd><a href="https://github.com/juni4268/Project_K">github.com/juni4268/Project_K <span aria-hidden="true">↗</span></a></dd>
+            <dd><a href="https://github.com/juni4268/SteamHeart-Portfolio">github.com/juni4268/SteamHeart-Portfolio <span aria-hidden="true">↗</span></a></dd>
           </div>
         </dl>
       </div>
@@ -171,7 +171,7 @@ reservations.Add(reservation);
 for (int i = 0; i &lt; nextOwners.Length; i++)
     if ((parts &amp; (Boss2Parts)(1 &lt;&lt; i)) != 0) nextOwners[i] = reservation;
 return true;</code></pre>
-          <p class="code-source"><a href="https://github.com/juni4268/Project_K/blob/main/Assets/Scripts/Boss/Boss2/Core/Boss2PartUsage.cs">Assets/Scripts/Boss/Boss2/Core/Boss2PartUsage.cs</a></p>
+          <p class="code-source"><a href="https://github.com/juni4268/SteamHeart-Portfolio/blob/main/Assets/Scripts/Boss/Boss2/Core/Boss2PartUsage.cs">Assets/Scripts/Boss/Boss2/Core/Boss2PartUsage.cs</a></p>
         </details>
         <h3>공격이 중단될 때의 처리</h3>
         <p>공격이 끝났을 때와 도중에 끊겼을 때는 같은 종료 처리를 탑니다. 여기서 경고 표시와 공격 판정을 지우고 예약을 풀어서, 그 부위를 다음 패턴이 다시 쓸 수 있습니다.</p>
@@ -196,9 +196,9 @@ return true;</code></pre>
     isFinishing = false;
     Finished?.Invoke(this);
 }</code></pre>
-          <p class="code-source"><a href="https://github.com/juni4268/Project_K/blob/main/Assets/Scripts/Boss/Boss2/Core/Boss2PatternRunner.cs">Assets/Scripts/Boss/Boss2/Core/Boss2PatternRunner.cs</a></p>
+          <p class="code-source"><a href="https://github.com/juni4268/SteamHeart-Portfolio/blob/main/Assets/Scripts/Boss/Boss2/Core/Boss2PatternRunner.cs">Assets/Scripts/Boss/Boss2/Core/Boss2PatternRunner.cs</a></p>
         </details>
-        <p>끊기는 도중에 정리가 한 번만 실행되는지, 다른 패턴이 쓰고 있는 부위에 영향을 주지 않는지는 <a href="https://github.com/juni4268/Project_K/blob/main/Assets/Editor/Tests/Boss2/Boss2PatternRunnerTests.cs">회귀 테스트</a>로 확인합니다.</p>
+        <p>끊기는 도중에 정리가 한 번만 실행되는지, 다른 패턴이 쓰고 있는 부위에 영향을 주지 않는지는 <a href="https://github.com/juni4268/SteamHeart-Portfolio/blob/main/Assets/Editor/Tests/Boss2/Boss2PatternRunnerTests.cs">회귀 테스트</a>로 확인합니다.</p>
         <div class="disclosure-pair">
           <figure class="project-media">
             <img src="../assets/steamheart/boss-cancellation-before.webp" width="1280" height="720" alt="최종 보스의 손 두 개가 광선을 쏘고 링이 플레이어 앞에 떠 있는 장면" loading="lazy">
@@ -279,9 +279,9 @@ foreach (Boss1PatternBase pattern in patterns)
 private bool IsCandidate(Boss1PatternBase pattern, Boss1Controller owner, bool preferUnseen, bool deferOverdrive) =&gt;
     !(deferOverdrive &amp;&amp; pattern is Boss1OverdrivePattern)
     &amp;&amp; IsEligible(pattern, owner) &amp;&amp; (!preferUnseen || !presentedPatterns.Contains(pattern));</code></pre>
-          <p class="code-source"><a href="https://github.com/juni4268/Project_K/blob/main/Assets/Scripts/Boss/Boss1/Core/Boss1PatternSelector.cs">Assets/Scripts/Boss/Boss1/Core/Boss1PatternSelector.cs</a></p>
+          <p class="code-source"><a href="https://github.com/juni4268/SteamHeart-Portfolio/blob/main/Assets/Scripts/Boss/Boss1/Core/Boss1PatternSelector.cs">Assets/Scripts/Boss/Boss1/Core/Boss1PatternSelector.cs</a></p>
         </details>
-        <p>수정 후 패턴 선택 관련 <a href="https://github.com/juni4268/Project_K/blob/main/Assets/Editor/Tests/Boss1/Boss1PatternPresentationTests.cs">테스트 8개</a>가 통과했습니다.</p>
+        <p>수정 후 패턴 선택 관련 <a href="https://github.com/juni4268/SteamHeart-Portfolio/blob/main/Assets/Editor/Tests/Boss1/Boss1PatternPresentationTests.cs">테스트 8개</a>가 통과했습니다.</p>
         <h3>지나갈 수 없는 잔해 틈</h3>
         <p>잔해 사이에 틈이 있어 보이는데 캐릭터가 지나가지 못하는 문제를 발견했습니다. 잔해를 서로 붙이거나, 캐릭터가 통과할 만큼 간격을 확보한다는 규칙을 제안했습니다. 낙하 위치를 정할 때 플레이어 폭보다 좁은 틈은 붙이고, 그보다 넓은 틈만 남깁니다.</p>
         <details class="code-block">
@@ -296,7 +296,7 @@ for (int i = 0; i &lt; count; i++)
     if (i &gt; 0 &amp;&amp; dropPositions[i] - dropPositions[i - 1] - debrisWidth &lt; minimumGap)
         dropPositions[i] = dropPositions[i - 1] + spacing;
 }</code></pre>
-          <p class="code-source"><a href="https://github.com/juni4268/Project_K/blob/main/Assets/Scripts/Boss/Boss1/Patterns/Debris/Boss1DebrisField.cs">Assets/Scripts/Boss/Boss1/Patterns/Debris/Boss1DebrisField.cs</a></p>
+          <p class="code-source"><a href="https://github.com/juni4268/SteamHeart-Portfolio/blob/main/Assets/Scripts/Boss/Boss1/Patterns/Debris/Boss1DebrisField.cs">Assets/Scripts/Boss/Boss1/Patterns/Debris/Boss1DebrisField.cs</a></p>
         </details>
       </div>
     </section>
@@ -344,7 +344,7 @@ for (int i = 0; i &lt; count; i++)
     HasWeapon = false;
     WeaponStageIndex = 0;
 }</code></pre>
-          <p class="code-source"><a href="https://github.com/juni4268/Project_K/blob/main/Assets/Scripts/Player/Progress/PlayerRuntimeState.cs">Assets/Scripts/Player/Progress/PlayerRuntimeState.cs</a></p>
+          <p class="code-source"><a href="https://github.com/juni4268/SteamHeart-Portfolio/blob/main/Assets/Scripts/Player/Progress/PlayerRuntimeState.cs">Assets/Scripts/Player/Progress/PlayerRuntimeState.cs</a></p>
         </details>
         <h3>사망했을 때</h3>
         <p>사망하면 도전 상태만 초기화한 뒤 지정된 재시작 씬을 불러옵니다. 영구 진행도는 건드리지 않아서 고철과 공격력 보너스가 그대로 남습니다.</p>
@@ -360,7 +360,7 @@ for (int i = 0; i &lt; count; i++)
             respawnScenePath, fadeOutDuration, fadeInDuration, fadeColor))
     // ...
 }</code></pre>
-          <p class="code-source"><a href="https://github.com/juni4268/Project_K/blob/main/Assets/Scripts/Player/PlayerRespawnController.cs">Assets/Scripts/Player/PlayerRespawnController.cs</a></p>
+          <p class="code-source"><a href="https://github.com/juni4268/SteamHeart-Portfolio/blob/main/Assets/Scripts/Player/PlayerRespawnController.cs">Assets/Scripts/Player/PlayerRespawnController.cs</a></p>
         </details>
       </div>
     </section>
