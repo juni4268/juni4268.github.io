@@ -217,3 +217,4 @@
   .portfolio-detail-page .site-head nav { flex-wrap: nowrap; max-width: 100%; overflow-x: auto; white-space: nowrap; scrollbar-width: none; }
   .portfolio-detail-page .site-head nav::-webkit-scrollbar { display: none; }
 }
+.section-doc .doc-media { max-width: 34rem; margin: 1rem 0 0; }

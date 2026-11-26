@@ -20,7 +20,7 @@
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
   <link rel="stylesheet" href="../plain.css?v=projects-2">
   <link rel="stylesheet" href="../portfolio.css?v=upcoming-3">
-  <link rel="stylesheet" href="../steamheart/steamheart.css?v=hero-top">
+  <link rel="stylesheet" href="../steamheart/steamheart.css?v=doc-media">
   <script type="module" src="../steamheart/boss-pattern-player.js?v=groups"></script>
   <script type="module" src="../steamheart/section-doc.js?v=rename"></script>
   <script type="module" src="../dock.js"></script>
@@ -90,13 +90,13 @@
         <div class="case-copy">
           <p>공장에서 일어나는 사고 여덟 가지를 이벤트로 만들었습니다. 이벤트마다 코드를 따로 만들지 않고, 공통 기능을 부모 클래스 하나에 모은 뒤 각 이벤트는 조건과 결과만 다르게 구현했습니다.</p>
           <p>이벤트는 대기, 발생, 조작 중, 해결, 실패 다섯 상태를 가집니다. 상태가 바뀌면 위치 표시 마커와 상호작용, 화면 표시가 함께 바뀝니다.</p>
-          <p>아래 표에서 사고 이름을 누르면 그 사고를 해결하는 영상이 재생됩니다.</p>
+          <p>영상은 여덟 가지 사고를 차례로 보여줍니다. 아래 표에서 사고 이름을 누르면 그 사고만 따로 재생됩니다.</p>
         </div>
         <figure class="project-media">
-          <video data-pattern-video controls muted playsinline preload="none" poster="../assets/safe-out/posters/invalid-item.webp" width="1280" height="720" aria-label="기계 앞에서 다른 아이템을 사용해 잘못된 아이템이라는 안내가 뜨는 영상, 무음">
-            <source src="../assets/safe-out/invalid-item.mp4" type="video/mp4">
+          <video data-pattern-video controls muted playsinline preload="none" poster="../assets/safe-out/posters/events-overview.webp" width="1280" height="720" aria-label="사고 여덟 가지를 해결하는 장면을 차례로 이어 붙인 영상, 무음">
+            <source src="../assets/safe-out/events-overview.mp4" type="video/mp4">
           </video>
-          <figcaption class="pattern-caption"><span class="visually-hidden" data-pattern-caption aria-live="polite">잘못된 아이템 안내 · 8초 · 무음</span> <button type="button" class="boss-pattern-reset" hidden>처음 영상으로</button></figcaption>
+          <figcaption class="pattern-caption"><span class="visually-hidden" data-pattern-caption aria-live="polite">사고 여덟 가지 · 20초 · 무음</span> <button type="button" class="boss-pattern-reset" hidden>전체 영상으로</button></figcaption>
         </figure>
       </div>
       <table class="boss-pattern-table event-table">
@@ -133,6 +133,11 @@ enum class ECPREventStatus : uint8
         </details>
         <h3>상호작용 조건</h3>
         <p>플레이어가 이벤트를 조작하면 부모 클래스가 먼저 조건을 확인합니다. 사고가 나지 않은 설비이면 정상 가동 중이라고 알리고, 필요한 아이템이 없거나 다른 아이템을 들고 있으면 안내 문구를 띄웁니다. 조건을 통과한 뒤의 동작만 각 이벤트가 따로 구현합니다.</p>
+        <figure class="project-media doc-media">
+          <video controls muted playsinline preload="none" poster="../assets/safe-out/posters/invalid-item.webp" width="1280" height="720" aria-label="기계 앞에서 다른 아이템을 사용해 잘못된 아이템이라는 안내가 뜨는 영상, 무음">
+            <source src="../assets/safe-out/invalid-item.mp4" type="video/mp4">
+          </video>
+        </figure>
         <details class="code-block">
           <summary>상호작용 검사 코드 <span class="code-file">CPREventBase.cpp</span></summary>
           <pre><code>void ACPREventBase::ReceivePlayerInteraction_Implementation(ACPRCharacter* TargetCharacter)
