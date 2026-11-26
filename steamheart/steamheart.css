@@ -218,3 +218,4 @@
   .portfolio-detail-page .site-head nav::-webkit-scrollbar { display: none; }
 }
 .section-doc .doc-media { max-width: 34rem; margin: 1rem 0 0; }
+.case-copy.text-only { max-width: 44rem; }

@@ -30,12 +30,13 @@
     "repo": "https://github.com/juni4268/AKA-Portfolio",
     "name": "AKA",
     "tech": "Unreal Engine 5.6 · C++",
-    "role": "게임 프로그래밍",
-    "description": "던전에서 보스의 돌진과 번개 공격을 피하며 싸우는 탑뷰 보스 러시 액션 게임.",
+    "role": "1인 제작",
+    "description": "쓰러뜨릴 때마다 더 강해지는 보스와 싸우는 탑뷰 보스 러시 액션 게임.",
     "image": "aka-battle.webp",
     "width": 960,
     "height": 540,
-    "alt": "위에서 본 AKA의 던전 보스전"
+    "alt": "위에서 본 AKA의 던전 보스전",
+    "customDetail": true
   },
   {
     "slug": "guardian",

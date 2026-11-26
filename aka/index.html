@@ -4,12 +4,12 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="theme-color" content="#f8f6ee">
-  <meta name="description" content="던전에서 보스의 돌진과 번개 공격을 피하며 싸우는 탑뷰 보스 러시 액션 게임.">
-  <title>AKA | 최준이</title>
+  <meta name="description" content="AKA를 혼자 만든 최준이의 작업 기록. 비헤이비어 트리 보스 AI, 보스 패턴과 페이즈, 돌진과 기둥, 강해지는 보스와 랩타임을 소개합니다.">
+  <title>AKA | 최준이 게임 프로그래밍 포트폴리오</title>
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="최준이 포트폴리오">
   <meta property="og:title" content="AKA | 최준이">
-  <meta property="og:description" content="던전에서 보스의 돌진과 번개 공격을 피하며 싸우는 탑뷰 보스 러시 액션 게임.">
+  <meta property="og:description" content="쓰러뜨릴 때마다 더 강해지는 보스와 싸우는 탑뷰 보스 러시 액션 게임.">
   <meta property="og:url" content="https://juni4268.github.io/aka/">
   <meta property="og:image" content="https://juni4268.github.io/assets/og/aka.jpg">
   <meta property="og:image:width" content="1200">
@@ -20,13 +20,24 @@
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
   <link rel="stylesheet" href="../plain.css?v=projects-2">
   <link rel="stylesheet" href="../portfolio.css?v=upcoming-3">
+  <link rel="stylesheet" href="../steamheart/steamheart.css?v=aka">
+  <script type="module" src="../steamheart/section-doc.js?v=rename"></script>
   <script type="module" src="../dock.js"></script>
 </head>
-<body class="home-page portfolio-page portfolio-nav-page portfolio-detail-page">
+<body class="home-page steamheart-page portfolio-nav-page portfolio-detail-page">
 <div class="page">
   <header class="site-head">
     <a class="me" href="../">최준이</a>
+    <nav aria-label="AKA 목차">
+      <a href="#ai">보스 AI</a>
+      <a href="#patterns">패턴</a>
+      <a href="#pillar">돌진과 기둥</a>
+      <a href="#level">레벨과 랩타임</a>
+      <a href="#other-work">그 외 구현</a>
+    </nav>
   </header>
+
+  <!-- portfolio-rail:start -->
   <nav class="project-rail" aria-labelledby="project-rail-title">
     <p id="project-rail-title">참여 작품</p>
     <ul>
@@ -37,26 +48,297 @@
       <li><a class="is-upcoming" href="../daeva/">DAEVA</a></li>
     </ul>
   </nav>
-  <main class="portfolio-work">
-    <div class="portfolio-work-header">
-      <h1>AKA</h1>
-      <p class="work-tech">Unreal Engine 5.6 · C++</p>
-    </div>
-    <div class="portfolio-work-layout">
-      <img src="../assets/aka-battle.webp" width="960" height="540" alt="위에서 본 AKA의 던전 보스전">
-      <div class="portfolio-work-copy">
-        <p>던전에서 보스의 돌진과 번개 공격을 피하며 싸우는 탑뷰 보스 러시 액션 게임.</p>
-        <dl class="profile-records">
-          <div><dt>담당</dt><dd>게임 프로그래밍</dd></div>
-          <div><dt>코드</dt><dd><a href="https://github.com/juni4268/AKA-Portfolio">github.com/juni4268/AKA-Portfolio <span aria-hidden="true">↗</span></a></dd></div>
+  <!-- portfolio-rail:end -->
+
+  <main>
+    <section class="project-hero" aria-labelledby="project-title">
+      <div class="project-intro">
+        <p class="game-tools">Unreal Engine 5.6 · C++</p>
+        <h1 id="project-title">AKA</h1>
+        <p class="project-summary">쓰러뜨릴 때마다 더 강해져 돌아오는 보스와 싸우며 클리어 시간을 기록하는 탑뷰 보스 러시 액션 게임입니다.</p>
+        <dl class="project-facts">
+          <div>
+            <dt>담당</dt>
+            <dd><strong>1인 제작</strong><br>게임 프로그래밍 전체</dd>
+          </div>
+          <div>
+            <dt>제작</dt>
+            <dd>1인 · 2025년 8월~11월 (4개월)</dd>
+          </div>
+          <div>
+            <dt>코드</dt>
+            <dd><a href="https://github.com/juni4268/AKA-Portfolio">github.com/juni4268/AKA-Portfolio <span aria-hidden="true">↗</span></a></dd>
+          </div>
         </dl>
       </div>
-    </div>
+      <figure class="project-media">
+        <img src="../assets/aka-battle.webp" width="960" height="540" alt="위에서 본 AKA의 던전 보스전">
+      </figure>
+    </section>
+
+    <section class="project-section has-doc" id="ai" aria-labelledby="ai-title">
+      <div class="section-head">
+        <h2 id="ai-title">비헤이비어 트리로 만든 보스 AI</h2>
+        <button type="button" class="doc-toggle" aria-pressed="false" aria-controls="ai-doc">구현 방식</button>
+      </div>
+      <div class="section-view" data-view="summary">
+        <div class="case-copy text-only">
+          <p>보스의 행동은 비헤이비어 트리로 구성했습니다. 근접 공격, 돌진, 점프 공격, 원거리 공격을 각각 하나의 노드로 나누고, 트리가 상황에 맞는 공격을 고릅니다.</p>
+          <p>판단에 필요한 값은 서비스 노드가 0.1초마다 모아 줍니다. 플레이어와의 거리, 현재 페이즈, 기절 여부, 공격 중인지, 패턴마다 남은 대기 시간이 여기서 갱신됩니다.</p>
+        </div>
+      </div>
+      <div class="section-view section-doc" data-view="doc" id="ai-doc" hidden>
+        <h3>상태 갱신</h3>
+        <p>서비스 노드는 보스와 애니메이션 상태를 읽어 블랙보드에 적습니다. 트리의 조건 노드들은 이 값만 보고 다음 행동을 정합니다.</p>
+        <details class="code-block">
+          <summary>상태 갱신 코드 <span class="code-file">BTService_UpdateBossState.cpp</span></summary>
+          <pre><code>BlackboardComp-&gt;SetValueAsBool(IsAttackKey.SelectedKeyName, BossAnim-&gt;isAttack);
+BlackboardComp-&gt;SetValueAsBool(IsStunnedKey.SelectedKeyName, Boss-&gt;bIsStunned);
+BlackboardComp-&gt;SetValueAsInt(BossPhaseKey.SelectedKeyName, Boss-&gt;currentPhase);
+// ...
+if (IsValid(TargetActor))
+{
+    float Distance = FVector::Dist(Boss-&gt;GetActorLocation(), TargetActor-&gt;GetActorLocation());
+    BlackboardComp-&gt;SetValueAsFloat(PlayerDistanceKey.SelectedKeyName, Distance);
+}</code></pre>
+          <p class="code-source"><a href="https://github.com/juni4268/AKA-Portfolio/blob/main/Source/AKA/BTService_UpdateBossState.cpp">Source/AKA/BTService_UpdateBossState.cpp</a></p>
+        </details>
+        <h3>보스가 멈추는 문제</h3>
+        <p>공격 중이라는 표시가 켜진 채로 남아 보스가 다음 행동을 하지 못하는 경우가 있었습니다. 표시는 켜져 있는데 재생 중인 공격 애니메이션이 없으면 표시를 끄도록 했습니다. 점프 공격은 공중에 있는 동안 애니메이션이 없을 수 있어서 이 검사에서 제외했습니다.</p>
+        <details class="code-block">
+          <summary>멈춤 방지 코드 <span class="code-file">BTService_UpdateBossState.cpp</span></summary>
+          <pre><code>// --- Watchdog: Force Reset isAttack if no montage is playing ---
+// Skip this check if we are in a Jump Sequence (as there might be no montage playing mid-air)
+if (BossAnim-&gt;isAttack &amp;&amp; !BossAnim-&gt;Montage_IsPlaying(nullptr) &amp;&amp; !Boss-&gt;IsInJumpSequence())
+{
+    UE_LOG(LogTemp, Warning, TEXT(&quot;Service Watchdog: isAttack is TRUE but no Montage playing. Resetting to FALSE.&quot;));
+    BossAnim-&gt;isAttack = false;
+}</code></pre>
+          <p class="code-source"><a href="https://github.com/juni4268/AKA-Portfolio/blob/main/Source/AKA/BTService_UpdateBossState.cpp">Source/AKA/BTService_UpdateBossState.cpp</a></p>
+        </details>
+      </div>
+    </section>
+
+    <section class="project-section has-doc" id="patterns" aria-labelledby="patterns-title">
+      <div class="section-head">
+        <h2 id="patterns-title">보스 패턴과 세 페이즈</h2>
+        <button type="button" class="doc-toggle" aria-pressed="false" aria-controls="patterns-doc">구현 방식</button>
+      </div>
+      <div class="section-view" data-view="summary">
+        <div class="case-copy text-only">
+          <p>보스는 네 가지 공격을 씁니다. 체력이 3분의 2, 3분의 1 아래로 내려갈 때마다 페이즈가 바뀌어 세 단계로 진행되고, 페이즈가 바뀌면 보스의 겉모습에 덧씌우는 재질이 달라집니다.</p>
+        </div>
+      <table class="boss-pattern-table pattern-table-simple">
+        <thead>
+          <tr><th scope="col">패턴</th><th scope="col">동작</th></tr>
+        </thead>
+        <tbody>
+          <tr><th scope="row">근접 공격</th><td>양손에 붙인 판정 상자로 타격</td></tr>
+          <tr><th scope="row">돌진</th><td>준비 동작 뒤 바라보는 방향으로 직진. 기둥에 부딪히면 기절</td></tr>
+          <tr><th scope="row">점프 공격</th><td>보스가 사라지고 바닥 표시가 플레이어를 따라가다 멈추면 그 자리에 착지</td></tr>
+          <tr><th scope="row">원거리 공격</th><td>번개를 부채꼴로 발사. 2페이즈부터 퍼지는 각도가 넓어짐</td></tr>
+        </tbody>
+      </table>
+      </div>
+      <div class="section-view section-doc" data-view="doc" id="patterns-doc" hidden>
+        <h3>페이즈 전환</h3>
+        <p>피해를 받을 때마다 남은 체력을 확인해 페이즈를 올립니다. 페이즈 값은 서비스 노드를 거쳐 트리로 전달됩니다.</p>
+        <details class="code-block">
+          <summary>페이즈 전환 코드 <span class="code-file">BossMonster.cpp</span></summary>
+          <pre><code>// Phase transition logic
+bool bPhaseChanged = false;
+if (currentPhase == 1 &amp;&amp; currentHP &lt;= (maxHP * 2.0f / 3.0f))
+{
+    currentPhase = 2;
+    bPhaseChanged = true;
+    // ...
+}
+if (currentPhase == 2 &amp;&amp; currentHP &lt;= (maxHP * 1.0f / 3.0f))
+{
+    currentPhase = 3;
+    bPhaseChanged = true;
+    // ...
+}
+
+if (bPhaseChanged)
+{
+    UpdateOverlayMaterial();
+}</code></pre>
+          <p class="code-source"><a href="https://github.com/juni4268/AKA-Portfolio/blob/main/Source/AKA/BossMonster.cpp">Source/AKA/BossMonster.cpp</a></p>
+        </details>
+        <h3>점프 공격의 순서</h3>
+        <p>보스를 숨기고 바닥 표시를 만든 뒤, 정해진 시간 동안 표시가 플레이어를 따라갑니다. 시간이 지나면 표시를 멈추고, 잠시 뒤 그 위치로 착지합니다. 단계 사이의 간격은 타이머로 잇습니다.</p>
+        <details class="code-block">
+          <summary>점프 공격 코드 <span class="code-file">BossMonster.cpp</span></summary>
+          <pre><code>void ABossMonster::Jump_StartInAirPhase()
+{
+    // Hide actor
+    SetActorHiddenInGame(true);
+
+    // Spawn indicator actor
+    if (JumpIndicatorClass)
+    {
+        // ...
+        CurrentIndicator = GetWorld()-&gt;SpawnActor&lt;AJumpAttackIndicator&gt;(JumpIndicatorClass, SpawnLocation, GetActorRotation(), SpawnParams);
+    }
+
+    // Start timer to stop following the player
+    GetWorldTimerManager().SetTimer(JumpFollowTimer, this, &amp;ABossMonster::Jump_LockPositionAndPrepareLand, JumpFollowTime, false);
+}
+
+void ABossMonster::Jump_LockPositionAndPrepareLand()
+{
+    if (CurrentIndicator)
+    {
+        CurrentIndicator-&gt;StopFollowing();
+    }
+    // Start timer to actually land
+    GetWorldTimerManager().SetTimer(JumpLandTimer, this, &amp;ABossMonster::Jump_Land, JumpLandDelay, false);
+}</code></pre>
+          <p class="code-source"><a href="https://github.com/juni4268/AKA-Portfolio/blob/main/Source/AKA/BossMonster.cpp">Source/AKA/BossMonster.cpp</a></p>
+        </details>
+      </div>
+    </section>
+
+    <section class="project-section has-doc" id="pillar" aria-labelledby="pillar-title">
+      <div class="section-head">
+        <h2 id="pillar-title">돌진과 기둥</h2>
+        <button type="button" class="doc-toggle" aria-pressed="false" aria-controls="pillar-doc">구현 방식</button>
+      </div>
+      <div class="section-view" data-view="summary">
+        <div class="case-copy text-only">
+          <p>돌진은 준비와 돌진 두 단계로 나뉩니다. 준비 동작이 끝나는 순간의 방향으로 직진하고, 플레이어는 통과하지만 벽과 장애물에는 부딪힙니다.</p>
+          <p>돌진하는 보스를 기둥으로 유도해 부딪히게 하면 보스가 기절해 공격할 틈이 생깁니다. 기둥은 정해진 횟수만큼 부딪히면 쓰러지고, 쓰러진 기둥은 더 이상 보스를 기절시키지 않습니다.</p>
+        </div>
+      </div>
+      <div class="section-view section-doc" data-view="doc" id="pillar-doc" hidden>
+        <h3>돌진 중 충돌</h3>
+        <p>돌진 중에 부딪힌 대상이 기절을 일으키는 벽이면 기둥에 충격을 전달하고 보스를 기절시킵니다. 그 밖의 장애물이면 돌진만 멈춥니다.</p>
+        <details class="code-block">
+          <summary>돌진 충돌 코드 <span class="code-file">BossMonster.cpp</span></summary>
+          <pre><code>// Check if the actor we hit is a stunnable wall
+if (OtherActor-&gt;ActorHasTag(TEXT(&quot;StunnableWall&quot;)))
+{
+    AStunnablePillar* Pillar = Cast&lt;AStunnablePillar&gt;(OtherActor);
+    if (Pillar)
+    {
+        Pillar-&gt;TakeHitFromBoss(GetActorForwardVector());
+    }
+    // Stun regardless of whether it was a pillar class, as long as it has the tag
+    Stun();
+}</code></pre>
+          <p class="code-source"><a href="https://github.com/juni4268/AKA-Portfolio/blob/main/Source/AKA/BossMonster.cpp">Source/AKA/BossMonster.cpp</a></p>
+        </details>
+        <h3>쓰러지는 기둥</h3>
+        <p>기둥은 부딪힌 횟수를 세다가 한도에 닿으면 물리 시뮬레이션을 켜고, 보스가 달려온 방향으로 밀려 쓰러집니다. 이때 기절을 일으키는 표시를 떼어 냅니다.</p>
+        <details class="code-block">
+          <summary>기둥 코드 <span class="code-file">StunnablePillar.cpp</span></summary>
+          <pre><code>void AStunnablePillar::TakeHitFromBoss(FVector BossForwardVector)
+{
+    if (bIsBroken) return;
+
+    CurrentHits++;
+    // ...
+    if (CurrentHits &gt;= MaxHits)
+    {
+        // ...
+        bIsBroken = true;
+
+        // Enable Physics to make it fall
+        MeshComp-&gt;SetSimulatePhysics(true);
+        MeshComp-&gt;SetCollisionProfileName(TEXT(&quot;PhysicsActor&quot;)); // Change to physics-enabled profile
+
+        // Apply a push in the direction the boss was dashing
+        // Increased strength significantly
+        FVector Impulse = BossForwardVector * (FallImpulseStrength * 5.0f);
+        // Apply slightly upwards so it tips over nicely
+        Impulse.Z += (FallImpulseStrength * 2.0f);
+
+        MeshComp-&gt;AddImpulse(Impulse);
+
+        // Optional: Remove the tag so the boss doesn&#x27;t get stunned by the debris on the floor
+        Tags.Remove(TEXT(&quot;StunnableWall&quot;));
+        // ...
+    }
+}</code></pre>
+          <p class="code-source"><a href="https://github.com/juni4268/AKA-Portfolio/blob/main/Source/AKA/StunnablePillar.cpp">Source/AKA/StunnablePillar.cpp</a></p>
+        </details>
+      </div>
+    </section>
+
+    <section class="project-section has-doc" id="level" aria-labelledby="level-title">
+      <div class="section-head">
+        <h2 id="level-title">강해지는 보스와 랩타임</h2>
+        <button type="button" class="doc-toggle" aria-pressed="false" aria-controls="level-doc">구현 방식</button>
+      </div>
+      <div class="section-view" data-view="summary">
+        <div class="case-copy text-only">
+          <p>보스를 쓰러뜨리면 레벨이 올라 다시 등장합니다. 레벨이 오를 때마다 체력, 공격별 피해량, 번개의 속도가 함께 올라갑니다. 레벨 3의 보스를 쓰러뜨리면 클리어입니다.</p>
+          <p>보스 하나를 쓰러뜨리는 데 걸린 시간을 랩타임으로 기록하고, 레벨 순서대로 보여 줍니다.</p>
+        </div>
+      </div>
+      <div class="section-view section-doc" data-view="doc" id="level-doc" hidden>
+        <h3>레벨에 따른 수치</h3>
+        <p>보스가 등장할 때 레벨에 맞춰 수치를 다시 계산합니다.</p>
+        <details class="code-block">
+          <summary>보스 레벨 코드 <span class="code-file">BossMonster.cpp</span></summary>
+          <pre><code>void ABossMonster::LevelUpBoss()
+{
+    // Scale HP: InitialHP + 500 per level
+    maxHP = InitialHP + (BossLevel * 150.0f);
+    currentHP = maxHP;
+
+    // Scale Damage based on BossLevel using base values defined in header as reference
+    // Base Punch: 5, Dash: 20, Jump: 20, Lightning: 10
+    PunchDamage = BossLevel * 5.0f;
+    DashDamage = 10.0f + (BossLevel * 5.0f);
+    JumpDamage = 10.0f + (BossLevel * 5.0f);
+    BossLightningDamage = BossLevel * 5.0f;
+    BossLightningSpeed = 850.0f + (BossLevel * 50.0f);
+    // ...
+}</code></pre>
+          <p class="code-source"><a href="https://github.com/juni4268/AKA-Portfolio/blob/main/Source/AKA/BossMonster.cpp">Source/AKA/BossMonster.cpp</a></p>
+        </details>
+        <h3>랩타임 기록</h3>
+        <p>기록은 레벨이 바뀌어도 남도록 게임 인스턴스에 보관하고, 추가할 때마다 보스 레벨 순으로 정렬합니다.</p>
+        <details class="code-block">
+          <summary>랩타임 코드 <span class="code-file">AKAGameInstance.cpp</span></summary>
+          <pre><code>void UAKAGameInstance::AddLapTime(int32 Level, float Time)
+{
+    FLapTimeData NewRecord;
+    NewRecord.BossLevel = Level;
+    NewRecord.LapTime = Time;
+    LapTimeRecords.Add(NewRecord);
+
+    // Sort by BossLevel (Ascending) to show progression
+    LapTimeRecords.Sort([](const FLapTimeData&amp; A, const FLapTimeData&amp; B)
+    {
+        return A.BossLevel &lt; B.BossLevel;
+    });
+}</code></pre>
+          <p class="code-source"><a href="https://github.com/juni4268/AKA-Portfolio/blob/main/Source/AKA/AKAGameInstance.cpp">Source/AKA/AKAGameInstance.cpp</a></p>
+        </details>
+      </div>
+    </section>
+
+    <section class="project-section" id="other-work" aria-labelledby="other-work-title">
+      <h2 id="other-work-title">그 외 구현</h2>
+      <dl class="project-facts implementation-facts">
+        <div><dt>플레이어</dt><dd>이동, 번개 발사. 맞으면 보스 반대 방향으로 밀려남</dd></div>
+        <div><dt>엄폐물</dt><dd>체력이 있어 공격을 받으면 부서지는 엄폐물</dd></div>
+        <div><dt>구역 전환</dt><dd>보스 구역에 들어서면 카메라, HUD, 랩타임 보드를 전환</dd></div>
+        <div><dt>UI</dt><dd>플레이어 체력, 보스 체력, 랩타임 보드, 타이틀, 클리어 화면</dd></div>
+        <div><dt>음악</dt><dd>전투 시작과 종료에 맞춰 배경 음악을 전환</dd></div>
+      </dl>
+    </section>
   </main>
+
 </div>
+  <!-- portfolio-navigation:start -->
   <nav class="portfolio-dock" aria-label="사이트 메뉴">
     <a href="../">메인</a>
     <a href="../aka/" id="games" aria-current="page">작품 상세</a>
   </nav>
+  <!-- portfolio-navigation:end -->
 </body>
 </html>
