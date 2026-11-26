@@ -209,3 +209,11 @@
   .boss-pattern-table.event-table tbody td:nth-child(2)::before { content: "실패 조건"; }
   .boss-pattern-table.event-table tbody td:nth-child(3)::before { content: "해결"; }
 }
+
+/* Same starting line on every work page: title and video both sit at the top of the hero. */
+.project-hero { align-items: start; }
+/* The section menu stays on one line and scrolls sideways when it does not fit. */
+@media (max-width: 760px) {
+  .portfolio-detail-page .site-head nav { flex-wrap: nowrap; max-width: 100%; overflow-x: auto; white-space: nowrap; scrollbar-width: none; }
+  .portfolio-detail-page .site-head nav::-webkit-scrollbar { display: none; }
+}
