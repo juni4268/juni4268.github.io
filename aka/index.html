@@ -22,6 +22,7 @@
   <link rel="stylesheet" href="../portfolio.css?v=upcoming-3">
   <link rel="stylesheet" href="../steamheart/steamheart.css?v=aka">
   <script type="module" src="../steamheart/section-doc.js?v=rename"></script>
+  <script type="module" src="../steamheart/boss-pattern-player.js?v=groups"></script>
   <script type="module" src="../dock.js"></script>
 </head>
 <body class="home-page steamheart-page portfolio-nav-page portfolio-detail-page">
@@ -72,7 +73,9 @@
         </dl>
       </div>
       <figure class="project-media">
-        <img src="../assets/aka-battle.webp" width="960" height="540" alt="위에서 본 AKA의 던전 보스전">
+        <video autoplay muted loop playsinline controls poster="../assets/aka/posters/boss-fight.webp" width="1280" height="720" aria-label="위에서 내려다본 던전에서 보스의 공격을 피하며 싸우는 AKA 보스전 영상, 무음">
+          <source src="../assets/aka/boss-fight.mp4" type="video/mp4">
+        </video>
       </figure>
     </section>
 
@@ -125,18 +128,27 @@ if (BossAnim-&gt;isAttack &amp;&amp; !BossAnim-&gt;Montage_IsPlaying(nullptr) &a
         <button type="button" class="doc-toggle" aria-pressed="false" aria-controls="patterns-doc">구현 방식</button>
       </div>
       <div class="section-view" data-view="summary">
-        <div class="case-copy text-only">
+      <div class="case-grid">
+        <div class="case-copy">
           <p>보스는 네 가지 공격을 씁니다. 체력이 3분의 2, 3분의 1 아래로 내려갈 때마다 페이즈가 바뀌어 세 단계로 진행되고, 페이즈가 바뀌면 보스의 겉모습에 덧씌우는 재질이 달라집니다.</p>
+          <p>영상은 네 가지 공격을 차례로 보여줍니다. 아래 표에서 공격 이름을 누르면 그 공격만 따로 재생됩니다.</p>
         </div>
+        <figure class="project-media">
+          <video data-pattern-video controls muted playsinline preload="none" poster="../assets/aka/posters/patterns.webp" width="1280" height="720" aria-label="보스의 근접 공격, 돌진, 점프 공격, 원거리 공격을 차례로 이어 붙인 영상, 무음">
+            <source src="../assets/aka/patterns-overview.mp4" type="video/mp4">
+          </video>
+          <figcaption class="pattern-caption"><span class="visually-hidden" data-pattern-caption aria-live="polite">공격 네 가지 · 12초 · 무음</span> <button type="button" class="boss-pattern-reset" hidden>전체 영상으로</button></figcaption>
+        </figure>
+      </div>
       <table class="boss-pattern-table pattern-table-simple">
         <thead>
           <tr><th scope="col">패턴</th><th scope="col">동작</th></tr>
         </thead>
         <tbody>
-          <tr><th scope="row">근접 공격</th><td>양손에 붙인 판정 상자로 타격</td></tr>
-          <tr><th scope="row">돌진</th><td>준비 동작 뒤 바라보는 방향으로 직진. 기둥에 부딪히면 기절</td></tr>
-          <tr><th scope="row">점프 공격</th><td>보스가 사라지고 바닥 표시가 플레이어를 따라가다 멈추면 그 자리에 착지</td></tr>
-          <tr><th scope="row">원거리 공격</th><td>번개를 부채꼴로 발사. 2페이즈부터 퍼지는 각도가 넓어짐</td></tr>
+          <tr><th scope="row"><button type="button" class="boss-pattern-play" data-clip="../assets/aka/patterns/melee.mp4" aria-pressed="false">근접 공격</button></th><td>양손에 붙인 판정 상자로 타격</td></tr>
+          <tr><th scope="row"><button type="button" class="boss-pattern-play" data-clip="../assets/aka/patterns/dash.mp4" aria-pressed="false">돌진</button></th><td>준비 동작 뒤 바라보는 방향으로 직진. 기둥에 부딪히면 기절</td></tr>
+          <tr><th scope="row"><button type="button" class="boss-pattern-play" data-clip="../assets/aka/patterns/jump.mp4" aria-pressed="false">점프 공격</button></th><td>보스가 사라지고 바닥 표시가 플레이어를 따라가다 멈추면 그 자리에 착지</td></tr>
+          <tr><th scope="row"><button type="button" class="boss-pattern-play" data-clip="../assets/aka/patterns/ranged.mp4" aria-pressed="false">원거리 공격</button></th><td>번개를 부채꼴로 발사. 2페이즈부터 퍼지는 각도가 넓어짐</td></tr>
         </tbody>
       </table>
       </div>
@@ -206,10 +218,17 @@ void ABossMonster::Jump_LockPositionAndPrepareLand()
         <button type="button" class="doc-toggle" aria-pressed="false" aria-controls="pillar-doc">구현 방식</button>
       </div>
       <div class="section-view" data-view="summary">
-        <div class="case-copy text-only">
+      <div class="case-grid">
+        <div class="case-copy">
           <p>돌진은 준비와 돌진 두 단계로 나뉩니다. 준비 동작이 끝나는 순간의 방향으로 직진하고, 플레이어는 통과하지만 벽과 장애물에는 부딪힙니다.</p>
           <p>돌진하는 보스를 기둥으로 유도해 부딪히게 하면 보스가 기절해 공격할 틈이 생깁니다. 기둥은 정해진 횟수만큼 부딪히면 쓰러지고, 쓰러진 기둥은 더 이상 보스를 기절시키지 않습니다.</p>
         </div>
+        <figure class="project-media">
+          <video controls muted playsinline preload="none" poster="../assets/aka/posters/pillar.webp" width="1280" height="720" aria-label="돌진하던 보스가 기둥에 부딪혀 기절하고, 여러 번 부딪힌 기둥이 쓰러지는 영상, 무음">
+            <source src="../assets/aka/pillar.mp4" type="video/mp4">
+          </video>
+        </figure>
+      </div>
       </div>
       <div class="section-view section-doc" data-view="doc" id="pillar-doc" hidden>
         <h3>돌진 중 충돌</h3>
@@ -272,10 +291,17 @@ if (OtherActor-&gt;ActorHasTag(TEXT(&quot;StunnableWall&quot;)))
         <button type="button" class="doc-toggle" aria-pressed="false" aria-controls="level-doc">구현 방식</button>
       </div>
       <div class="section-view" data-view="summary">
-        <div class="case-copy text-only">
+      <div class="case-grid">
+        <div class="case-copy">
           <p>보스를 쓰러뜨리면 레벨이 올라 다시 등장합니다. 레벨이 오를 때마다 체력, 공격별 피해량, 번개의 속도가 함께 올라갑니다. 레벨 3의 보스를 쓰러뜨리면 클리어입니다.</p>
           <p>보스 하나를 쓰러뜨리는 데 걸린 시간을 랩타임으로 기록하고, 레벨 순서대로 보여 줍니다.</p>
         </div>
+        <figure class="project-media">
+          <video controls muted playsinline preload="none" poster="../assets/aka/posters/level-up.webp" width="1280" height="720" aria-label="보스를 쓰러뜨리자 레벨이 오른 보스가 다시 등장하고 랩타임이 기록되는 영상, 무음">
+            <source src="../assets/aka/level-up.mp4" type="video/mp4">
+          </video>
+        </figure>
+      </div>
       </div>
       <div class="section-view section-doc" data-view="doc" id="level-doc" hidden>
         <h3>레벨에 따른 수치</h3>
