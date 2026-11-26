@@ -22,6 +22,7 @@
   <link rel="stylesheet" href="../portfolio.css?v=upcoming-3">
   <link rel="stylesheet" href="../steamheart/steamheart.css?v=aka">
   <script type="module" src="../steamheart/section-doc.js?v=rename"></script>
+  <script type="module" src="../steamheart/boss-pattern-player.js?v=groups"></script>
   <script type="module" src="../dock.js"></script>
 </head>
 <body class="home-page steamheart-page portfolio-nav-page portfolio-detail-page">
@@ -71,7 +72,9 @@
         </dl>
       </div>
       <figure class="project-media">
-        <img src="../assets/daeva-battle.webp" width="960" height="540" alt="사막 협곡에서 마법사가 몬스터와 맞서는 DAEVA의 플레이 화면">
+        <video autoplay muted loop playsinline controls poster="../assets/daeva/posters/main.webp" width="1280" height="720" aria-label="사막 협곡에서 마법사가 기본 공격, 순간이동, 범위 스킬로 몬스터와 싸우는 DAEVA 플레이 영상, 무음">
+          <source src="../assets/daeva/main.mp4" type="video/mp4">
+        </video>
       </figure>
     </section>
 
@@ -81,10 +84,18 @@
         <button type="button" class="doc-toggle" aria-pressed="false" aria-controls="spawn-doc">구현 방식</button>
       </div>
       <div class="section-view" data-view="summary">
-        <div class="case-copy text-only">
+      <div class="case-grid">
+        <div class="case-copy">
           <p>몬스터는 맵에 놓아 둔 생성 지점 중 한 곳에서 무작위로 나옵니다. 다음 몬스터가 나오기까지의 간격은 경과 시간에 따라 네 단계로 줄어들어, 후반으로 갈수록 몬스터가 몰려옵니다.</p>
           <p>정예 몬스터는 시작할 때 한 마리, 그 뒤로 1분마다 한 마리씩 추가로 나옵니다. 정예 몬스터에게 맞으면 일반 몬스터의 두 배 피해를 받습니다.</p>
+          <p>영상은 시작 직후, 1분 무렵, 종료 직전을 차례로 보여줍니다.</p>
         </div>
+        <figure class="project-media">
+          <video controls muted playsinline preload="none" poster="../assets/daeva/posters/spawn.webp" width="1280" height="720" aria-label="시작 직후, 1분 무렵, 종료 직전의 몬스터 수를 차례로 보여 주고 클리어 화면으로 끝나는 영상, 무음">
+            <source src="../assets/daeva/spawn.mp4" type="video/mp4">
+          </video>
+        </figure>
+      </div>
       <table class="boss-pattern-table pattern-table-simple">
         <thead>
           <tr><th scope="col">경과 시간</th><th scope="col">생성 간격</th></tr>
@@ -153,10 +164,17 @@ if (currentMinute &gt; lastSpawnMinute)
         <button type="button" class="doc-toggle" aria-pressed="false" aria-controls="ai-doc">구현 방식</button>
       </div>
       <div class="section-view" data-view="summary">
-        <div class="case-copy text-only">
+      <div class="case-grid">
+        <div class="case-copy">
           <p>몬스터의 행동은 대기, 이동, 피격, 사망 네 가지 상태로 나눴습니다. 상태 처리는 몬스터에 붙이는 컴포넌트 하나에 모아서, 일반 몬스터와 정예 몬스터가 같은 코드를 씁니다.</p>
           <p>이동 상태에서는 플레이어까지 가는 길이 있으면 플레이어를 쫓고, 길이 없으면 주변의 임의 지점으로 움직입니다. 공격 거리 안에 들어오면 멈춰서 플레이어 쪽으로 돌아보며 공격합니다.</p>
         </div>
+        <figure class="project-media">
+          <video controls muted playsinline preload="none" poster="../assets/daeva/posters/monster-ai.webp" width="1280" height="720" aria-label="몬스터가 플레이어를 쫓아와 공격하고, 공격을 맞아 움찔한 뒤 쓰러져 사라지는 영상, 무음">
+            <source src="../assets/daeva/monster-ai.mp4" type="video/mp4">
+          </video>
+        </figure>
+      </div>
       </div>
       <div class="section-view section-doc" data-view="doc" id="ai-doc" hidden>
         <h3>상태 처리</h3>
@@ -219,17 +237,26 @@ currentTime += GetWorld()-&gt;DeltaTimeSeconds;</code></pre>
         <button type="button" class="doc-toggle" aria-pressed="false" aria-controls="skills-doc">구현 방식</button>
       </div>
       <div class="section-view" data-view="summary">
-        <div class="case-copy text-only">
+      <div class="case-grid">
+        <div class="case-copy">
           <p>플레이어는 기본 공격과 두 가지 스킬을 씁니다. 스킬마다 다시 쓸 수 있을 때까지 남은 시간을 화면에 표시합니다.</p>
+          <p>영상은 세 가지를 차례로 보여줍니다. 아래 표에서 스킬 이름을 누르면 그 스킬만 따로 재생됩니다.</p>
         </div>
+        <figure class="project-media">
+          <video data-pattern-video controls muted playsinline preload="none" poster="../assets/daeva/posters/skills.webp" width="1280" height="720" aria-label="기본 공격, 순간이동, 범위 스킬을 차례로 이어 붙인 영상, 무음">
+            <source src="../assets/daeva/skills-overview.mp4" type="video/mp4">
+          </video>
+          <figcaption class="pattern-caption"><span class="visually-hidden" data-pattern-caption aria-live="polite">스킬 세 가지 · 13초 · 무음</span> <button type="button" class="boss-pattern-reset" hidden>전체 영상으로</button></figcaption>
+        </figure>
+      </div>
       <table class="boss-pattern-table pattern-table-simple">
         <thead>
           <tr><th scope="col">스킬</th><th scope="col">동작</th><th scope="col">재사용 대기</th></tr>
         </thead>
         <tbody>
-          <tr><th scope="row">기본 공격</th><td>마법 투사체 발사. 맞은 대상과 그 주변의 몬스터에게 함께 피해</td><td>0.8초</td></tr>
-          <tr><th scope="row">순간이동</th><td>바라보는 방향으로 순간이동</td><td>20초</td></tr>
-          <tr><th scope="row">범위 스킬</th><td>발밑에 마법진을 깔고 2초 뒤 폭발. 범위 안의 몬스터를 처치</td><td>45초</td></tr>
+          <tr><th scope="row"><button type="button" class="boss-pattern-play" data-clip="../assets/daeva/skills/basic-attack.mp4" aria-pressed="false">기본 공격</button></th><td>마법 투사체 발사. 맞은 대상과 그 주변의 몬스터에게 함께 피해</td><td>0.8초</td></tr>
+          <tr><th scope="row"><button type="button" class="boss-pattern-play" data-clip="../assets/daeva/skills/teleport.mp4" aria-pressed="false">순간이동</button></th><td>바라보는 방향으로 순간이동</td><td>20초</td></tr>
+          <tr><th scope="row"><button type="button" class="boss-pattern-play" data-clip="../assets/daeva/skills/area-skill.mp4" aria-pressed="false">범위 스킬</button></th><td>발밑에 마법진을 깔고 2초 뒤 폭발. 범위 안의 몬스터를 처치</td><td>45초</td></tr>
         </tbody>
       </table>
       </div>
