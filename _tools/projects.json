@@ -50,17 +50,5 @@
     "height": 540,
     "alt": "사막 협곡에서 마법사가 몬스터와 맞서는 DAEVA의 플레이 화면",
     "customDetail": true
-  },
-  {
-    "slug": "guardian",
-    "name": "수호의 창",
-    "tech": "Unreal Engine 5.6 · C++ · PaperZD",
-    "role": "게임 프로그래밍 · 프로그래머 2인 협업",
-    "description": "몬스터를 쓰러뜨려 경험치를 쌓고, 레벨이 오를 때마다 강화할 능력을 고르는 2D 픽셀 액션 게임.",
-    "image": "guardian-title.webp",
-    "width": 960,
-    "height": 548,
-    "alt": "창을 든 인물이 멀리 있는 성을 바라보는 수호의 창 타이틀 배경",
-    "upcoming": true
   }
 ]
