@@ -11,12 +11,11 @@ const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
 const MAP_W = 437, MAP_H = 260, VIDEO_X = 257, VIDEO_Y = 84, VIDEO_W = 156;
 const BAYER = [0,32,8,40,2,34,10,42,48,16,56,24,50,18,58,26,12,44,4,36,14,46,6,38,60,28,52,20,62,30,54,22,
   3,35,11,43,1,33,9,41,51,19,59,27,49,17,57,25,15,47,7,39,13,45,5,37,63,31,55,23,61,29,53,21];
-const GATHER = 430, HOLD = 190, FORM = 260; // 밀리초: 별로 모임, 머묾, 모양으로 퍼짐
+const MOVE = 1150, MOVE_LAG = 340; // 밀리초: 점이 새 자리로 가는 시간, 점마다 출발을 늦추는 최대 폭
 
 let seed = 1;
 const random = () => (seed = seed * 16807 % 2147483647) / 2147483647;
 const smooth = u => u * u * (3 - 2 * u);
-const easeOut = u => 1 - (1 - u) ** 3;
 const clamp01 = u => Math.min(1, Math.max(0, u));
 
 async function loadShape(slug) {
@@ -119,33 +118,23 @@ async function start() {
     const from = current, fromCount = from.length / 2, toCount = target.length / 2;
     const count = Math.max(fromCount, toCount, 1);
     const moving = new Float32Array(count * 2);
-    const total = (fromCount ? GATHER + HOLD : 0) + FORM;
     const began = performance.now();
-    let drawn = 0;
 
+    // 점 하나하나가 지금 자리에서 새 모양의 자리로 곧장 날아간다.
+    // 두 모양의 점 개수가 다르면, 남는 점은 다른 점과 같은 자리로 겹쳐 들어가고 모자란 점은 겹쳐 있던 자리에서 갈라져 나온다.
     const step = now => {
       const time = now - began;
-      const formAt = fromCount ? GATHER + HOLD : 0;
-      drawn = 0;
       for (let i = 0; i < count; i++) {
-        const star = stars[i % stars.length];
+        const a = fromCount ? (i % fromCount) * 2 : (i % toCount) * 2, b = (i % toCount) * 2;
+        const source = fromCount ? from : target;
         const lag = ((i * 2654435761) >>> 0) / 4294967296; // 점마다 조금씩 다른 출발 시간
-        let x, y;
-        if (time < formAt) {
-          const u = smooth(clamp01((time - lag * 60) / (GATHER - 60)));
-          if (i >= fromCount) continue;
-          x = from[i * 2] + (star.x - from[i * 2]) * u; y = from[i * 2 + 1] + (star.y - from[i * 2 + 1]) * u;
-        } else {
-          const u = easeOut(clamp01((time - formAt - lag * 50) / (FORM - 50)));
-          if (i >= toCount) { if (u > .4) continue; x = star.x; y = star.y; }
-          else { x = star.x + (target[i * 2] - star.x) * u; y = star.y + (target[i * 2 + 1] - star.y) * u; }
-        }
-        moving[drawn * 2] = x; moving[drawn * 2 + 1] = y; drawn++;
+        const u = smooth(clamp01((time - lag * MOVE_LAG) / (MOVE - MOVE_LAG)));
+        moving[i * 2] = source[a] + (target[b] - source[a]) * u;
+        moving[i * 2 + 1] = source[a + 1] + (target[b + 1] - source[a + 1]) * u;
       }
-      const glow = fromCount ? Math.sin(Math.PI * clamp01((time - GATHER * .7) / (HOLD + GATHER * .3 + FORM * .3))) : 0;
-      paint(moving, drawn, glow);
-      current = moving.subarray(0, drawn * 2);
-      if (time < total) frame = requestAnimationFrame(step);
+      paint(moving, count);
+      current = moving;
+      if (time < MOVE) frame = requestAnimationFrame(step);
       else { current = target; paint(current, toCount); }
     };
     frame = requestAnimationFrame(step);
