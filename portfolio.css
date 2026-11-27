@@ -2,31 +2,31 @@
    색은 무채색이 기본이고 --brass 하나만 포인트로 쓴다. */
 .portfolio-page, .portfolio-detail-page {
   color-scheme: dark;
-  --bg: #131417;
-  --ink: #eceae6;
-  --soft: #a5a49e;
-  --rule: #34363c;
+  --bg: #111318;
+  --ink: #ececec;
+  --soft: #9b9b9b;
+  --rule: #2e2e30;
   --brass: #6f9bff;
-  --sel-bg: #1f2126;
+  --sel-bg: #1c1e24;
   --shape: #18233f;
-  --grain: #223464;
-  --code-bg: #0c0d0f;
-  --code-ink: #e6e4de;
-  --dock-surface: #25272d;
+  --grain: #2a3652;
+  --code-bg: #0b0c10;
+  --code-ink: #e4e4e6;
+  --dock-surface: #26272c;
 }
 :root[data-theme="light"] :is(.portfolio-page, .portfolio-detail-page) {
   color-scheme: light;
-  --bg: #f6f5f1;
-  --ink: #15171c;
-  --soft: #565a64;
-  --rule: #c9c8c3;
-  --brass: #1f3a8a;
-  --sel-bg: #eae8e1;
-  --shape: #e8e6de;
-  --grain: #d3d0c4;
-  --code-bg: #15171c;
-  --code-ink: #eceadf;
-  --dock-surface: #e6e4dc;
+  --bg: #f4f5f8;
+  --ink: #111318;
+  --soft: #5b5c62;
+  --rule: #cdced3;
+  --brass: #2f5bd0;
+  --sel-bg: #e8e9ee;
+  --shape: #e4e6ed;
+  --grain: #d6d9e3;
+  --code-bg: #111318;
+  --code-ink: #ececec;
+  --dock-surface: #e2e3e9;
 }
 
 .portfolio-nav-page {
@@ -47,7 +47,7 @@
   padding: .25rem;
   border-radius: 999px;
   background: var(--dock-surface);
-  box-shadow: 0 .4rem 1.4rem #15171c29;
+  box-shadow: 0 .4rem 1.4rem #11131829;
 }
 
 .portfolio-dock::before {

@@ -3,8 +3,8 @@
    쓰지 않는 것: 둥근 모서리, 알약 태그, 배경 상자 카드, 점 목록, 큰 숫자 통계. */
 /* 작은 글자는 두 가지 크기만 쓴다: 보조 글자(--fs-sub)와 가장 작은 글자(--fs-small) */
 :root { --fs-sub: .94rem; --fs-small: .85rem; }
-:root { --bg: #131417; --ink: #eceae6; --soft: #a5a49e; --rule: #34363c; --brass: #6f9bff; color-scheme: dark; }
-:root[data-theme="light"] { --bg: #f6f5f1; --ink: #15171c; --soft: #565a64; --rule: #c9c8c3; --brass: #1f3a8a; color-scheme: light; }
+:root { --bg: #111318; --ink: #ececec; --soft: #9b9b9b; --rule: #2e2e30; --brass: #6f9bff; color-scheme: dark; }
+:root[data-theme="light"] { --bg: #f4f5f8; --ink: #111318; --soft: #5b5c62; --rule: #cdced3; --brass: #2f5bd0; color-scheme: light; }
 *, *::before, *::after { box-sizing: border-box; }
 html { font-family: "Pretendard Variable", Pretendard, "Noto Sans KR", "Malgun Gothic", "Apple SD Gothic Neo", system-ui, sans-serif; scroll-behavior: smooth; }
 @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }

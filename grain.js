@@ -11,11 +11,11 @@ const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
 const MAP_W = 437, MAP_H = 260, VIDEO_X = 257, VIDEO_Y = 84, VIDEO_W = 156;
 const BAYER = [0,32,8,40,2,34,10,42,48,16,56,24,50,18,58,26,12,44,4,36,14,46,6,38,60,28,52,20,62,30,54,22,
   3,35,11,43,1,33,9,41,51,19,59,27,49,17,57,25,15,47,7,39,13,45,5,37,63,31,55,23,61,29,53,21];
-const MOVE = 900, MOVE_LAG = 270; // 밀리초: 점이 새 자리로 가는 시간, 점마다 출발을 늦추는 최대 폭
+const MOVE = 600, MOVE_LAG = 160; // 밀리초: 점이 새 자리로 가는 시간, 점마다 출발을 늦추는 최대 폭
 
 let seed = 1;
 const random = () => (seed = seed * 16807 % 2147483647) / 2147483647;
-const smooth = u => u * u * (3 - 2 * u);
+const settle = u => 1 - (1 - u) ** 2.4; // 바로 출발해서 끝에서 천천히 자리에 앉는다
 const clamp01 = u => Math.min(1, Math.max(0, u));
 
 async function loadShape(slug) {
@@ -69,7 +69,7 @@ async function start() {
   host.prepend(canvas);
   const context = canvas.getContext("2d");
 
-  let color = [34, 52, 100];
+  let color = [42, 54, 82];
   let offsetX = 0, offsetY = 0;   // 모양 그림의 칸을 캔버스의 칸으로 옮기는 값
   let current = new Float32Array(0); // 지금 그려진 점들의 위치(모양 그림의 칸 기준)
   let frame = 0;
@@ -128,7 +128,7 @@ async function start() {
         const a = fromCount ? (i % fromCount) * 2 : (i % toCount) * 2, b = (i % toCount) * 2;
         const source = fromCount ? from : target;
         const lag = ((i * 2654435761) >>> 0) / 4294967296; // 점마다 조금씩 다른 출발 시간
-        const u = smooth(clamp01((time - lag * MOVE_LAG) / (MOVE - MOVE_LAG)));
+        const u = settle(clamp01((time - lag * MOVE_LAG) / (MOVE - MOVE_LAG)));
         moving[i * 2] = source[a] + (target[b] - source[a]) * u;
         moving[i * 2 + 1] = source[a + 1] + (target[b + 1] - source[a + 1]) * u;
       }
