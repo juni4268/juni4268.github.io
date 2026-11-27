@@ -56,17 +56,17 @@
   width: 100%;
   border-collapse: collapse;
   text-align: left;
-  font-size: .95rem;
+  font-size: var(--fs-sub);
 }
 .retry-values { margin-top: 1.15rem; font-variant-numeric: tabular-nums; }
-.retry-values caption { margin-bottom: .35rem; color: var(--soft); text-align: left; font-size: .85rem; }
+.retry-values caption { margin-bottom: .35rem; color: var(--soft); text-align: left; font-size: var(--fs-small); }
 :is(.retry-values, .boss-pattern-table) :is(th, td) { padding: .45rem .5rem; border-bottom: 1px solid var(--rule); }
 :is(.retry-values, .boss-pattern-table) :is(th, td):first-child { padding-left: 0; }
 :is(.retry-values, .boss-pattern-table) thead { color: var(--soft); }
 .retry-values tbody th { width: 5rem; color: var(--brass); font-weight: 700; text-align: left; white-space: nowrap; }
 .retry-values thead th { text-align: left; }
 .retry-copy p + p { margin-top: .7rem; }
-.retry-note { color: var(--soft); font-size: .88rem; }
+.retry-note { color: var(--soft); font-size: var(--fs-small); }
 .retry-values + .retry-note { margin-top: .8rem; }
 .boss-pattern-table { margin-top: 1.5rem; }
 .boss-pattern-table :is(th, td) {
@@ -123,7 +123,7 @@
 .boss-pattern-reset:focus-visible { outline: 2px solid var(--brass); outline-offset: 2px; }
 
 /* 크레딧: 본문 사례보다 작게, 이미지 없이 */
-.project-credits { padding-block: clamp(1.6rem, 4vw, 2.6rem); color: var(--soft); font-size: .92rem; }
+.project-credits { padding-block: clamp(1.6rem, 4vw, 2.6rem); color: var(--soft); font-size: var(--fs-sub); }
 .project-credits h2 { margin: 0 0 .5rem; color: var(--ink); font-size: 1rem; font-weight: 800; letter-spacing: 0; }
 .credits-result { color: var(--ink); font-weight: 600; }
 .credits-list { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 1rem clamp(1rem, 2.5vw, 2rem); margin: 1rem 0 0; padding-top: 1rem; border-top: 1px solid var(--rule); }
@@ -194,11 +194,11 @@
 .section-doc .code-block + h3 { margin-top: 1.8rem; }
 .code-block summary { padding: .55rem .85rem; color: var(--brass); font-weight: 700; cursor: pointer; }
 .code-block summary:focus-visible { outline: 2px solid var(--brass); outline-offset: 2px; }
-.code-file { margin-left: .4rem; color: var(--soft); font: 400 .82rem/1.4 ui-monospace, "Cascadia Mono", Consolas, monospace; }
+.code-file { margin-left: .4rem; color: var(--soft); font: 400 var(--fs-small)/1.4 ui-monospace, "Cascadia Mono", Consolas, monospace; }
 /* 코드는 글자 폭이 같아야 줄이 맞으므로 자간을 넣지 않는다 */
 .code-block pre, .code-file { letter-spacing: 0; }
 .code-block pre { margin: 0; padding: .9rem 1rem; overflow-x: auto; background: var(--code-bg); color: var(--code-ink); font: .875rem/1.65 ui-monospace, "Cascadia Mono", Consolas, monospace; tab-size: 4; }
-.code-source { padding: .5rem .85rem; font-size: .8rem; overflow-wrap: anywhere; }
+.code-source { padding: .5rem .85rem; font-size: var(--fs-small); overflow-wrap: anywhere; }
 .is-swapping-section::view-transition-group(*) { animation-duration: .5s; animation-timing-function: cubic-bezier(.2,.72,.19,1); }
 
 /* Same box in both views so the title and button do not shift when the view switches. */

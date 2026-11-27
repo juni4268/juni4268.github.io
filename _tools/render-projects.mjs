@@ -53,8 +53,8 @@ function page(project) {
   <link rel="icon" href="../favicon.svg" type="image/svg+xml">
   <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
-  <link rel="stylesheet" href="../plain.css?v=space-4">
-  <link rel="stylesheet" href="../portfolio.css?v=space-5">
+  <link rel="stylesheet" href="../plain.css?v=type-1">
+  <link rel="stylesheet" href="../portfolio.css?v=type-1">
   <script type="module" src="../dock.js?v=mail-1"></script>
 </head>
 <body class="home-page portfolio-page portfolio-nav-page portfolio-detail-page">
