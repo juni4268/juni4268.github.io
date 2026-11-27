@@ -265,9 +265,9 @@
     grid-template-areas:
       "identity featured featured"
       "education skills skills";
-    gap: clamp(2rem, 5.4vh, 4.75rem) clamp(2rem, 3.9vw, 6rem);
+    gap: clamp(1.6rem, 4vh, 4.75rem) clamp(2rem, 3.9vw, 6rem);
     min-height: clamp(35rem, calc(100svh - var(--dock-space)), 82rem);
-    padding-block: clamp(2rem, 4.5vh, 4.2rem);
+    padding-block: clamp(2rem, 8.3vh, 6.6rem) clamp(2rem, 4.5vh, 4.2rem); /* 위 여백을 넉넉히 둬서 이름과 작품을 조금 내린다 */
   }
 
   .portfolio-profile::before {
