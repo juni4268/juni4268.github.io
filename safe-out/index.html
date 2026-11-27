@@ -120,7 +120,7 @@
       </div>
       <div class="section-view section-doc" data-view="doc" id="events-doc" hidden>
         <h3>이벤트의 다섯 상태</h3>
-        <p>모든 이벤트가 같은 상태 값을 씁니다. 상태를 바꾸는 함수는 하나이고, 여기서 마커와 화면에 변경을 알립니다.</p>
+        <p>사고는 처음부터 이벤트 형식으로 구상해서, 공통 기능을 부모 클래스에 두는 구조로 시작했습니다. 모든 이벤트가 같은 상태 값을 씁니다. 상태를 바꾸는 함수는 하나이고, 여기서 마커와 화면에 변경을 알립니다.</p>
         <details class="code-block">
           <summary>상태 정의 코드 <span class="code-file">CPREventBase.h</span></summary>
           <pre><code>UENUM(BlueprintType)
@@ -223,7 +223,7 @@ void ACPREventBase::OnTimerExpired()
       </div>
       <div class="section-view section-doc" data-view="doc" id="fire-doc" hidden>
         <h3>소화 가능한 대상</h3>
-        <p>소화할 수 있는 대상은 인터페이스 하나를 구현합니다. 함수는 소화량과 소화기 종류를 받습니다.</p>
+        <p>화재 이벤트가 여러 개로 늘면서 코드를 개편했습니다. 이때 소화기에는 인터페이스가 잘 맞는다고 보고, 소화할 수 있는 대상이 인터페이스 하나를 구현하게 했습니다. 함수는 소화량과 소화기 종류를 받습니다.</p>
         <details class="code-block">
           <summary>소화 인터페이스 코드 <span class="code-file">CPRExtinguishable.h</span></summary>
           <pre><code>class PROJECT_CPR_API ICPRExtinguishable
