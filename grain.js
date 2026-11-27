@@ -11,7 +11,7 @@ const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
 const MAP_W = 437, MAP_H = 260, VIDEO_X = 257, VIDEO_Y = 84, VIDEO_W = 156;
 const BAYER = [0,32,8,40,2,34,10,42,48,16,56,24,50,18,58,26,12,44,4,36,14,46,6,38,60,28,52,20,62,30,54,22,
   3,35,11,43,1,33,9,41,51,19,59,27,49,17,57,25,15,47,7,39,13,45,5,37,63,31,55,23,61,29,53,21];
-const MOVE = 1150, MOVE_LAG = 340; // 밀리초: 점이 새 자리로 가는 시간, 점마다 출발을 늦추는 최대 폭
+const MOVE = 900, MOVE_LAG = 270; // 밀리초: 점이 새 자리로 가는 시간, 점마다 출발을 늦추는 최대 폭
 
 let seed = 1;
 const random = () => (seed = seed * 16807 % 2147483647) / 2147483647;
