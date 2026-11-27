@@ -339,7 +339,8 @@
     grid-template-areas: "identity" "featured" "education" "skills";
     min-height: 0;
   }
-  .portfolio-profile::before { inset: 2% 0 0 17%; }
+  /* 좁은 화면: 도형이 화면 맨 위와 오른쪽 끝까지 이어지게 해서 위가 잘려 보이지 않게 한다 */
+  .portfolio-profile::before { inset: -6rem -5vw 0 17%; }
   .profile-identity { margin-bottom: clamp(1.4rem, 5.2vw, 2.3rem); }
   .profile-contact { max-width: none; }
   .profile-records > div { grid-template-columns: minmax(3.6rem,1fr) minmax(0,3.7fr); }
