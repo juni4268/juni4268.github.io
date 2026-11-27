@@ -169,6 +169,7 @@
 }
 .profile-contact a:first-child { border-top: 1px solid var(--rule); }
 .profile-contact a > span { color: var(--soft); font-weight: 750; }
+.profile-contact a.is-copied > span { color: var(--brass); }
 .profile-contact strong { overflow-wrap: anywhere; }
 .profile-contact a:is(:hover,:focus-visible) strong { text-decoration: underline; }
 

@@ -38,3 +38,25 @@ toggle?.addEventListener("click", () => {
 });
 
 showTheme();
+
+// 메인의 이메일 주소: 누르면 주소를 복사한다.
+// 메일 프로그램이 없는 컴퓨터에서는 mailto 링크가 빈 창만 열기 때문이다. 복사할 수 없는 브라우저에서는 원래대로 mailto로 넘어간다.
+const mail = document.querySelector('.profile-contact a[href^="mailto:"]');
+const mailLabel = mail?.querySelector("span");
+
+if (mail && mailLabel && navigator.clipboard) {
+  const original = mailLabel.textContent;
+  let timer;
+  mail.addEventListener("click", event => {
+    event.preventDefault();
+    navigator.clipboard.writeText(mail.href.replace("mailto:", "")).then(() => {
+      mailLabel.textContent = "복사됨";
+      mail.classList.add("is-copied");
+      clearTimeout(timer);
+      timer = setTimeout(() => {
+        mailLabel.textContent = original;
+        mail.classList.remove("is-copied");
+      }, 1800);
+    }).catch(() => { window.location.href = mail.href; });
+  });
+}
