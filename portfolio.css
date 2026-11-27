@@ -17,56 +17,15 @@
 
 .portfolio-nav-page {
   --dock-bottom: max(.75rem, env(safe-area-inset-bottom));
-  --dock-space: calc(var(--dock-bottom) + 4.25rem);
+  --dock-space: 1.5rem;
   --dock-surface: #f4ded7;
   padding-bottom: var(--dock-space);
 }
 
-.portfolio-dock {
-  position: fixed;
-  z-index: 5;
-  bottom: var(--dock-bottom);
-  left: 50%;
-  transform: translateX(-50%);
-  isolation: isolate;
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  padding: .25rem;
-  border-radius: 999px;
-  background: var(--dock-surface);
-  box-shadow: 0 .4rem 1.4rem #38192b29;
-}
-
-.portfolio-dock::before {
-  content: "";
-  position: absolute;
-  z-index: -1;
-  inset: .25rem auto .25rem .25rem;
-  width: calc(50% - .25rem);
-  border-radius: inherit;
-  background: var(--ink);
-}
-
-.portfolio-detail-page .portfolio-dock::before { transform: translateX(100%); }
-
-.portfolio-dock a {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  min-width: 6.5rem;
-  min-height: 3.25rem;
-  padding-inline: .7rem;
-  border-radius: inherit;
-  color: var(--ink);
-  font: inherit;
-  font-weight: 780;
-  text-decoration: none;
-}
-
-.portfolio-dock a:hover { text-decoration: underline; }
-.portfolio-dock [aria-current] { color: var(--bg); }
-
 .project-rail { padding-block: .75rem .5rem; border-bottom: 1px solid var(--rule); }
+.rail-home { display: inline-block; margin: 0 0 .85rem; padding: .3rem .65rem; color: var(--ink); font-size: .92rem; font-weight: 700; text-decoration: none; }
+.rail-home span { margin-right: .35em; }
+.rail-home:is(:hover, :focus-visible) { text-decoration: underline; }
 #project-rail-title { padding: 0 .65rem .5rem; color: var(--brass); font-size: .86rem; font-weight: 800; }
 .project-rail ul {
   display: flex;
@@ -339,7 +298,6 @@
 
   ::view-transition-old(root) { animation: 150ms ease-out both portfolio-leave; }
   ::view-transition-new(root) { animation: 360ms cubic-bezier(.2,.72,.19,1) both portfolio-enter; }
-  .portfolio-dock { view-transition-name: portfolio-dock; }
   .profile-identity, .profile-featured, .profile-education, .profile-development, .profile-records > div {
     animation: 420ms cubic-bezier(.2,.72,.19,1) both portfolio-enter;
   }
@@ -358,11 +316,6 @@
 @keyframes portfolio-leave {
   to { opacity: 0; }
 }
-
-/* 아래 메뉴: 아래로 스크롤하는 동안 숨김 (dock.js) */
-.portfolio-dock { transition: translate .28s cubic-bezier(.2,.72,.19,1), opacity .2s ease; }
-.portfolio-dock.is-away:not(:focus-within) { translate: 0 calc(100% + var(--dock-bottom) + 1rem); opacity: 0; }
-@media (prefers-reduced-motion: reduce) { .portfolio-dock { transition: none; } }
 
 /* Works that will be written up later: listed in the same place, shown in grey. */
 .featured-more a.is-upcoming :is(strong, span) { color: #9a9892; }
