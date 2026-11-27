@@ -449,3 +449,24 @@
 .theme-toggle.is-away:not(:focus-visible) { translate: 0 calc(100% + var(--dock-bottom) + 1rem); opacity: 0; }
 @media (prefers-reduced-motion: reduce) { .theme-toggle { transition: none; } }
 @media (max-width: 680px) { .theme-toggle { width: 2.6rem; height: 2.6rem; } }
+
+/* 좁은 화면: 섹션 목차가 길면 잘리지 않고 옆으로 밀어 볼 수 있게 한다 */
+@media (max-width: 680px) {
+  .portfolio-detail-page .site-head nav {
+    flex-wrap: nowrap;
+    max-width: 100%;
+    gap: 1.15rem;
+    padding-right: 1.5rem;
+    overflow-x: auto;
+    white-space: nowrap;
+    scrollbar-width: none;
+    -webkit-mask-image: linear-gradient(to right, #000 calc(100% - 1.5rem), transparent);
+    mask-image: linear-gradient(to right, #000 calc(100% - 1.5rem), transparent);
+  }
+  .portfolio-detail-page .site-head nav::-webkit-scrollbar { display: none; }
+  /* 작품 카드: 엔진과 담당을 두 줄로 나눠서, 담당이 긴 작품만 줄이 바뀌어 높이가 달라지는 일이 없게 한다 */
+  .featured-copy { grid-template-columns: minmax(0, 1fr); }
+  .featured-role { padding-left: 0; border-left: 0; }
+  /* 저장소 주소에서 github.com/ 을 줄여 화살표만 다음 줄로 떨어지지 않게 한다 */
+  .url-host { display: none; }
+}

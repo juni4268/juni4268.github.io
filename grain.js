@@ -1,7 +1,7 @@
 // 메인 배경의 입자 그림: 고른 작품에 맞는 모양을 점으로 그린다.
 // 작품을 바꾸면 점들이 별처럼 흩어졌다가 새 모양으로 모인다.
 // 모양은 화면 가운데에 크게 놓는다.
-// 넓은 화면에서만 켠다. 이 스크립트가 없거나 실패하면 기존의 단색 도형이 그대로 보인다.
+// 이 스크립트가 없거나 실패하면 넓은 화면에서는 기존의 단색 도형이 그대로 보인다.
 const host = document.querySelector(".portfolio-profile");
 const stage = document.querySelector(".featured-stage");
 const tabs = [...document.querySelectorAll(".featured-more a[data-work]")];
@@ -85,11 +85,17 @@ async function start() {
   function layout() {
     const box = host.getBoundingClientRect();
     const video = stage.getBoundingClientRect();
-    const cell = video.width / VIDEO_W * 1.5;
+    // 넓은 화면: 굵은 입자로 화면 가운데에. 좁은 화면: 입자를 줄여서 대표 영상을 중심으로(모양의 양옆은 화면 밖으로 나간다).
+    const cell = wide.matches ? video.width / VIDEO_W * 1.5 : Math.min(video.width / VIDEO_W * 1.5, box.width / 150);
     canvas.width = Math.ceil(box.width / cell);
     canvas.height = Math.ceil(box.height / cell);
-    offsetX = Math.round(box.width * .5 / cell) - VIDEO_X;
-    offsetY = Math.round(box.height * .52 / cell) - VIDEO_Y;
+    if (wide.matches) {
+      offsetX = Math.round(box.width * .5 / cell) - VIDEO_X;
+      offsetY = Math.round(box.height * .52 / cell) - VIDEO_Y;
+    } else {
+      offsetX = Math.round((video.left - box.left + video.width / 2) / cell) - VIDEO_X;
+      offsetY = Math.round((video.top - box.top + video.width * 9 / 32) / cell) - VIDEO_Y;
+    }
   }
 
   function paint(points, count, starGlow = 0) {
@@ -148,27 +154,27 @@ async function start() {
     host.classList.add("has-grain");
     readColor(); layout(); show(shown, false);
   }
-  function disable() { cancelAnimationFrame(frame); host.classList.remove("has-grain"); }
 
   // 작품 목록의 선택 표시가 바뀌면 모양도 바꾼다
   new MutationObserver(() => {
     const slug = activeSlug();
     if (slug === shown) return;
     shown = slug;
-    if (wide.matches) show(slug, true);
+    show(slug, true);
   }).observe(document.querySelector(".featured-more"), { attributes: true, subtree: true, attributeFilter: ["aria-current"] });
 
   // 테마가 바뀌면 점의 색을 다시 읽는다
-  new MutationObserver(() => { if (wide.matches) { readColor(); show(shown, false); } })
+  new MutationObserver(() => { readColor(); show(shown, false); })
     .observe(document.documentElement, { attributes: true, attributeFilter: ["data-theme"] });
 
   let resizeTimer = 0;
   window.addEventListener("resize", () => {
     clearTimeout(resizeTimer);
-    resizeTimer = setTimeout(() => { if (wide.matches) { layout(); show(shown, false); } }, 120);
+    resizeTimer = setTimeout(() => { layout(); show(shown, false); }, 120);
   });
-  wide.addEventListener("change", () => (wide.matches ? enable() : disable()));
-  if (wide.matches) enable();
+  enable();
+  // 글꼴이 적용되면 배치가 달라지므로 한 번 더 맞춘다
+  document.fonts?.ready.then(() => { layout(); show(shown, false); });
 }
 
 if (host && stage && tabs.length) start().catch(() => host.classList.remove("has-grain"));
