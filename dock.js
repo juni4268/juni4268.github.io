@@ -24,10 +24,8 @@ const themeColor = document.querySelector('meta[name="theme-color"]');
 
 function showTheme() {
   const light = root.dataset.theme === "light";
-  if (toggle) {
-    toggle.textContent = light ? "어둡게" : "밝게";
-    toggle.setAttribute("aria-label", light ? "어두운 화면으로 전환" : "밝은 화면으로 전환");
-  }
+  // 버튼 그림(해, 달)은 CSS가 테마에 맞춰 바꾼다. 여기서는 읽어 주는 이름만 맞춘다.
+  toggle?.setAttribute("aria-label", light ? "어두운 화면으로 전환" : "밝은 화면으로 전환");
   themeColor?.setAttribute("content", light ? "#f6f5f1" : "#131417");
 }
 

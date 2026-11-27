@@ -54,8 +54,8 @@ function page(project) {
   <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
   <link rel="stylesheet" href="../plain.css?v=theme-1">
-  <link rel="stylesheet" href="../portfolio.css?v=theme-4">
-  <script type="module" src="../dock.js?v=theme-3"></script>
+  <link rel="stylesheet" href="../portfolio.css?v=theme-5">
+  <script type="module" src="../dock.js?v=theme-5"></script>
 </head>
 <body class="home-page portfolio-page portfolio-nav-page portfolio-detail-page">
 <div class="page">
@@ -92,7 +92,7 @@ function projectNavigation(prefix, activeSlug) {
     <a href="${prefix}"${activeSlug ? '' : ' aria-current="page"'}>메인</a>
     <a href="${prefix}${activeSlug ?? firstProject}/" id="games"${activeSlug ? ' aria-current="page"' : ''}>작품 상세</a>
   </nav>
-  <button type="button" class="theme-toggle" aria-label="밝은 화면으로 전환">밝게</button>`;
+  <button type="button" class="theme-toggle" aria-label="밝은 화면으로 전환"><svg class="icon-sun" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M2 12h2M20 12h2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg><svg class="icon-moon" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5z"/></svg></button>`;
 }
 
 // projects.json의 repo(선택)는 공개 코드 저장소 주소다. 있으면 상세 페이지에 '코드' 행을 붙인다.

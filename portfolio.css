@@ -406,21 +406,23 @@
   z-index: 5;
   right: max(.9rem, env(safe-area-inset-right));
   bottom: var(--dock-bottom);
-  min-width: 3.6rem;
-  min-height: 2.75rem;
-  padding: 0 .8rem;
+  display: grid;
+  place-items: center;
+  width: 2.75rem;
+  height: 2.75rem;
+  padding: 0;
   border: 1px solid var(--rule);
   border-radius: 999px;
   background: var(--dock-surface);
   color: var(--ink);
-  font: inherit;
-  font-size: .9rem;
-  font-weight: 700;
   cursor: pointer;
   transition: translate .28s cubic-bezier(.2,.72,.19,1), opacity .2s ease;
 }
-.theme-toggle:hover { text-decoration: underline; }
+/* 어두운 화면에서는 해(밝게), 밝은 화면에서는 달(어둡게)을 보여준다 */
+.theme-toggle .icon-moon, :root[data-theme="light"] .theme-toggle .icon-sun { display: none; }
+:root[data-theme="light"] .theme-toggle .icon-moon { display: block; }
+.theme-toggle:hover { border-color: var(--soft); }
 .theme-toggle:focus-visible { outline: 2px solid var(--brass); outline-offset: 2px; }
 .theme-toggle.is-away:not(:focus-visible) { translate: 0 calc(100% + var(--dock-bottom) + 1rem); opacity: 0; }
 @media (prefers-reduced-motion: reduce) { .theme-toggle { transition: none; } }
-@media (max-width: 680px) { .theme-toggle { min-height: 2.6rem; min-width: 3.2rem; padding-inline: .6rem; font-size: .85rem; } }
+@media (max-width: 680px) { .theme-toggle { width: 2.6rem; height: 2.6rem; } }
