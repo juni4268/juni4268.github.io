@@ -6,7 +6,7 @@
 *, *::before, *::after { box-sizing: border-box; }
 html { font-family: "Pretendard Variable", Pretendard, "Noto Sans KR", "Malgun Gothic", "Apple SD Gothic Neo", system-ui, sans-serif; scroll-behavior: smooth; }
 @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
-body { margin: 0; background: var(--bg); color: var(--ink); font-size: 1.0625rem; line-height: 1.8; word-break: keep-all; }
+body { margin: 0; background: var(--bg); color: var(--ink); font-size: 1.0625rem; line-height: 1.8; word-break: keep-all; letter-spacing: .012em; }
 h1, h2, h3, p, figure, ul, ol { margin: 0; padding: 0; }
 ul, ol { list-style: none; }
 a { color: inherit; text-underline-offset: .25em; text-decoration-thickness: 1px; }
@@ -25,9 +25,9 @@ figcaption { margin-top: .6rem; }
 .site-head .me { font-size: 1.1rem; font-weight: 800; }
 .site-head nav { display: flex; gap: 1.8rem; color: var(--soft); font-size: .98rem; }
 
-h1 { font-weight: 800; letter-spacing: -.045em; line-height: 1.15; }
-h2 { font-size: clamp(1.6rem, 3vw, 2.3rem); font-weight: 800; letter-spacing: -.04em; line-height: 1.3; }
-h3 { font-size: 1.15rem; font-weight: 700; letter-spacing: -.02em; line-height: 1.5; }
+h1 { font-weight: 800; letter-spacing: -.02em; line-height: 1.15; }
+h2 { font-size: clamp(1.6rem, 3vw, 2.3rem); font-weight: 800; letter-spacing: -.015em; line-height: 1.3; }
+h3 { font-size: 1.15rem; font-weight: 700; letter-spacing: 0; line-height: 1.5; }
 section, .block { margin-top: clamp(4.5rem, 10vw, 8.5rem); }
 
 /* 좌우 2단: 왼쪽 제목, 오른쪽 본문 */
