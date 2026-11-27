@@ -149,6 +149,8 @@
 
 .profile-identity { grid-area: identity; align-self: center; }
 .profile-role { color: var(--brass); font-size: clamp(1.1rem, 2.6vw, 1.6rem); font-weight: 850; }
+/* "이"는 왼쪽이 둥글어서 같은 자간에서도 앞 글자에 붙어 보인다. 이 글자만 조금 띄운다. */
+.profile-identity h1 .name-last { margin-left: .04em; }
 .profile-identity h1 {
   margin: .1em 0 .19em -.035em;
   font-size: clamp(4rem, 11.6vw, 8rem);
