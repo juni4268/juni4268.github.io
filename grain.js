@@ -4,12 +4,13 @@
 // 이 스크립트가 없거나 실패하면 넓은 화면에서는 기존의 단색 도형이 그대로 보인다.
 const host = document.querySelector(".portfolio-profile");
 const stage = document.querySelector(".featured-stage");
+const nameEl = document.querySelector(".profile-identity h1");
 const tabs = [...document.querySelectorAll(".featured-more a[data-work]")];
 const wide = window.matchMedia("(min-width: 80rem)");
 const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
 
-// 모양 그림은 437x260칸이고 모양의 중심이 (257, 84)칸에 있다. 한 칸은 대표 영상 너비의 1/104이다.
-const MAP_W = 437, MAP_H = 260, VIDEO_X = 257, VIDEO_Y = 84, VIDEO_W = 156;
+// 모양 그림은 400x240칸이고 모양의 중심이 (200, 120)칸에 있다. 한 칸은 대표 영상 너비의 약 1/104이다.
+const MAP_W = 400, MAP_H = 240, VIDEO_X = 200, VIDEO_Y = 120, VIDEO_W = 156;
 const BAYER = [0,32,8,40,2,34,10,42,48,16,56,24,50,18,58,26,12,44,4,36,14,46,6,38,60,28,52,20,62,30,54,22,
   3,35,11,43,1,33,9,41,51,19,59,27,49,17,57,25,15,47,7,39,13,45,5,37,63,31,55,23,61,29,53,21];
 const MOVE = 600, MOVE_LAG = 160; // 밀리초: 점이 새 자리로 가는 시간, 점마다 출발을 늦추는 최대 폭
@@ -21,7 +22,7 @@ const clamp01 = u => Math.min(1, Math.max(0, u));
 
 async function loadShape(slug) {
   const image = new Image();
-  image.src = `./assets/grain/${slug}.png?v=3`;
+  image.src = `./assets/grain/${slug}.png?v=6`;
   await image.decode();
   const canvas = document.createElement("canvas");
   canvas.width = MAP_W; canvas.height = MAP_H;
@@ -85,13 +86,15 @@ async function start() {
   function layout() {
     const box = host.getBoundingClientRect();
     const video = stage.getBoundingClientRect();
-    // 넓은 화면: 굵은 입자로 화면 가운데에. 좁은 화면: 입자를 줄여서 대표 영상을 중심으로(모양의 양옆은 화면 밖으로 나간다).
-    const cell = wide.matches ? video.width / VIDEO_W * 1.5 : Math.min(video.width / VIDEO_W * 1.5, box.width / 150);
+    // 넓은 화면: 모양의 중심을 이름과 대표 영상 사이의 빈 곳에 둔다.
+    // 좁은 화면: 대표 영상을 중심으로 두고, 모양이 영상 밖으로 보이도록 입자를 키운다.
+    const cell = wide.matches ? video.width / VIDEO_W * 1.5 : box.width / 90;
     canvas.width = Math.ceil(box.width / cell);
     canvas.height = Math.ceil(box.height / cell);
     if (wide.matches) {
-      offsetX = Math.round(box.width * .5 / cell) - VIDEO_X;
-      offsetY = Math.round(box.height * .52 / cell) - VIDEO_Y;
+      const name = nameEl.getBoundingClientRect();
+      offsetX = Math.round((name.right + (video.left - name.right) * .72 - box.left) / cell) - VIDEO_X;
+      offsetY = Math.round(box.height * .53 / cell) - VIDEO_Y;
     } else {
       offsetX = Math.round((video.left - box.left + video.width / 2) / cell) - VIDEO_X;
       offsetY = Math.round((video.top - box.top + video.width * 9 / 32) / cell) - VIDEO_Y;
@@ -177,4 +180,4 @@ async function start() {
   document.fonts?.ready.then(() => { layout(); show(shown, false); });
 }
 
-if (host && stage && tabs.length) start().catch(() => host.classList.remove("has-grain"));
+if (host && stage && nameEl && tabs.length) start().catch(() => host.classList.remove("has-grain"));
