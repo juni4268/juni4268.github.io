@@ -3,7 +3,8 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="theme-color" content="#fff7e8">
+  <script>try{if(localStorage.getItem("theme")==="light")document.documentElement.dataset.theme="light"}catch(e){}</script>
+  <meta name="theme-color" content="#131417">
   <meta name="description" content="게임 클라이언트 프로그래머 최준이의 학력, 개발 기술과 참여 작품을 소개합니다.">
   <title>최준이 | 게임 클라이언트 프로그래머</title>
   <meta property="og:type" content="website">
@@ -18,9 +19,9 @@
   <link rel="icon" href="./favicon.svg" type="image/svg+xml">
   <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
-  <link rel="stylesheet" href="./plain.css?v=projects-2">
-  <link rel="stylesheet" href="./portfolio.css?v=mobile-2">
-  <script type="module" src="./dock.js"></script>
+  <link rel="stylesheet" href="./plain.css?v=theme-1">
+  <link rel="stylesheet" href="./portfolio.css?v=theme-1">
+  <script type="module" src="./dock.js?v=theme-1"></script>
   <script type="module" src="./work-deck.js"></script>
 </head>
 <body class="home-page portfolio-page portfolio-home portfolio-nav-page">
@@ -127,6 +128,7 @@
     <a href="./" aria-current="page">메인</a>
     <a href="./steamheart/" id="games">작품 상세</a>
   </nav>
+  <button type="button" class="theme-toggle" aria-label="밝은 화면으로 전환">밝게</button>
   <!-- portfolio-navigation:end -->
 </body>
 </html>

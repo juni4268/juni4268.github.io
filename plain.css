@@ -1,7 +1,8 @@
 /* 메인과 SteamHeart 페이지 공용.
    어두운 바탕에 게임 화면을 크게 쓰고, 좌우 2단으로 배치한다.
    쓰지 않는 것: 둥근 모서리, 알약 태그, 배경 상자 카드, 점 목록, 큰 숫자 통계. */
-:root { --bg: #171514; --ink: #f3eee8; --soft: #aaa097; --rule: #3a3531; --brass: #d3a46a; color-scheme: dark; }
+:root { --bg: #131417; --ink: #eceae6; --soft: #a5a49e; --rule: #34363c; --brass: #6f9bff; color-scheme: dark; }
+:root[data-theme="light"] { --bg: #f6f5f1; --ink: #15171c; --soft: #565a64; --rule: #c9c8c3; --brass: #1f3a8a; color-scheme: light; }
 *, *::before, *::after { box-sizing: border-box; }
 html { font-family: "Pretendard Variable", Pretendard, "Noto Sans KR", "Malgun Gothic", "Apple SD Gothic Neo", system-ui, sans-serif; scroll-behavior: smooth; }
 @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
@@ -44,12 +45,6 @@ section, .block { margin-top: clamp(4.5rem, 10vw, 8.5rem); }
 
 /* 메인 */
 .home-page {
-  color-scheme: light;
-  --bg: #f8f6ee;
-  --ink: #191c23;
-  --soft: #565a64;
-  --rule: #c8c8c5;
-  --brass: #173dd6;
   --intro-ink: #fff;
   font-size: 1rem;
   line-height: 1.62;
@@ -113,7 +108,7 @@ section, .block { margin-top: clamp(4.5rem, 10vw, 8.5rem); }
 .game-link h3 span { color: var(--brass); }
 .game-link:hover { color: inherit; }
 .game-link:hover h3, .game-link:focus-visible h3 { color: var(--brass); }
-.game-tools { margin: .25rem 0 0; font-size: .9rem; font-weight: 650; color: var(--brass); }
+.game-tools { margin: .25rem 0 0; font-size: .9rem; font-weight: 650; color: var(--soft); }
 .game-description { margin: .6rem 0 .85rem; }
 .game-role { display: flex; align-items: baseline; gap: .55rem; margin: auto 0 0; padding-top: .55rem; border-top: 1px solid var(--rule); font-size: .9rem; }
 .game-role b { flex-shrink: 0; color: var(--soft); }

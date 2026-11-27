@@ -37,7 +37,8 @@ function page(project) {
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="theme-color" content="#f8f6ee">
+  <script>try{if(localStorage.getItem("theme")==="light")document.documentElement.dataset.theme="light"}catch(e){}</script>
+  <meta name="theme-color" content="#131417">
   <meta name="description" content="${html(project.description)}">
   <title>${html(project.name)} | 최준이</title>
   <meta property="og:type" content="website">
@@ -52,9 +53,9 @@ function page(project) {
   <link rel="icon" href="../favicon.svg" type="image/svg+xml">
   <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
-  <link rel="stylesheet" href="../plain.css?v=projects-2">
-  <link rel="stylesheet" href="../portfolio.css?v=mobile-2">
-  <script type="module" src="../dock.js"></script>
+  <link rel="stylesheet" href="../plain.css?v=theme-1">
+  <link rel="stylesheet" href="../portfolio.css?v=theme-1">
+  <script type="module" src="../dock.js?v=theme-1"></script>
 </head>
 <body class="home-page portfolio-page portfolio-nav-page portfolio-detail-page">
 <div class="page">
@@ -90,7 +91,8 @@ function projectNavigation(prefix, activeSlug) {
   return `  <nav class="portfolio-dock" aria-label="사이트 메뉴">
     <a href="${prefix}"${activeSlug ? '' : ' aria-current="page"'}>메인</a>
     <a href="${prefix}${activeSlug ?? firstProject}/" id="games"${activeSlug ? ' aria-current="page"' : ''}>작품 상세</a>
-  </nav>`;
+  </nav>
+  <button type="button" class="theme-toggle" aria-label="밝은 화면으로 전환">밝게</button>`;
 }
 
 // projects.json의 repo(선택)는 공개 코드 저장소 주소다. 있으면 상세 페이지에 '코드' 행을 붙인다.

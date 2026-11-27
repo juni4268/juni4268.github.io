@@ -1,24 +1,35 @@
-.portfolio-page {
-  --bg: #fff7e8;
-  --ink: #1b1820;
-  --soft: #51454e;
-  --rule: #bfb3ad;
-  --brass: #9a2853;
+/* 색: 어두운 테마가 기본이고, html에 data-theme="light"가 있으면 밝은 테마다 (dock.js가 바꾼다).
+   색은 무채색이 기본이고 --brass 하나만 포인트로 쓴다. */
+.portfolio-page, .portfolio-detail-page {
+  color-scheme: dark;
+  --bg: #131417;
+  --ink: #eceae6;
+  --soft: #a5a49e;
+  --rule: #34363c;
+  --brass: #6f9bff;
+  --sel-bg: #1f2126;
+  --shape: #18233f;
+  --code-bg: #0c0d0f;
+  --code-ink: #e6e4de;
+  --dock-surface: #25272d;
 }
-
-/* 작품 상세 페이지는 모두 SteamHeart와 같은 색을 쓴다 (메인만 위의 크림·자주색) */
-.portfolio-detail-page {
-  --bg: #f8f6ee;
-  --ink: #191c23;
+:root[data-theme="light"] :is(.portfolio-page, .portfolio-detail-page) {
+  color-scheme: light;
+  --bg: #f6f5f1;
+  --ink: #15171c;
   --soft: #565a64;
-  --rule: #c8c8c5;
-  --brass: #173dd6;
+  --rule: #c9c8c3;
+  --brass: #1f3a8a;
+  --sel-bg: #e4e8f2;
+  --shape: #dbe1f0;
+  --code-bg: #15171c;
+  --code-ink: #eceadf;
+  --dock-surface: #e1e5f0;
 }
 
 .portfolio-nav-page {
   --dock-bottom: max(.75rem, env(safe-area-inset-bottom));
   --dock-space: calc(var(--dock-bottom) + 4.25rem);
-  --dock-surface: #f4ded7;
   padding-bottom: var(--dock-space);
 }
 
@@ -34,7 +45,7 @@
   padding: .25rem;
   border-radius: 999px;
   background: var(--dock-surface);
-  box-shadow: 0 .4rem 1.4rem #38192b29;
+  box-shadow: 0 .4rem 1.4rem #15171c29;
 }
 
 .portfolio-dock::before {
@@ -67,7 +78,7 @@
 .portfolio-dock [aria-current] { color: var(--bg); }
 
 .project-rail { padding-block: .75rem .5rem; border-bottom: 1px solid var(--rule); }
-#project-rail-title { padding: 0 .65rem .5rem; color: var(--brass); font-size: .86rem; font-weight: 800; }
+#project-rail-title { padding: 0 .65rem .5rem; color: var(--soft); font-size: .86rem; font-weight: 800; }
 .project-rail ul {
   display: flex;
   flex-wrap: wrap;
@@ -82,11 +93,11 @@
   font-weight: 710;
   text-decoration: none;
 }
-.project-rail a:is(:hover, :focus-visible, [aria-current]) { background: var(--dock-surface); }
+.project-rail a:is(:hover, :focus-visible, [aria-current]) { background: var(--sel-bg); }
 .project-rail a:focus-visible { outline-offset: -2px; }
 .project-rail a[aria-current] {
   box-shadow: inset 3px 0 var(--brass);
-  color: var(--brass);
+  color: var(--ink);
 }
 
 @media (min-width: 64rem) {
@@ -131,7 +142,7 @@
   position: absolute;
   z-index: -1;
   inset: 3% 0 0 38%;
-  background: linear-gradient(137deg, #f5c1b9, transparent 80%);
+  background: linear-gradient(137deg, var(--shape), transparent 80%);
   clip-path: polygon(17% 0, 100% 0, 100% 99%, 0 68%);
   pointer-events: none;
 }
@@ -157,7 +168,7 @@
   font-size: clamp(.82rem, 1.45vw, .95rem);
 }
 .profile-contact a:first-child { border-top: 1px solid var(--rule); }
-.profile-contact a > span { color: var(--brass); font-weight: 750; }
+.profile-contact a > span { color: var(--soft); font-weight: 750; }
 .profile-contact strong { overflow-wrap: anywhere; }
 .profile-contact a:is(:hover,:focus-visible) strong { text-decoration: underline; }
 
@@ -174,7 +185,7 @@
   padding-block: clamp(.8rem, 2.15vw, 1.4rem);
   border-bottom: 1px solid var(--rule);
 }
-.profile-records dt, .portfolio-home .profile-field h2 { color: var(--brass); font-weight: 800; font-size: clamp(.82rem, 1.52vw, 1rem); }
+.profile-records dt, .portfolio-home .profile-field h2 { color: var(--soft); font-weight: 800; font-size: clamp(.82rem, 1.52vw, 1rem); }
 .profile-records dd, .profile-field-body { margin: 0; display: grid; gap: .16rem; line-height: 1.5; }
 .profile-records strong, .profile-education strong { font-size: clamp(.94rem, 2.05vw, 1.3rem); font-weight: 820; }
 .profile-dates { margin-top: .23rem; }
@@ -203,7 +214,7 @@
 .featured-copy { display: grid; gap: .18rem; }
 .featured-copy strong { font-size: clamp(1.5rem, 3.4vw, 2.3rem); font-weight: 880; line-height: 1.05; letter-spacing: -.055em; }
 .featured-card:is(:hover, :focus-visible) strong { text-decoration: underline; text-decoration-thickness: .08em; text-underline-offset: .12em; }
-.featured-tech { color: var(--brass); font-size: .92rem; font-weight: 780; }
+.featured-tech { color: var(--soft); font-size: .92rem; font-weight: 780; }
 .featured-role { font-size: .92rem; font-weight: 700; }
 .featured-summary { margin-top: .3rem; color: var(--soft); font-size: .92rem; line-height: 1.55; }
 .featured-more { margin: 0; padding: 0; list-style: none; border-top: 1px solid var(--rule); }
@@ -212,9 +223,9 @@
 .featured-more span { color: var(--soft); font-size: .88rem; }
 .featured-more a { position: relative; padding-left: .7rem; transition: padding-left .25s ease, background-color .25s ease; }
 .featured-more a::before { content: ""; position: absolute; inset: 0 auto 0 0; width: .22rem; background: var(--brass); transform: scaleY(0); transition: transform .25s ease; }
-.featured-more a[aria-current] { padding-left: 1rem; background: color-mix(in srgb, var(--brass) 8%, transparent); }
+.featured-more a[aria-current] { padding-left: 1rem; background: var(--sel-bg); }
 .featured-more a[aria-current]::before { transform: scaleY(1); }
-.featured-more a[aria-current] strong { color: var(--brass); }
+.featured-more a[aria-current] strong { color: var(--ink); }
 .featured-more a:focus-visible { outline-offset: -2px; }
 
 .profile-skill { display: grid; gap: .12rem; }
@@ -237,7 +248,7 @@
 
   .portfolio-profile::before {
     inset: 3% 0 12% 28%;
-    background: linear-gradient(131deg, #f5c1b9, #f8d7cd 52%, transparent 87%);
+    background: linear-gradient(131deg, var(--shape), color-mix(in srgb, var(--shape) 55%, transparent) 52%, transparent 87%);
     clip-path: polygon(18% 0, 100% 0, 100% 100%, 0 61%);
   }
 
@@ -312,7 +323,7 @@
   overflow-wrap: anywhere;
 }
 .portfolio-work-header { padding-top: .35rem; }
-.work-tech { color: var(--brass); font-size: .95rem; font-weight: 780; }
+.work-tech { color: var(--soft); font-size: .95rem; font-weight: 780; }
 .portfolio-work-layout {
   display: grid;
   grid-template-columns: minmax(0, 1.6fr) minmax(0, 1fr);
@@ -387,3 +398,28 @@
 @media (max-width: 760px) { .featured-stage { overflow-x: clip; } }
 .project-rail a.is-upcoming { color: #9a9892; }
 .project-rail a.is-upcoming[aria-current] { box-shadow: inset 3px 0 #9a9892; color: #77756f; }
+
+/* 밝은 화면 / 어두운 화면 전환 버튼 (dock.js) */
+.theme-toggle {
+  position: fixed;
+  z-index: 5;
+  right: max(.9rem, env(safe-area-inset-right));
+  bottom: var(--dock-bottom);
+  min-width: 3.6rem;
+  min-height: 2.75rem;
+  padding: 0 .8rem;
+  border: 1px solid var(--rule);
+  border-radius: 999px;
+  background: var(--dock-surface);
+  color: var(--ink);
+  font: inherit;
+  font-size: .9rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: translate .28s cubic-bezier(.2,.72,.19,1), opacity .2s ease;
+}
+.theme-toggle:hover { text-decoration: underline; }
+.theme-toggle:focus-visible { outline: 2px solid var(--brass); outline-offset: 2px; }
+.theme-toggle.is-away:not(:focus-visible) { translate: 0 calc(100% + var(--dock-bottom) + 1rem); opacity: 0; }
+@media (prefers-reduced-motion: reduce) { .theme-toggle { transition: none; } }
+@media (max-width: 680px) { .theme-toggle { min-height: 2.6rem; min-width: 3.2rem; padding-inline: .6rem; font-size: .85rem; } }
