@@ -149,8 +149,9 @@
 
 .profile-identity { grid-area: identity; align-self: center; }
 .profile-role { color: var(--brass); font-size: clamp(1.1rem, 2.6vw, 1.6rem); font-weight: 850; }
-/* "이"는 왼쪽이 둥글어서 같은 자간에서도 앞 글자에 붙어 보인다. 이 글자만 조금 띄운다. */
-.profile-identity h1 .name-last { margin-left: .035em; }
+/* "준이"는 획이 서로 가까워서 같은 자간에서도 붙어 보인다. "준" 뒤의 자간만 넓힌다.
+   바깥 여백으로 띄우면 글자를 드래그해 선택할 때 선택 표시가 끊기므로 자간으로 한다. */
+.profile-identity h1 .name-kern { letter-spacing: .015em; }
 .profile-identity h1 {
   margin: .1em 0 .19em -.035em;
   font-size: clamp(4rem, 11.6vw, 8rem);
