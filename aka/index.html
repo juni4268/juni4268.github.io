@@ -329,7 +329,7 @@ if (OtherActor-&gt;ActorHasTag(TEXT(&quot;StunnableWall&quot;)))
           <p class="code-source"><a href="https://github.com/juni4268/AKA-Portfolio/blob/main/Source/AKA/BossMonster.cpp">Source/AKA/BossMonster.cpp</a></p>
         </details>
         <h3>랩타임 기록</h3>
-        <p>게임 요소가 적다고 느껴 랩타임을 추가했습니다. 기록은 레벨이 바뀌어도 남도록 게임 인스턴스에 보관하고, 추가할 때마다 보스 레벨 순으로 정렬합니다. 파일로 저장하지는 않아서 게임을 껐다 켜면 기록이 초기화됩니다.</p>
+        <p>기록은 레벨이 바뀌어도 남도록 게임 인스턴스에 보관하고, 추가할 때마다 보스 레벨 순으로 정렬합니다.</p>
         <details class="code-block">
           <summary>랩타임 코드 <span class="code-file">AKAGameInstance.cpp</span></summary>
           <pre><code>void UAKAGameInstance::AddLapTime(int32 Level, float Time)
