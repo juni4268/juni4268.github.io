@@ -195,7 +195,7 @@
 .code-block summary { padding: .55rem .85rem; color: var(--brass); font-weight: 700; cursor: pointer; }
 .code-block summary:focus-visible { outline: 2px solid var(--brass); outline-offset: 2px; }
 .code-file { margin-left: .4rem; color: var(--soft); font: 400 .82rem/1.4 ui-monospace, "Cascadia Mono", Consolas, monospace; }
-.code-block pre { margin: 0; padding: .9rem 1rem; overflow-x: auto; background: var(--code-bg); color: var(--code-ink); font: .8rem/1.6 ui-monospace, "Cascadia Mono", Consolas, monospace; tab-size: 4; }
+.code-block pre { margin: 0; padding: .9rem 1rem; overflow-x: auto; background: var(--code-bg); color: var(--code-ink); font: .875rem/1.65 ui-monospace, "Cascadia Mono", Consolas, monospace; tab-size: 4; }
 .code-source { padding: .5rem .85rem; font-size: .8rem; overflow-wrap: anywhere; }
 .is-swapping-section::view-transition-group(*) { animation-duration: .5s; animation-timing-function: cubic-bezier(.2,.72,.19,1); }
 

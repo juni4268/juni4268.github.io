@@ -2,14 +2,18 @@
 const dock = document.querySelector(".portfolio-dock");
 const toggle = document.querySelector(".theme-toggle");
 let last = window.scrollY;
+// 좁은 화면에서는 페이지 맨 위에 있을 때 메뉴를 숨긴다. 첫 화면의 내용을 가리지 않기 위해서다.
+const narrow = window.matchMedia("(max-width: 680px)");
+const hideAtTop = () => narrow.matches && window.scrollY < 80;
 
 if (dock) {
+  dock.classList.toggle("is-away", hideAtTop());
   window.addEventListener("scroll", () => {
     const y = window.scrollY;
     if (Math.abs(y - last) < 8) return;
-    const away = y > last && y > 120;
-    dock.classList.toggle("is-away", away);
-    toggle?.classList.toggle("is-away", away);
+    const down = y > last && y > 120;
+    dock.classList.toggle("is-away", down || hideAtTop());
+    toggle?.classList.toggle("is-away", down);
     last = y;
   }, { passive: true });
 }
