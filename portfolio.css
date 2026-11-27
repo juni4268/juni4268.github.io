@@ -202,20 +202,33 @@
 .featured-tilt > .featured-card { grid-area: 1 / 1; }
 /* 카드는 제자리에서 흐려졌다 나타나기만 한다. 옆으로 밀며 바꾸면 빠르게 바꿀 때 이전 영상이 옆에 남는 일이 있었다. */
 .featured-card:not(.is-active) { visibility: hidden; opacity: 0; }
-.featured-card.is-active { transition: opacity .28s ease; }
+.featured-card.is-active { transition: opacity .2s ease; }
+/* 고른 카드가 나타날 때: 영상은 왼쪽에서 펼쳐지고, 글은 한 줄씩 차례로 올라온다 */
+.featured-card.is-active :is(img, video) { animation: card-media .55s cubic-bezier(.2,.72,.19,1) backwards; }
+.featured-card.is-active .featured-copy > * { animation: card-line .45s cubic-bezier(.2,.72,.19,1) backwards; }
+.featured-card.is-active .featured-copy > :nth-child(1) { animation-delay: .08s; }
+.featured-card.is-active .featured-copy > :nth-child(2),
+.featured-card.is-active .featured-copy > :nth-child(3) { animation-delay: .14s; }
+.featured-card.is-active .featured-copy > :nth-child(4) { animation-delay: .2s; }
+@keyframes card-media { from { clip-path: inset(0 100% 0 0); opacity: .4; } to { clip-path: inset(0); opacity: 1; } }
+@keyframes card-line { from { opacity: 0; translate: 0 .6rem; } }
 .featured-card :is(img, video) { transition: transform .5s cubic-bezier(.2,.72,.19,1); }
 .featured-stage:hover .featured-card.is-active :is(img, video) { transform: scale(1.03); }
 .featured-card { overflow: hidden; }
 @media (prefers-reduced-motion: reduce) {
   .featured-tilt { transform: none; transition: none; }
   .featured-card.is-active, .featured-card :is(img, video) { transition: none; }
+  .featured-card.is-active :is(img, video), .featured-card.is-active .featured-copy > * { animation: none; }
   .featured-stage:hover .featured-card.is-active :is(img, video) { transform: none; }
 }
-.featured-copy { display: grid; gap: .18rem; }
+/* 글은 제목, 기술·역할 한 줄, 소개 순서로 왼쪽에 맞춰 쌓는다. 작품마다 제목 길이가 달라도 각 줄의 위치가 같다. */
+.featured-copy { display: grid; grid-template-columns: auto minmax(0, 1fr); column-gap: .9rem; row-gap: .25rem; align-items: baseline; }
+.featured-copy strong, .featured-summary { grid-column: 1 / -1; }
+.featured-summary { min-height: 3.1em; }
 .featured-copy strong { font-size: clamp(1.5rem, 3.4vw, 2.3rem); font-weight: 880; line-height: 1.05; letter-spacing: -.055em; }
 .featured-card:is(:hover, :focus-visible) strong { text-decoration: underline; text-decoration-thickness: .08em; text-underline-offset: .12em; }
 .featured-tech { color: var(--soft); font-size: .92rem; font-weight: 780; }
-.featured-role { font-size: .92rem; font-weight: 700; }
+.featured-role { padding-left: .9rem; border-left: 1px solid var(--rule); font-size: .92rem; font-weight: 700; }
 .featured-summary { margin-top: .3rem; color: var(--soft); font-size: .92rem; line-height: 1.55; }
 .featured-more { margin: 0; padding: 0; list-style: none; border-top: 1px solid var(--rule); }
 .featured-more a { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: .1rem 1rem; min-height: 2.5rem; padding-block: .45rem; border-bottom: 1px solid var(--rule); text-decoration: none; }
@@ -275,9 +288,8 @@
   .profile-featured { align-self: center; }
   .featured-body { grid-template-columns: minmax(0, 1.75fr) minmax(0, 1fr); gap: clamp(1.4rem, 2.6vw, 3.5rem); align-items: center; }
   .featured-card { gap: clamp(.8rem, 1.6vh, 1.4rem); }
-  .featured-copy { grid-template-columns: auto minmax(0, 1fr); column-gap: clamp(1rem, 1.6vw, 2rem); align-items: baseline; }
-  .featured-copy strong { grid-row: span 2; font-size: clamp(2.1rem, 3vw, 4rem); }
-  .featured-summary { grid-column: 1 / -1; margin-top: .45rem; }
+  .featured-copy strong { font-size: clamp(2.1rem, 3vw, 4rem); }
+  .featured-summary { margin-top: .3rem; }
   .featured-tech, .featured-role, .featured-summary { font-size: clamp(.94rem, 1vw, 1.2rem); }
   .featured-more strong { font-size: clamp(1rem, 1.1vw, 1.3rem); }
   .featured-more a { display: grid; justify-content: stretch; gap: 0; padding-block: clamp(.5rem, .9vh, .85rem); }
