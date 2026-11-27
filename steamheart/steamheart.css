@@ -137,8 +137,10 @@
   .boss-pattern-table tbody tr { display: grid; gap: .2rem; padding-block: .7rem; border-bottom: 1px solid color-mix(in srgb, var(--rule) 55%, var(--bg)); }
   .boss-pattern-table tbody tr:last-child { border-bottom: 0; }
   .boss-pattern-table tbody :is(th, td) { display: block; padding: 0; border: 0; }
+  /* 값이 두 줄로 넘어가도 이름표 아래로 들어가지 않게 값 칸을 따로 둔다 */
+  .boss-pattern-table tbody td { position: relative; padding-left: 4.9rem; }
   .boss-pattern-table tbody th { margin-bottom: .25rem; }
-  .boss-pattern-table tbody td::before { display: inline-block; min-width: 4.6rem; color: var(--soft); font-weight: 700; }
+  .boss-pattern-table tbody td::before { position: absolute; left: 0; top: 0; color: var(--soft); font-weight: 700; }
   .boss-pattern-table tbody td:nth-child(2)::before { content: "사용 부위"; }
   .boss-pattern-table tbody td:nth-child(3)::before { content: "동작"; }
 }
@@ -208,6 +210,9 @@
 @media (max-width: 560px) {
   .boss-pattern-table.event-table tbody td:nth-child(2)::before { content: "실패 조건"; }
   .boss-pattern-table.event-table tbody td:nth-child(3)::before { content: "해결"; }
+  /* 표마다 이름표가 다를 때는 칸에 직접 적는다 */
+  .boss-pattern-table tbody td[data-label]::before { content: attr(data-label); }
+  .boss-pattern-table tbody td[data-label="재사용 대기"] { padding-left: 5.6rem; }
 }
 
 /* Same starting line on every work page: title and video both sit at the top of the hero. */

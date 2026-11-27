@@ -331,7 +331,19 @@
   .portfolio-profile::before { inset: 2% 0 0 17%; }
   .profile-identity { margin-bottom: clamp(1.4rem, 5.2vw, 2.3rem); }
   .profile-contact { max-width: none; }
-  .profile-records > div, .profile-field { grid-template-columns: minmax(3.6rem,1fr) minmax(0,3.7fr); }
+  .profile-records > div { grid-template-columns: minmax(3.6rem,1fr) minmax(0,3.7fr); }
+  /* 좁은 화면: 구역 이름을 내용 위에 두어 카드와 목록이 화면 폭을 다 쓰게 한다 */
+  .profile-field { grid-template-columns: minmax(0, 1fr); gap: .7rem; }
+}
+/* 좁은 화면의 작품 목록: 줄바꿈 대신 한 줄로 두고 넘치면 옆으로 민다 */
+@media (max-width: 63.99rem) {
+  .project-rail ul { flex-wrap: nowrap; overflow-x: auto; scrollbar-width: none; }
+  .project-rail ul::-webkit-scrollbar { display: none; }
+  .project-rail a { white-space: nowrap; padding-inline: .5rem; font-size: .95rem; }
+}
+/* 좁은 화면에서는 아래 메뉴를 작게 해서 내용을 덜 가린다 */
+@media (max-width: 680px) {
+  .portfolio-dock a { min-width: 5.2rem; min-height: 2.6rem; font-size: .92rem; }
 }
 
 @media (prefers-reduced-motion: no-preference) {

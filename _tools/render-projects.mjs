@@ -53,7 +53,7 @@ function page(project) {
   <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
   <link rel="stylesheet" href="../plain.css?v=projects-2">
-  <link rel="stylesheet" href="../portfolio.css?v=dock-back">
+  <link rel="stylesheet" href="../portfolio.css?v=mobile-2">
   <script type="module" src="../dock.js"></script>
 </head>
 <body class="home-page portfolio-page portfolio-nav-page portfolio-detail-page">
