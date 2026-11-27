@@ -228,7 +228,7 @@
 .featured-copy { display: grid; grid-template-columns: auto minmax(0, 1fr); column-gap: .9rem; row-gap: .25rem; align-items: baseline; }
 .featured-copy strong, .featured-summary { grid-column: 1 / -1; }
 .featured-summary { min-height: 3.1em; }
-.featured-copy strong { font-size: clamp(1.5rem, 3.4vw, 2.3rem); font-weight: 880; line-height: 1.05; letter-spacing: -.025em; }
+.featured-copy strong { font-size: clamp(1.5rem, 3.4vw, 2.3rem); font-weight: 880; line-height: 1.05; letter-spacing: 0; }
 .featured-card:is(:hover, :focus-visible) strong { text-decoration: underline; text-decoration-thickness: .08em; text-underline-offset: .12em; }
 .featured-tech { color: var(--soft); font-size: .92rem; font-weight: 780; }
 .featured-role { padding-left: .9rem; border-left: 1px solid var(--rule); font-size: .92rem; font-weight: 700; }
@@ -334,7 +334,7 @@
 .portfolio-work-header h1 {
   font-size: clamp(2.6rem, 8vw, 5.5rem);
   line-height: .99;
-  letter-spacing: -.04em;
+  letter-spacing: -.01em;
   overflow-wrap: anywhere;
 }
 .portfolio-work-header { padding-top: .35rem; }
