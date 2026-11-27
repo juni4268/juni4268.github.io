@@ -23,7 +23,8 @@
     "width": 960,
     "height": 536,
     "alt": "SAFE OUT 공장의 설비와 배관 사이로 불길이 치솟는 장면",
-    "customDetail": true
+    "customDetail": true,
+    "clip": "safe-out/card.mp4"
   },
   {
     "slug": "aka",
@@ -36,7 +37,8 @@
     "width": 960,
     "height": 540,
     "alt": "위에서 본 AKA의 던전 보스전",
-    "customDetail": true
+    "customDetail": true,
+    "clip": "aka/card.mp4"
   },
   {
     "slug": "daeva",
@@ -49,6 +51,7 @@
     "width": 960,
     "height": 540,
     "alt": "사막 협곡에서 마법사가 몬스터와 맞서는 DAEVA의 플레이 화면",
-    "customDetail": true
+    "customDetail": true,
+    "clip": "daeva/card.mp4"
   }
 ]
