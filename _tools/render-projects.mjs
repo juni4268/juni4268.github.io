@@ -53,7 +53,8 @@ function page(project) {
   <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
   <link rel="stylesheet" href="../plain.css?v=projects-2">
-  <link rel="stylesheet" href="../portfolio.css?v=nodock-2">
+  <link rel="stylesheet" href="../portfolio.css?v=dock-back">
+  <script type="module" src="../dock.js"></script>
 </head>
 <body class="home-page portfolio-page portfolio-nav-page portfolio-detail-page">
 <div class="page">
@@ -78,7 +79,6 @@ function projectRail(activeSlug) {
     `      <li><a${project.upcoming ? ' class="is-upcoming"' : ''} href="../${project.slug}/"${project.slug === activeSlug ? ' aria-current="page"' : ''}>${html(project.name)}</a></li>`).join('\n');
 
   return `  <nav class="project-rail" aria-labelledby="project-rail-title">
-    <a class="rail-home" href="../"><span aria-hidden="true">←</span> 메인</a>
     <p id="project-rail-title">참여 작품</p>
     <ul>
 ${links}
@@ -87,8 +87,10 @@ ${links}
 }
 
 function projectNavigation(prefix, activeSlug) {
-  // 아래에 떠 있던 메인/작품 상세 메뉴는 없앴다. 상세 페이지는 작품 목록 위의 '← 메인'으로 돌아간다.
-  return '';
+  return `  <nav class="portfolio-dock" aria-label="사이트 메뉴">
+    <a href="${prefix}"${activeSlug ? '' : ' aria-current="page"'}>메인</a>
+    <a href="${prefix}${activeSlug ?? firstProject}/" id="games"${activeSlug ? ' aria-current="page"' : ''}>작품 상세</a>
+  </nav>`;
 }
 
 // projects.json의 repo(선택)는 공개 코드 저장소 주소다. 있으면 상세 페이지에 '코드' 행을 붙인다.
