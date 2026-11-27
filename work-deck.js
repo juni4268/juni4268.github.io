@@ -19,7 +19,6 @@ function playActive() {
 
 function select(index) {
   if (index === active || !cards[index]) return;
-  tilt.style.setProperty("--from", index > active ? 1 : -1);
   cards[active].classList.remove("is-active");
   cards[active].inert = true;
   tabs[active]?.removeAttribute("aria-current");

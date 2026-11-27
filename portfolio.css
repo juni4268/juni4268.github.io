@@ -200,14 +200,14 @@
 .featured-stage { perspective: 70rem; }
 .featured-tilt { display: grid; transform: rotateX(var(--tilt-x, 0deg)) rotateY(var(--tilt-y, 0deg)); transition: transform .25s ease-out; }
 .featured-tilt > .featured-card { grid-area: 1 / 1; }
-.featured-card:not(.is-active) { visibility: hidden; opacity: 0; transform: translateX(calc(var(--from, 1) * 1.6rem)); }
-.featured-card.is-active { transition: opacity .32s ease, transform .42s cubic-bezier(.2,.72,.19,1); }
+/* 카드는 제자리에서 흐려졌다 나타나기만 한다. 옆으로 밀며 바꾸면 빠르게 바꿀 때 이전 영상이 옆에 남는 일이 있었다. */
+.featured-card:not(.is-active) { visibility: hidden; opacity: 0; }
+.featured-card.is-active { transition: opacity .28s ease; }
 .featured-card :is(img, video) { transition: transform .5s cubic-bezier(.2,.72,.19,1); }
 .featured-stage:hover .featured-card.is-active :is(img, video) { transform: scale(1.03); }
 .featured-card { overflow: hidden; }
 @media (prefers-reduced-motion: reduce) {
   .featured-tilt { transform: none; transition: none; }
-  .featured-card:not(.is-active) { transform: none; }
   .featured-card.is-active, .featured-card :is(img, video) { transition: none; }
   .featured-stage:hover .featured-card.is-active :is(img, video) { transform: none; }
 }
