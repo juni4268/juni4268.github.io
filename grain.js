@@ -1,6 +1,6 @@
 // 메인 배경의 빛 그림: 고른 작품에 맞는 모양을 이름과 대표 영상 사이에 부드러운 빛으로 그린다.
 // 작품을 바꾸면 그림이 빛 알갱이로 풀려서 휘어 돌며 새 모양의 자리로 가고, 다시 그림으로 맺힌다.
-// 이 스크립트가 없거나 실패하면 넓은 화면에서는 기존의 단색 도형이 그대로 보인다.
+// 이 스크립트가 없거나 실패하면 배경 그림 없이 내용만 보인다.
 const host = document.querySelector(".portfolio-profile");
 const stage = document.querySelector(".featured-stage");
 const nameEl = document.querySelector(".profile-identity h1");
@@ -247,6 +247,13 @@ async function start() {
     resizeTimer = setTimeout(() => { layout(); show(shown, false); }, 120);
   });
   enable();
+  // 처음 나타날 때는 서서히 떠오르게 한다
+  still.style.opacity = 0;
+  requestAnimationFrame(() => requestAnimationFrame(() => {
+    still.style.transition = "opacity .6s ease";
+    still.style.opacity = 1;
+    setTimeout(() => { still.style.transition = ""; }, 700);
+  }));
   // 글꼴이 적용되면 배치가 달라지므로 한 번 더 맞춘다
   document.fonts?.ready.then(() => { layout(); show(shown, false); });
 }

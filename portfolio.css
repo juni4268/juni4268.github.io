@@ -635,3 +635,6 @@
   .project-hero::before, .project-hero::after { --mask-w: calc(var(--hero-w, 0px) * 2.35); --mask-x: .5; --mask-y: 88%; }
 }
 }
+
+/* 예전의 단색 도형은 쓰지 않는다. 남겨 두면 배경 그림(grain.js)이 준비되기 전까지 잠깐 보였다가 사라진다. */
+.portfolio-profile::before { display: none; }
