@@ -606,33 +606,47 @@
 /* ── 작품 상세: 맨 위 대표 영상 뒤의 작품 모양 ──
    메인 배경과 같은 그림을 색만 입혀 깐다. 그림은 --hero-mask(각 페이지의 project-hero에 지정)로 받는다. */
 .project-hero { position: relative; isolation: isolate; }
-/* 모양을 담는 칸은 화면 폭에 딱 맞춘다(화면 밖으로 나가면 가로 스크롤이 생기므로).
-   그림 자체는 칸보다 크게 깔고, 칸 밖으로 나간 부분은 보이지 않는다.
-   --hero-left / --hero-w / --hero-vw 는 dock.js가 넣는다. 없으면 모양을 그리지 않는다. */
+/* 모양은 글과 영상 사이에, 맨 위 영역 안에 통째로 들어가는 크기로 놓는다.
+   모양의 중심에서 멀어질수록 옅어지게 해서(둥근 마스크를 겹침) 메뉴 줄, 아래 구분선, 왼쪽 목록에서 직선으로 잘리지 않는다.
+   모양을 담는 칸은 화면 폭에 딱 맞춘다(화면 밖으로 나가면 가로 스크롤이 생기므로).
+   --hero-left / --hero-w / --hero-h / --hero-vw 는 dock.js가 넣는다. 없으면 모양을 그리지 않는다. */
 .project-hero::before, .project-hero::after {
-  --mask-w: max(var(--hero-w, 0px) * 1.5, 62rem);
-  --mask-x: .4; /* 모양의 중심: 글과 영상 사이 */
+  --unit: var(--hero-h, 0px);            /* 크기의 기준: 넓은 화면에서는 영역의 높이 */
+  --mask-w: calc(var(--unit) * 2.77);    /* 그림 전체 너비. 모양의 지름은 이 값의 약 27%다 */
+  --cx: calc(var(--hero-left, 0px) + var(--hero-w, 0px) * .34);
+  --cy: calc(var(--hero-h, 0px) * .5);
+  --fade: radial-gradient(circle at var(--cx) var(--cy), #000 calc(var(--unit) * .38), transparent calc(var(--unit) * .5));
   content: "";
   position: absolute;
   z-index: -1;
-  top: -6rem;
-  bottom: -6rem;
+  top: 0;
+  bottom: 0;
   left: calc(-1 * var(--hero-left, 0px));
   width: var(--hero-vw, 0px);
   background: var(--grain);
-  -webkit-mask: var(--hero-mask) no-repeat;
-  mask: var(--hero-mask) no-repeat;
-  -webkit-mask-size: var(--mask-w) auto;
-  mask-size: var(--mask-w) auto;
-  -webkit-mask-position: calc(var(--hero-left, 0px) + var(--hero-w, 0px) * var(--mask-x) - var(--mask-w) / 2) var(--mask-y, 50%);
-  mask-position: calc(var(--hero-left, 0px) + var(--hero-w, 0px) * var(--mask-x) - var(--mask-w) / 2) var(--mask-y, 50%);
+  -webkit-mask-image: var(--hero-mask), var(--fade);
+  mask-image: var(--hero-mask), var(--fade);
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+  -webkit-mask-size: var(--mask-w) auto, 100% 100%;
+  mask-size: var(--mask-w) auto, 100% 100%;
+  -webkit-mask-position: calc(var(--cx) - var(--mask-w) / 2) calc(var(--cy) - var(--mask-w) * .3), 0 0;
+  mask-position: calc(var(--cx) - var(--mask-w) / 2) calc(var(--cy) - var(--mask-w) * .3), 0 0;
+  -webkit-mask-composite: source-in;
+  mask-composite: intersect;
   pointer-events: none;
 }
 .project-hero::before { filter: blur(1.4px); opacity: .95; }
 .project-hero::after { filter: blur(18px); opacity: .45; }
 @media (max-width: 760px) {
-  /* 한 줄 배치에서는 모양을 아래쪽 영상 가운데에 맞춘다 */
-  .project-hero::before, .project-hero::after { --mask-w: calc(var(--hero-w, 0px) * 2.35); --mask-x: .5; --mask-y: 88%; }
+  /* 한 줄 배치에서는 크기의 기준을 너비로 바꾸고, 모양을 제목 오른쪽 위에 둔다 */
+  .project-hero::before, .project-hero::after {
+    --unit: var(--hero-w, 0px);
+    --mask-w: calc(var(--unit) * 2.3);
+    --cx: calc(var(--hero-left, 0px) + var(--hero-w, 0px) * .66);
+    --cy: calc(var(--hero-w, 0px) * .42);
+    --fade: radial-gradient(circle at var(--cx) var(--cy), #000 calc(var(--unit) * .33), transparent calc(var(--unit) * .45));
+  }
 }
 
 /* 예전의 단색 도형은 쓰지 않는다. 남겨 두면 배경 그림(grain.js)이 준비되기 전까지 잠깐 보였다가 사라진다. */

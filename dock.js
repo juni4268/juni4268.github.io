@@ -76,6 +76,7 @@ if (head && sectionLinks.length) {
       const box = hero.getBoundingClientRect();
       hero.style.setProperty("--hero-left", `${box.left}px`);
       hero.style.setProperty("--hero-w", `${box.width}px`);
+      hero.style.setProperty("--hero-h", `${box.height}px`);
       hero.style.setProperty("--hero-vw", `${root.clientWidth}px`);
     }
   };
