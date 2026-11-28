@@ -1,6 +1,5 @@
-// 메인 배경의 입자 그림: 고른 작품에 맞는 모양을 점으로 그린다.
-// 작품을 바꾸면 점들이 별처럼 흩어졌다가 새 모양으로 모인다.
-// 모양은 화면 가운데에 크게 놓는다.
+// 메인 배경의 빛 그림: 고른 작품에 맞는 모양을 이름과 대표 영상 사이에 부드러운 빛으로 그린다.
+// 작품을 바꾸면 그림이 빛 알갱이로 풀려서 휘어 돌며 새 모양의 자리로 가고, 다시 그림으로 맺힌다.
 // 이 스크립트가 없거나 실패하면 넓은 화면에서는 기존의 단색 도형이 그대로 보인다.
 const host = document.querySelector(".portfolio-profile");
 const stage = document.querySelector(".featured-stage");
@@ -13,16 +12,15 @@ const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
 const MAP_W = 400, MAP_H = 240, VIDEO_X = 200, VIDEO_Y = 120, VIDEO_W = 156;
 const BAYER = [0,32,8,40,2,34,10,42,48,16,56,24,50,18,58,26,12,44,4,36,14,46,6,38,60,28,52,20,62,30,54,22,
   3,35,11,43,1,33,9,41,51,19,59,27,49,17,57,25,15,47,7,39,13,45,5,37,63,31,55,23,61,29,53,21];
-const MOVE = 600, MOVE_LAG = 160; // 밀리초: 점이 새 자리로 가는 시간, 점마다 출발을 늦추는 최대 폭
+const MOVE = 720, MOVE_LAG = 230, FUSE = 470; // 밀리초: 알갱이가 새 자리로 가는 시간, 알갱이마다 출발을 늦추는 최대 폭, 알갱이가 그림으로 넘어가는 시간
 
 let seed = 1;
 const random = () => (seed = seed * 16807 % 2147483647) / 2147483647;
-const settle = u => 1 - (1 - u) ** 2.4; // 바로 출발해서 끝에서 천천히 자리에 앉는다
 const clamp01 = u => Math.min(1, Math.max(0, u));
 
 async function loadShape(slug) {
   const image = new Image();
-  image.src = `./assets/grain/${slug}.png?v=6`;
+  image.src = `./assets/grain/${slug}.png?v=7`;
   await image.decode();
   const canvas = document.createElement("canvas");
   canvas.width = MAP_W; canvas.height = MAP_H;
@@ -44,29 +42,42 @@ async function loadShape(slug) {
   return Float32Array.from(points);
 }
 
-// 별 자리: 작품 영역 안에서 몇 군데 뭉치게, 영상 뒤는 비운다
-function makeStars() {
-  const clusters = [[190, 30, 60, 26], [330, 40, 70, 30], [395, 150, 40, 50], [250, 205, 90, 22], [170, 150, 26, 40]];
-  const spread = () => random() + random() + random() + random() - 2;
-  const stars = [];
-  while (stars.length < 150) {
-    let x, y;
-    if (random() < .75) { const c = clusters[Math.floor(random() * clusters.length)]; x = c[0] + spread() * c[2]; y = c[1] + spread() * c[3]; }
-    else { x = 165 + random() * 270; y = random() * 215; }
-    if (x < 160 || x > 435 || y < 2 || y > 218) continue;
-    if (x > 176 && x < 338 && y > 38 && y < 130) continue;
-    stars.push({ x, y, size: random() });
-  }
-  return stars;
-}
-
 async function start() {
   const slugs = tabs.map(tab => tab.dataset.work);
   const shapes = Object.fromEntries(await Promise.all(slugs.map(async slug => [slug, await loadShape(slug)])));
-  const stars = makeStars();
+
+  // 멈춰 있을 때는 또렷한 빛 그림(still)을, 바뀌는 동안에는 움직이는 빛 알갱이(canvas)를 보여 준다.
+  // 멈춘 화면용 그림은 점 지도보다 세 배 촘촘한 것을 따로 쓴다(선이 또렷하게 보이도록).
+  const HI = 3, tints = {};
+  await Promise.all(slugs.map(async slug => {
+    const image = new Image(); image.src = `./assets/grain/${slug}-hi.png?v=1`; await image.decode();
+    const source = document.createElement("canvas"); source.width = MAP_W * HI; source.height = MAP_H * HI;
+    const g = source.getContext("2d", { willReadFrequently: true }); g.drawImage(image, 0, 0, source.width, source.height);
+    tints[slug] = { levels: g.getImageData(0, 0, source.width, source.height).data, canvas: document.createElement("canvas") };
+    tints[slug].canvas.width = source.width; tints[slug].canvas.height = source.height;
+  }));
+  const still = document.createElement("canvas");
+  still.className = "profile-grain";
+  still.style.cssText = "image-rendering:auto;";
+  still.setAttribute("aria-hidden", "true");
+  host.prepend(still);
+  let cellSize = 6;
+  function drawStill(slug) {
+    const { levels, canvas: tint } = tints[slug], tc = tint.getContext("2d"), image = tc.createImageData(tint.width, tint.height);
+    for (let i = 0; i < tint.width * tint.height; i++) { image.data[i*4] = color[0]; image.data[i*4+1] = color[1]; image.data[i*4+2] = color[2]; image.data[i*4+3] = Math.min(255, levels[i*4] * 1.3); }
+    tc.putImageData(image, 0, 0);
+    const box = host.getBoundingClientRect(), g = still.getContext("2d"), ratio = Math.min(2, window.devicePixelRatio || 1);
+    still.width = Math.ceil(box.width * ratio); still.height = Math.ceil(box.height * ratio);
+    g.scale(ratio, ratio); g.imageSmoothingQuality = "high";
+    const args = [tint, offsetX * cellSize, offsetY * cellSize, MAP_W * cellSize, MAP_H * cellSize];
+    g.filter = "blur(18px)"; g.globalAlpha = .45; g.drawImage(...args);   // 옅게 번지는 빛
+    g.filter = "blur(1.4px)"; g.globalAlpha = .95; g.drawImage(...args);  // 선(살짝만 풀어서 너무 날카롭지 않게)
+  }
+
 
   const canvas = document.createElement("canvas");
   canvas.className = "profile-grain";
+  canvas.style.cssText = "image-rendering:auto;filter:blur(2px) brightness(1.45) saturate(1.25);opacity:0;";
   canvas.setAttribute("aria-hidden", "true");
   host.prepend(canvas);
   const context = canvas.getContext("2d");
@@ -89,6 +100,7 @@ async function start() {
     // 넓은 화면: 모양의 중심을 이름과 대표 영상 사이의 빈 곳에 둔다.
     // 좁은 화면: 대표 영상을 중심으로 두고, 모양이 영상 밖으로 보이도록 입자를 키운다.
     const cell = wide.matches ? video.width / VIDEO_W * 1.5 : box.width / 90;
+    cellSize = cell;
     canvas.width = Math.ceil(box.width / cell);
     canvas.height = Math.ceil(box.height / cell);
     if (wide.matches) {
@@ -101,21 +113,19 @@ async function start() {
     }
   }
 
-  function paint(points, count, starGlow = 0) {
+  let trail = new Uint8ClampedArray(0);
+  function paint(points, count) {
     const { width, height } = canvas;
-    const image = context.createImageData(width, height);
-    const pixels = image.data;
-    const put = (x, y) => {
-      x = Math.round(x) + offsetX; y = Math.round(y) + offsetY;
-      if (x < 0 || y < 0 || x >= width || y >= height) return;
-      const i = (y * width + x) * 4;
-      pixels[i] = color[0]; pixels[i + 1] = color[1]; pixels[i + 2] = color[2]; pixels[i + 3] = 255;
-    };
-    for (let i = 0; i < count; i++) put(points[i * 2], points[i * 2 + 1]);
-    if (starGlow > 0) for (const star of stars) {
-      if (star.size > .55) { put(star.x + 1, star.y); put(star.x, star.y + 1); put(star.x + 1, star.y + 1); }
-      if (star.size > .86 && starGlow > .5) { put(star.x - 1, star.y); put(star.x + 2, star.y); put(star.x, star.y - 1); put(star.x, star.y + 2); }
+    if (trail.length !== width * height) trail = new Uint8ClampedArray(width * height);
+    for (let i = 0; i < trail.length; i++) trail[i] = trail[i] * .7; // 지나간 자리에 꼬리가 남는다
+    for (let n = 0; n < count; n++) {
+      if (n % 5 === 4) continue; // 알갱이를 조금 덜어낸다
+      const x = Math.round(points[n * 2]) + offsetX, y = Math.round(points[n * 2 + 1]) + offsetY;
+      if (x < 0 || y < 0 || x >= width || y >= height) continue;
+      trail[y * width + x] = 255;
     }
+    const image = context.createImageData(width, height), pixels = image.data;
+    for (let i = 0; i < trail.length; i++) { pixels[i*4] = color[0]; pixels[i*4+1] = color[1]; pixels[i*4+2] = color[2]; pixels[i*4+3] = trail[i]; }
     context.putImageData(image, 0, 0);
   }
 
@@ -123,12 +133,14 @@ async function start() {
     const target = shapes[slug];
     if (!target) return;
     cancelAnimationFrame(frame);
-    if (!animate || reduceMotion.matches) { current = target; paint(current, current.length / 2); return; }
+    if (!animate || reduceMotion.matches) { current = target; drawStill(slug); still.style.opacity = 1; canvas.style.opacity = 0; return; }
+    trail.fill(0);
 
     const from = current, fromCount = from.length / 2, toCount = target.length / 2;
     const count = Math.max(fromCount, toCount, 1);
     const moving = new Float32Array(count * 2);
     const began = performance.now();
+    let redrawn = false;
 
     // 점 하나하나가 지금 자리에서 새 모양의 자리로 곧장 날아간다.
     // 두 모양의 점 개수가 다르면, 남는 점은 다른 점과 같은 자리로 겹쳐 들어가고 모자란 점은 겹쳐 있던 자리에서 갈라져 나온다.
@@ -138,14 +150,21 @@ async function start() {
         const a = fromCount ? (i % fromCount) * 2 : (i % toCount) * 2, b = (i % toCount) * 2;
         const source = fromCount ? from : target;
         const lag = ((i * 2654435761) >>> 0) / 4294967296; // 점마다 조금씩 다른 출발 시간
-        const u = settle(clamp01((time - lag * MOVE_LAG) / (MOVE - MOVE_LAG)));
-        moving[i * 2] = source[a] + (target[b] - source[a]) * u;
-        moving[i * 2 + 1] = source[a + 1] + (target[b + 1] - source[a + 1]) * u;
+        const v = clamp01((time - lag * MOVE_LAG) / (MOVE - MOVE_LAG)), u = v * v * (3 - 2 * v); // 천천히 출발해 가운데서 빠르고 끝에서 감속
+        const dx = target[b] - source[a], dy = target[b + 1] - source[a + 1], bend = Math.sin(Math.PI * u) * .3; // 곧장 가지 않고 한쪽으로 휘어 돈다
+        moving[i * 2] = source[a] + dx * u - dy * bend;
+        moving[i * 2 + 1] = source[a + 1] + dy * u + dx * bend;
       }
       paint(moving, count);
       current = moving;
-      if (time < MOVE) frame = requestAnimationFrame(step);
-      else { current = target; paint(current, toCount); }
+      // 처음 0.15초: 또렷한 그림이 알갱이로 풀린다. 알갱이가 자리에 거의 온 뒤 0.5초: 알갱이가 또렷한 그림으로 천천히 넘어간다.
+      // (겹쳐서 넘기기 때문에 바뀌는 순간이 눈에 띄지 않는다)
+      const loosen = clamp01(time / 150), fuse = clamp01((time - MOVE * .62) / FUSE), fused = fuse * fuse * (3 - 2 * fuse);
+      if (!redrawn && loosen >= 1) { redrawn = true; drawStill(slug); }
+      still.style.opacity = redrawn ? fused : 1 - loosen;
+      canvas.style.opacity = loosen * (1 - fused);
+      if (time < MOVE * .62 + FUSE) frame = requestAnimationFrame(step);
+      else { current = target; still.style.opacity = 1; canvas.style.opacity = 0; }
     };
     frame = requestAnimationFrame(step);
   }

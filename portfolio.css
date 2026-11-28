@@ -470,3 +470,8 @@
   /* 저장소 주소에서 github.com/ 을 줄여 화살표만 다음 줄로 떨어지지 않게 한다 */
   .url-host { display: none; }
 }
+
+/* 넓은 화면: 연락처의 구분선을 글자 길이까지만 둔다(가운데 빛 그림 쪽으로 뻗지 않게) */
+@media (min-width: 80rem) {
+  .profile-contact { width: fit-content; }
+}
