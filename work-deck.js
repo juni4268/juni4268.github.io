@@ -27,9 +27,33 @@ function select(index) {
   cards[active].classList.add("is-active");
   tabs[active]?.setAttribute("aria-current", "true");
   playActive();
+  browse();
+}
+
+// 작품을 연달아 빠르게 넘기는 동안에는 영상을 덮개로 가리고 작품 이름만 바꿔 보여 준다.
+// 넘기기를 멈추면 덮개를 걷고, 고른 작품의 영상이 펼쳐진다. (배경 그림이 고리로 모였다가 모양을 잡는 것과 같은 박자)
+const cover = document.createElement("span");
+cover.className = "featured-cover";
+cover.setAttribute("aria-hidden", "true");
+let lastSelect = -Infinity, settleTimer = 0;
+
+function browse() {
+  const now = performance.now(), quick = now - lastSelect < 450;
+  lastSelect = now;
+  if (reduceMotion.matches || !(quick || stage.classList.contains("is-browsing"))) return;
+  cover.textContent = cards[active].querySelector("strong")?.textContent ?? "";
+  stage.classList.add("is-browsing");
+  clearTimeout(settleTimer);
+  settleTimer = setTimeout(() => {
+    // 덮개를 걷을 때 영상만 다시 펼치고, 이미 보이던 글은 다시 올라오지 않게 잠깐 표시해 둔다
+    stage.classList.add("is-settling");
+    stage.classList.remove("is-browsing");
+    setTimeout(() => stage.classList.remove("is-settling"), 700);
+  }, 170);
 }
 
 if (stage && cards.length) {
+  tilt.append(cover);
   cards.forEach((card, index) => { card.inert = index !== active; });
   tabs.forEach((tab, index) => {
     tab.addEventListener("pointerenter", event => { if (event.pointerType === "mouse") select(index); });

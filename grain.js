@@ -90,7 +90,8 @@ async function start() {
 
   const canvas = document.createElement("canvas");
   canvas.className = "profile-grain";
-  canvas.style.cssText = "image-rendering:auto;filter:blur(2px) brightness(1.45) saturate(1.25);opacity:0;";
+  canvas.classList.add("is-moving"); // 움직이는 알갱이의 번짐과 밝기는 CSS가 테마에 맞춰 정한다
+  canvas.style.cssText = "image-rendering:auto;opacity:0;";
   canvas.setAttribute("aria-hidden", "true");
   host.prepend(canvas);
   const context = canvas.getContext("2d");
