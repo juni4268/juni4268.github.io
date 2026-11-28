@@ -475,3 +475,19 @@
 @media (min-width: 80rem) {
   .profile-contact { width: fit-content; }
 }
+
+/* 아래 메뉴(메인 / 작품 상세 버튼)는 일단 숨긴다. 메인이 한 화면에 들어가도록 비워 두던 아래 자리도 없앤다.
+   이동은 메인의 작품 카드·작품 목록과 상세 페이지 위쪽의 이름으로 할 수 있다. */
+.portfolio-dock { display: none; }
+.portfolio-nav-page { --dock-space: 0px; }
+.portfolio-detail-page { padding-bottom: 4.5rem; } /* 오른쪽 아래 밝기 버튼이 마지막 줄을 가리지 않게 */
+
+/* 밝기 버튼은 화면에 띄우지 않고 페이지 맨 위 오른쪽에 둔다(스크롤하면 내용과 함께 올라간다).
+   화면 아래에 띄우면 좁은 화면에서 작품 목록의 글자를 가리기 때문이다. */
+.theme-toggle { position: absolute; top: .7rem; bottom: auto; }
+.theme-toggle.is-away:not(:focus-visible) { translate: none; opacity: 1; }
+.portfolio-detail-page { padding-bottom: 2rem; }
+/* 상세 페이지: 화면이 아주 넓지 않으면 위쪽 목차의 오른쪽 끝이 밝기 버튼 자리에 닿으므로 그만큼 비운다 */
+@media (min-width: 681px) and (max-width: 110rem) {
+  .portfolio-detail-page .site-head { padding-right: 3.2rem; }
+}

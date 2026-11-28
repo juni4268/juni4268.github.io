@@ -62,11 +62,24 @@ async function start() {
   still.setAttribute("aria-hidden", "true");
   host.prepend(still);
   let cellSize = 6;
+  // 빛을 그리는 영역: 메인 영역(host)의 안쪽만이 아니라 화면 전체 폭과 페이지 끝까지.
+  // 그래야 번지는 빛이 메인 영역의 가장자리에서 네모나게 잘려 보이지 않는다.
+  function area() {
+    const inner = host.getBoundingClientRect(), width = document.documentElement.clientWidth;
+    const height = Math.max(window.innerHeight - (inner.top + window.scrollY), inner.height);
+    return { left: 0, top: inner.top, width, height, inner };
+  }
+  function place(element, box) {
+    element.style.left = `${box.left - box.inner.left}px`; element.style.top = "0px";
+    element.style.width = `${box.width}px`; element.style.height = `${box.height}px`;
+    element.style.right = element.style.bottom = "auto";
+  }
   function drawStill(slug) {
     const { levels, canvas: tint } = tints[slug], tc = tint.getContext("2d"), image = tc.createImageData(tint.width, tint.height);
     for (let i = 0; i < tint.width * tint.height; i++) { image.data[i*4] = color[0]; image.data[i*4+1] = color[1]; image.data[i*4+2] = color[2]; image.data[i*4+3] = Math.min(255, levels[i*4] * 1.3); }
     tc.putImageData(image, 0, 0);
-    const box = host.getBoundingClientRect(), g = still.getContext("2d"), ratio = Math.min(2, window.devicePixelRatio || 1);
+    const box = area(), g = still.getContext("2d"), ratio = Math.min(2, window.devicePixelRatio || 1);
+    place(still, box);
     still.width = Math.ceil(box.width * ratio); still.height = Math.ceil(box.height * ratio);
     g.scale(ratio, ratio); g.imageSmoothingQuality = "high";
     const args = [tint, offsetX * cellSize, offsetY * cellSize, MAP_W * cellSize, MAP_H * cellSize];
@@ -95,18 +108,19 @@ async function start() {
 
   // 캔버스의 한 칸 크기를 영상 너비에 맞춰 정하고, 모양의 중심을 화면 가운데(조금 아래)에 둔다
   function layout() {
-    const box = host.getBoundingClientRect();
+    const box = area(), inner = box.inner;
+    place(canvas, box);
     const video = stage.getBoundingClientRect();
     // 넓은 화면: 모양의 중심을 이름과 대표 영상 사이의 빈 곳에 둔다.
     // 좁은 화면: 대표 영상을 중심으로 두고, 모양이 영상 밖으로 보이도록 입자를 키운다.
-    const cell = wide.matches ? video.width / VIDEO_W * 1.5 : box.width / 90;
+    const cell = wide.matches ? video.width / VIDEO_W * 1.5 : inner.width / 90;
     cellSize = cell;
     canvas.width = Math.ceil(box.width / cell);
     canvas.height = Math.ceil(box.height / cell);
     if (wide.matches) {
       const name = nameEl.getBoundingClientRect();
       offsetX = Math.round((name.right + (video.left - name.right) * .72 - box.left) / cell) - VIDEO_X;
-      offsetY = Math.round(box.height * .53 / cell) - VIDEO_Y;
+      offsetY = Math.round(inner.height * .53 / cell) - VIDEO_Y;
     } else {
       offsetX = Math.round((video.left - box.left + video.width / 2) / cell) - VIDEO_X;
       offsetY = Math.round((video.top - box.top + video.width * 9 / 32) / cell) - VIDEO_Y;
