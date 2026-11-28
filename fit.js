@@ -25,12 +25,12 @@ function fit() {
   profile.style.rowGap = `${gap - room[2] * share}px`;
 
   // 그래도 넘치면 대표 영상의 너비를 줄인다(영상은 16:9라서 너비를 줄인 만큼의 9/16이 높이에서 빠진다)
-  for (let tries = 0; tries < 4; tries++) {
+  for (let tries = 0; tries < 8; tries++) {
     over = natural() - window.innerHeight;
     if (over <= .5) break;
     const width = stage.getBoundingClientRect().width;
     if (width <= MIN_STAGE) break;
-    stage.style.maxWidth = `${Math.max(MIN_STAGE, width - over * 16 / 9 - 1)}px`;
+    stage.style.maxWidth = `${Math.max(MIN_STAGE, width - Math.ceil(over) * 16 / 9 - 4)}px`;
   }
 }
 

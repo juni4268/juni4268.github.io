@@ -491,3 +491,20 @@
 @media (min-width: 681px) and (max-width: 110rem) {
   .portfolio-detail-page .site-head { padding-right: 3.2rem; }
 }
+
+/* 세로로 긴 중간 폭 화면(세로로 든 태블릿, "데스크톱 사이트"를 켠 휴대폰):
+   2단 배치는 가로로 넓은 화면용이라 아래가 크게 빈다. 한 줄로 쌓고, 화면 높이를 채우도록 위아래로 고르게 펼친다. */
+@media (min-width: 681px) and (max-width: 79.99rem) and (orientation: portrait) {
+  .portfolio-profile {
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-areas: "identity" "featured" "education" "skills";
+    align-content: space-between;
+    row-gap: clamp(1.4rem, 3vh, 3rem);
+    min-height: 100svh;
+    padding-block: clamp(2rem, 5vh, 4.5rem) clamp(1.6rem, 3.5vh, 3rem);
+  }
+  .portfolio-profile::before { display: none; }
+  .profile-identity { align-self: start; }
+  .profile-contact { max-width: none; }
+  .profile-field { grid-template-columns: minmax(0, 1fr); gap: .7rem; }
+}
