@@ -534,3 +534,25 @@
 .featured-stage.is-browsing .featured-card.is-active :is(img, video) { animation: none; }
 /* 글은 연출을 끄지 않고 길이만 0에 가깝게 줄인다. 연출을 껐다 켜면 나중에 처음부터 다시 시작해서 글이 한 번 더 올라오기 때문이다. */
 .featured-stage:is(.is-browsing, .is-settling) .featured-card.is-active .featured-copy > * { animation-duration: 1ms; animation-delay: 0s; }
+
+/* 영상 위 오른쪽의 안내: 작품을 누르면 상세 페이지로 간다는 것을 알려 준다. "참여 작품" 제목과 같은 줄에 놓인다. */
+.featured-stage { position: relative; }
+.featured-hint {
+  position: absolute;
+  right: 0;
+  bottom: calc(100% + var(--hint-gap, .7rem));
+  color: var(--soft);
+  font-size: var(--fs-small);
+  font-weight: 500;
+  line-height: 1.6;
+  opacity: .8;
+  white-space: nowrap;
+  pointer-events: none;
+}
+.featured-hint::before { content: "↗ "; }
+@media (min-width: 80rem) { .featured-hint { --hint-gap: clamp(.7rem, 1.25vw, 1.45rem); font-size: clamp(var(--fs-small), .9vw, 1.05rem); } }
+/* 가로로 넓은 중간 폭 화면에서는 제목이 영상 위가 아니라 왼쪽 칸에 있어서 안내를 둘 줄이 없다 */
+@media (min-width: 681px) and (max-width: 79.99rem) and (orientation: landscape) { .featured-hint { display: none; } }
+/* 영상에 마우스를 올리거나 키보드로 고르면 안내가 포인트 색으로 바뀐다 */
+.featured-hint { transition: color .2s ease, opacity .2s ease; }
+.featured-stage:is(:hover, :focus-within) .featured-hint { color: var(--brass); opacity: 1; }
