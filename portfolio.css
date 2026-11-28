@@ -384,8 +384,19 @@
 @media (prefers-reduced-motion: no-preference) {
   @view-transition { navigation: auto; }
 
-  ::view-transition-old(root) { animation: 150ms ease-out both portfolio-leave; }
-  ::view-transition-new(root) { animation: 360ms cubic-bezier(.2,.72,.19,1) both portfolio-enter; }
+  /* 페이지가 바뀔 때: 이전 화면은 흐려지고, 새 화면은 왼쪽부터 오른쪽으로 펼쳐진다(메인의 작품 영상이 펼쳐지는 것과 같은 움직임) */
+  ::view-transition-old(root) { animation: 180ms ease-out both portfolio-leave; }
+  ::view-transition-new(root) { animation: 520ms cubic-bezier(.2,.72,.19,1) both portfolio-wipe; }
+  /* 작품 상세끼리 넘어갈 때는 위쪽 메뉴, 왼쪽 작품 목록, 밝기 버튼이 제자리에 있고 본문만 펼쳐지며 바뀐다 */
+  .portfolio-detail-page .site-head { view-transition-name: detail-head; }
+  .portfolio-detail-page .project-rail { view-transition-name: detail-rail; }
+  .portfolio-detail-page main { view-transition-name: detail-main; }
+  .theme-toggle { view-transition-name: theme-toggle; }
+  ::view-transition-old(detail-main) { animation: 180ms ease-out both portfolio-leave; }
+  ::view-transition-new(detail-main) { animation: 520ms cubic-bezier(.2,.72,.19,1) both portfolio-wipe; }
+  ::view-transition-group(detail-head), ::view-transition-group(detail-rail), ::view-transition-group(theme-toggle) { animation-duration: 200ms; }
+  /* 같은 페이지 안에서 "구현 방식"을 펼칠 때(steamheart.css)는 본문 전체를 펼치지 않는다 */
+  .is-swapping-section::view-transition-old(detail-main), .is-swapping-section::view-transition-new(detail-main) { animation: none; }
   .portfolio-dock { view-transition-name: portfolio-dock; }
   .profile-identity, .profile-featured, .profile-education, .profile-development, .profile-records > div {
     animation: 420ms cubic-bezier(.2,.72,.19,1) both portfolio-enter;
@@ -400,6 +411,11 @@
 @keyframes portfolio-enter {
   from { opacity: .35; transform: translateY(.85rem); }
   to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes portfolio-wipe {
+  from { clip-path: inset(0 100% 0 0); opacity: .5; }
+  to { clip-path: inset(0); opacity: 1; }
 }
 
 @keyframes portfolio-leave {
