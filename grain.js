@@ -20,7 +20,7 @@ const clamp01 = u => Math.min(1, Math.max(0, u));
 
 async function loadShape(slug) {
   const image = new Image();
-  image.src = `./assets/grain/${slug}.png?v=7`;
+  image.src = `./assets/grain/${slug}.png?v=8`;
   await image.decode();
   const canvas = document.createElement("canvas");
   canvas.width = MAP_W; canvas.height = MAP_H;
@@ -50,7 +50,7 @@ async function start() {
   // 멈춘 화면용 그림은 점 지도보다 세 배 촘촘한 것을 따로 쓴다(선이 또렷하게 보이도록).
   const HI = 3, tints = {};
   await Promise.all(slugs.map(async slug => {
-    const image = new Image(); image.src = `./assets/grain/${slug}-hi.png?v=1`; await image.decode();
+    const image = new Image(); image.src = `./assets/grain/${slug}-hi.png?v=2`; await image.decode();
     const source = document.createElement("canvas"); source.width = MAP_W * HI; source.height = MAP_H * HI;
     const g = source.getContext("2d", { willReadFrequently: true }); g.drawImage(image, 0, 0, source.width, source.height);
     tints[slug] = { levels: g.getImageData(0, 0, source.width, source.height).data, canvas: document.createElement("canvas") };
