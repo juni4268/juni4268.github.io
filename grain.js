@@ -12,7 +12,7 @@ const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
 const MAP_W = 400, MAP_H = 240, VIDEO_X = 200, VIDEO_Y = 120, VIDEO_W = 156;
 const BAYER = [0,32,8,40,2,34,10,42,48,16,56,24,50,18,58,26,12,44,4,36,14,46,6,38,60,28,52,20,62,30,54,22,
   3,35,11,43,1,33,9,41,51,19,59,27,49,17,57,25,15,47,7,39,13,45,5,37,63,31,55,23,61,29,53,21];
-const MOVE = 720, MOVE_LAG = 230, FUSE = 470; // 밀리초: 알갱이가 새 자리로 가는 시간, 알갱이마다 출발을 늦추는 최대 폭, 알갱이가 그림으로 넘어가는 시간
+const MOVE = 620, MOVE_LAG = 200, FUSE = 420; // 밀리초: 알갱이가 새 자리로 가는 시간, 알갱이마다 출발을 늦추는 최대 폭, 알갱이가 그림으로 넘어가는 시간
 
 let seed = 1;
 const random = () => (seed = seed * 16807 % 2147483647) / 2147483647;
@@ -129,12 +129,46 @@ async function start() {
     context.putImageData(image, 0, 0);
   }
 
+  // 작품을 연달아 빠르게 넘기는 동안 알갱이가 잡는 모양: 천천히 도는 고리.
+  // 넘기기를 멈추면 그 고리에서 고른 작품의 모양으로 간다.
+  const RING = 2400, ringAngle = new Float32Array(RING), ringRadius = new Float32Array(RING);
+  for (let i = 0; i < RING; i++) { ringAngle[i] = random() * Math.PI * 2; ringRadius[i] = 44 + (random() + random() + random() - 1.5) * 5; }
+  let busy = false, circling = false, settleTimer = 0;
+
+  function circle() {
+    if (circling) return;
+    circling = true; busy = true;
+    cancelAnimationFrame(frame);
+    const from = current, fromCount = from.length / 2, count = Math.max(fromCount, RING);
+    const moving = new Float32Array(count * 2), began = performance.now();
+    const stillFrom = parseFloat(still.style.opacity || 1), canvasFrom = parseFloat(canvas.style.opacity || 0);
+    const step = now => {
+      const time = now - began, v = clamp01(time / 260), gather = v * v * (3 - 2 * v), spin = time * .0016;
+      for (let i = 0; i < count; i++) {
+        const k = i % RING, a = fromCount ? (i % fromCount) * 2 : -1;
+        const x = VIDEO_X + Math.cos(ringAngle[k] + spin) * ringRadius[k], y = VIDEO_Y + Math.sin(ringAngle[k] + spin) * ringRadius[k];
+        moving[i * 2] = a < 0 ? x : from[a] + (x - from[a]) * gather;
+        moving[i * 2 + 1] = a < 0 ? y : from[a + 1] + (y - from[a + 1]) * gather;
+      }
+      paint(moving, count);
+      current = moving;
+      const loosen = clamp01(time / 150);
+      still.style.opacity = stillFrom * (1 - loosen);
+      canvas.style.opacity = canvasFrom + (1 - canvasFrom) * loosen;
+      frame = requestAnimationFrame(step);
+    };
+    frame = requestAnimationFrame(step);
+  }
+
   function show(slug, animate) {
     const target = shapes[slug];
     if (!target) return;
     cancelAnimationFrame(frame);
-    if (!animate || reduceMotion.matches) { current = target; drawStill(slug); still.style.opacity = 1; canvas.style.opacity = 0; return; }
-    trail.fill(0);
+    circling = false;
+    if (!animate || reduceMotion.matches) { busy = false; current = target; drawStill(slug); still.style.opacity = 1; canvas.style.opacity = 0; return; }
+    busy = true;
+    if (parseFloat(canvas.style.opacity || 0) === 0) trail.fill(0);
+    const stillFrom = parseFloat(still.style.opacity || 1), canvasFrom = parseFloat(canvas.style.opacity || 0);
 
     const from = current, fromCount = from.length / 2, toCount = target.length / 2;
     const count = Math.max(fromCount, toCount, 1);
@@ -161,10 +195,10 @@ async function start() {
       // (겹쳐서 넘기기 때문에 바뀌는 순간이 눈에 띄지 않는다)
       const loosen = clamp01(time / 150), fuse = clamp01((time - MOVE * .62) / FUSE), fused = fuse * fuse * (3 - 2 * fuse);
       if (!redrawn && loosen >= 1) { redrawn = true; drawStill(slug); }
-      still.style.opacity = redrawn ? fused : 1 - loosen;
-      canvas.style.opacity = loosen * (1 - fused);
+      still.style.opacity = redrawn ? fused : stillFrom * (1 - loosen);
+      canvas.style.opacity = (canvasFrom + (1 - canvasFrom) * loosen) * (1 - fused);
       if (time < MOVE * .62 + FUSE) frame = requestAnimationFrame(step);
-      else { current = target; still.style.opacity = 1; canvas.style.opacity = 0; }
+      else { busy = false; current = target; still.style.opacity = 1; canvas.style.opacity = 0; }
     };
     frame = requestAnimationFrame(step);
   }
@@ -182,7 +216,10 @@ async function start() {
     const slug = activeSlug();
     if (slug === shown) return;
     shown = slug;
-    show(slug, true);
+    clearTimeout(settleTimer);
+    // 앞의 전환이 끝나기 전에 또 넘기면 고리로 모아 두었다가, 넘기기가 멈추면 모양을 잡는다
+    if (busy && !reduceMotion.matches) { circle(); settleTimer = setTimeout(() => show(shown, true), 170); }
+    else show(slug, true);
   }).observe(document.querySelector(".featured-more"), { attributes: true, subtree: true, attributeFilter: ["aria-current"] });
 
   // 테마가 바뀌면 점의 색을 다시 읽는다
