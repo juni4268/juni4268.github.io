@@ -20,11 +20,11 @@
   <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
   <link rel="stylesheet" href="../plain.css?v=cool-1">
-  <link rel="stylesheet" href="../portfolio.css?v=hint-4">
-  <link rel="stylesheet" href="../steamheart/steamheart.css?v=mob-1">
+  <link rel="stylesheet" href="../portfolio.css?v=detail-2">
+  <link rel="stylesheet" href="../steamheart/steamheart.css?v=detail-2">
   <script type="module" src="../steamheart/section-doc.js?v=rename"></script>
   <script type="module" src="../steamheart/boss-pattern-player.js?v=groups"></script>
-  <script type="module" src="../dock.js?v=cool-1"></script>
+  <script type="module" src="../dock.js?v=detail-3"></script>
 </head>
 <body class="home-page steamheart-page portfolio-nav-page portfolio-detail-page">
 <div class="page">
@@ -52,7 +52,7 @@
   <!-- portfolio-rail:end -->
 
   <main>
-    <section class="project-hero" aria-labelledby="project-title">
+    <section class="project-hero" aria-labelledby="project-title" style="--hero-mask: url(../assets/grain/aka-mask.png)">
       <div class="project-intro">
         <p class="game-tools">Unreal Engine 5.6 · C++</p>
         <h1 id="project-title">AKA</h1>
@@ -111,7 +111,8 @@ if (IsValid(TargetActor))
           <p class="code-source"><a href="https://github.com/juni4268/AKA-Portfolio/blob/main/Source/AKA/BTService_UpdateBossState.cpp">Source/AKA/BTService_UpdateBossState.cpp</a></p>
         </details>
         <h3>보스가 멈추는 문제</h3>
-        <p>공격 중이라는 표시가 켜진 채로 남아 보스가 다음 행동을 하지 못하는 경우가 있었습니다. 표시는 켜져 있는데 재생 중인 공격 애니메이션이 없으면 표시를 끄도록 했습니다. 점프 공격은 공중에 있는 동안 애니메이션이 없을 수 있어서 이 검사에서 제외했습니다.</p>
+        <p>공격 중이라는 표시가 켜진 채로 남아 보스가 다음 행동을 하지 못하는 경우가 있었습니다. 표시는 켜져 있는데 재생 중인 공격 애니메이션이 없으면 표시를 끄도록 했습니다.</p>
+        <p>점프 공격은 공중에 있는 동안 애니메이션이 없을 수 있어서 이 검사에서 제외했습니다.</p>
         <details class="code-block">
           <summary>멈춤 방지 코드 <span class="code-file">BTService_UpdateBossState.cpp</span></summary>
           <pre><code>// --- Watchdog: Force Reset isAttack if no montage is playing ---

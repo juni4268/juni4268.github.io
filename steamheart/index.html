@@ -20,11 +20,11 @@
   <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
   <link rel="stylesheet" href="../plain.css?v=cool-1">
-  <link rel="stylesheet" href="../portfolio.css?v=hint-4">
-  <link rel="stylesheet" href="./steamheart.css?v=mob-1">
+  <link rel="stylesheet" href="../portfolio.css?v=detail-2">
+  <link rel="stylesheet" href="./steamheart.css?v=detail-2">
   <script type="module" src="./boss-pattern-player.js?v=groups"></script>
   <script type="module" src="./section-doc.js?v=rename"></script>
-  <script type="module" src="../dock.js?v=cool-1"></script>
+  <script type="module" src="../dock.js?v=detail-3"></script>
 </head>
 <body class="home-page steamheart-page portfolio-nav-page portfolio-detail-page">
 <div class="page">
@@ -52,7 +52,7 @@
   <!-- portfolio-rail:end -->
 
   <main>
-    <section class="project-hero" aria-labelledby="project-title">
+    <section class="project-hero" aria-labelledby="project-title" style="--hero-mask: url(../assets/grain/steamheart-mask.png)">
       <div class="project-intro">
         <p class="game-tools">Unity 6 · C#</p>
         <h1 id="project-title">SteamHeart</h1>
@@ -160,7 +160,8 @@
       </div>
       <div class="section-view section-doc" data-view="doc" id="boss-doc" hidden>
         <h3>부위 예약</h3>
-        <p>패턴은 실행 전에 쓸 부위를 한꺼번에 예약합니다. 필요한 부위 중 하나라도 이미 다음 예약이 잡혀 있거나 다른 주요 패턴(Main)이 쓰고 있으면 예약 전체가 거절됩니다. 기본 공격(Basic)이 쓰고 있는 부위는 예약만 걸어 두고, 그 공격이 끝난 뒤에 넘겨받습니다.</p>
+        <p>패턴은 실행 전에 쓸 부위를 한꺼번에 예약합니다. 필요한 부위 중 하나라도 이미 다음 예약이 잡혀 있거나 다른 주요 패턴(Main)이 쓰고 있으면 예약 전체가 거절됩니다.</p>
+        <p>기본 공격(Basic)이 쓰고 있는 부위는 예약만 걸어 두고, 그 공격이 끝난 뒤에 넘겨받습니다.</p>
         <details class="code-block">
           <summary>부위 예약 코드 <span class="code-file">Boss2PartUsage.cs</span></summary>
           <pre><code>for (int i = 0; i &lt; owners.Length; i++)
@@ -257,7 +258,8 @@ return true;</code></pre>
       </div>
       <div class="section-view section-doc" data-view="doc" id="boss-one-doc" hidden>
         <h3>내려찍기만 반복하던 문제</h3>
-        <p>5분 시연을 준비하면서 구간별 시간을 기록하며 직접 플레이했습니다. 그 과정에서 내려찍기가 반복해서 선택되어 다른 공격이 나오지 않는 상황을 발견했습니다. 아직 나오지 않은 공격을 먼저 고르고, 가장 위협적인 패턴인 과부하(Overdrive)는 첫 순환의 마지막에 나오도록 조건을 정했습니다.</p>
+        <p>5분 시연을 준비하면서 구간별 시간을 기록하며 직접 플레이했습니다. 그 과정에서 내려찍기가 반복해서 선택되어 다른 공격이 나오지 않는 상황을 발견했습니다.</p>
+        <p>아직 나오지 않은 공격을 먼저 고르고, 가장 위협적인 패턴인 과부하(Overdrive)는 첫 순환의 마지막에 나오도록 조건을 정했습니다.</p>
         <details class="code-block">
           <summary>패턴 선택 코드 <span class="code-file">Boss1PatternSelector.cs</span></summary>
           <pre><code>// Overdrive requests a refill Slam; show every other active pattern before that sequence.
@@ -279,7 +281,8 @@ private bool IsCandidate(Boss1PatternBase pattern, Boss1Controller owner, bool p
         </details>
         <p>수정 후 패턴 선택 관련 <a href="https://github.com/juni4268/SteamHeart-Portfolio/blob/main/Assets/Editor/Tests/Boss1/Boss1PatternPresentationTests.cs">테스트 8개</a>가 통과했습니다.</p>
         <h3>지나갈 수 없는 잔해 틈</h3>
-        <p>잔해 사이에 틈이 있어 보이는데 캐릭터가 지나가지 못하는 문제를 발견했습니다. 잔해를 서로 붙이거나, 캐릭터가 통과할 만큼 간격을 확보한다는 규칙을 제안했습니다. 낙하 위치를 정할 때 플레이어 폭보다 좁은 틈은 붙이고, 그보다 넓은 틈만 남깁니다.</p>
+        <p>잔해 사이에 틈이 있어 보이는데 캐릭터가 지나가지 못하는 문제를 발견했습니다.</p>
+        <p>잔해를 서로 붙이거나, 캐릭터가 통과할 만큼 간격을 확보한다는 규칙을 제안했습니다. 낙하 위치를 정할 때 플레이어 폭보다 좁은 틈은 붙이고, 그보다 넓은 틈만 남깁니다.</p>
         <details class="code-block">
           <summary>잔해 간격 코드 <span class="code-file">Boss1DebrisField.cs</span></summary>
           <pre><code>float spacing = debrisWidth + Physics2D.defaultContactOffset * 2f;

@@ -54,8 +54,8 @@ function page(project) {
   <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
   <link rel="stylesheet" href="../plain.css?v=cool-1">
-  <link rel="stylesheet" href="../portfolio.css?v=hint-4">
-  <script type="module" src="../dock.js?v=cool-1"></script>
+  <link rel="stylesheet" href="../portfolio.css?v=detail-2">
+  <script type="module" src="../dock.js?v=detail-3"></script>
 </head>
 <body class="home-page portfolio-page portfolio-nav-page portfolio-detail-page">
 <div class="page">

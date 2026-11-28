@@ -556,3 +556,66 @@
 /* 영상에 마우스를 올리거나 키보드로 고르면 안내가 포인트 색으로 바뀐다 */
 .featured-hint { transition: color .2s ease, opacity .2s ease; }
 .featured-stage:is(:hover, :focus-within) .featured-hint { color: var(--brass); opacity: 1; }
+
+/* ── 작품 상세: 따라오는 위쪽 메뉴 ──
+   이름(메인으로 가는 링크)과 목차가 스크롤해도 위에 붙어 있고, 지금 읽는 섹션을 표시한다(dock.js).
+   메뉴의 높이는 dock.js가 --head-h에 넣어 주고, 그 아래에 붙는 것들이 이 값을 쓴다. */
+.portfolio-detail-page .site-head {
+  position: sticky;
+  top: 0;
+  z-index: 20;
+  padding-block: 1.15rem .8rem;
+  padding-right: 3.2rem; /* 오른쪽 위 밝기 버튼 자리 */
+  background: var(--bg);
+  box-shadow: 0 0 0 100vmax var(--bg), 0 1px 0 var(--rule); /* 배경을 화면 양끝까지 */
+  clip-path: inset(0 -100vmax -1px);
+}
+.portfolio-detail-page .theme-toggle { position: fixed; z-index: 21; top: .55rem; }
+.portfolio-detail-page .site-head nav a { position: relative; padding-block: .3rem; transition: color .2s ease; }
+.portfolio-detail-page .site-head nav a[aria-current] { color: var(--ink); font-weight: 750; }
+.portfolio-detail-page .site-head nav a::after { content: ""; position: absolute; left: 0; right: 0; bottom: 0; height: 2px; background: var(--brass); transform: scaleX(0); transform-origin: left; transition: transform .25s ease; }
+.portfolio-detail-page .site-head nav a[aria-current]::after { transform: scaleX(1); }
+.portfolio-detail-page .project-section, .portfolio-detail-page .project-hero { scroll-margin-top: calc(var(--head-h, 4rem) + .6rem); }
+@media (min-width: 64rem) {
+  .project-rail { top: calc(var(--head-h, 4rem) + 1rem); max-height: calc(100dvh - var(--head-h, 4rem) - 2.4rem); }
+}
+@media (max-width: 680px) {
+  /* 좁은 화면: 이름과 목차를 한 줄에 두어 메뉴가 화면을 덜 차지하게 한다 */
+  .portfolio-detail-page .site-head { flex-wrap: nowrap; align-items: center; gap: 1rem; padding-block: .7rem .55rem; }
+  .portfolio-detail-page .site-head .me { flex: none; }
+  .portfolio-detail-page .site-head nav { flex: 1; min-width: 0; }
+  .portfolio-detail-page .theme-toggle { top: .35rem; }
+}
+
+/* ── 작품 상세: 맨 위 대표 영상 뒤의 작품 모양 ──
+   메인 배경과 같은 그림을 색만 입혀 깐다. 그림은 --hero-mask(각 페이지의 project-hero에 지정)로 받는다. */
+.project-hero { position: relative; isolation: isolate; }
+/* 모양을 담는 칸은 화면 폭에 딱 맞춘다(화면 밖으로 나가면 가로 스크롤이 생기므로).
+   그림 자체는 칸보다 크게 깔고, 칸 밖으로 나간 부분은 보이지 않는다.
+   --hero-left / --hero-w / --hero-vw 는 dock.js가 넣는다. 없으면 모양을 그리지 않는다. */
+.project-hero::before, .project-hero::after {
+  --mask-w: max(var(--hero-w, 0px) * 1.5, 62rem);
+  --mask-x: .4; /* 모양의 중심: 글과 영상 사이 */
+  content: "";
+  position: absolute;
+  z-index: -1;
+  top: -6rem;
+  bottom: -6rem;
+  left: calc(-1 * var(--hero-left, 0px));
+  width: var(--hero-vw, 0px);
+  background: var(--grain);
+  -webkit-mask: var(--hero-mask) no-repeat;
+  mask: var(--hero-mask) no-repeat;
+  -webkit-mask-size: var(--mask-w) auto;
+  mask-size: var(--mask-w) auto;
+  -webkit-mask-position: calc(var(--hero-left, 0px) + var(--hero-w, 0px) * var(--mask-x) - var(--mask-w) / 2) var(--mask-y, 50%);
+  mask-position: calc(var(--hero-left, 0px) + var(--hero-w, 0px) * var(--mask-x) - var(--mask-w) / 2) var(--mask-y, 50%);
+  pointer-events: none;
+}
+.project-hero::before { filter: blur(1.4px); opacity: .95; }
+.project-hero::after { filter: blur(18px); opacity: .45; }
+@media (max-width: 760px) {
+  /* 한 줄 배치에서는 모양을 아래쪽 영상 가운데에 맞춘다 */
+  .project-hero::before, .project-hero::after { --mask-w: calc(var(--hero-w, 0px) * 2.35); --mask-x: .5; --mask-y: 88%; }
+}
+}

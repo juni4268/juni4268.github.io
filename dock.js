@@ -60,3 +60,45 @@ if (mail && mailLabel && navigator.clipboard) {
     }).catch(() => { window.location.href = mail.href; });
   });
 }
+
+// 작품 상세의 따라오는 위쪽 메뉴: 메뉴 높이를 CSS에 알려 주고, 지금 읽는 섹션의 목차 항목에 표시한다.
+const head = document.querySelector(".portfolio-detail-page .site-head");
+const sectionLinks = [...(head?.querySelectorAll('nav a[href^="#"]') ?? [])];
+const sections = sectionLinks.map(link => document.getElementById(link.getAttribute("href").slice(1)));
+
+if (head && sectionLinks.length) {
+  const nav = head.querySelector("nav");
+  const hero = document.querySelector(".project-hero");
+  const measure = () => {
+    root.style.setProperty("--head-h", `${Math.round(head.getBoundingClientRect().height)}px`);
+    // 맨 위 작품 모양(portfolio.css)이 화면 폭에 맞춰 자리 잡는 데 쓰는 값
+    if (hero) {
+      const box = hero.getBoundingClientRect();
+      hero.style.setProperty("--hero-left", `${box.left}px`);
+      hero.style.setProperty("--hero-w", `${box.width}px`);
+      hero.style.setProperty("--hero-vw", `${root.clientWidth}px`);
+    }
+  };
+  let marked = -1;
+  const mark = () => {
+    // 화면 위에서 40% 지점을 지난 섹션 가운데 가장 아래 것이 지금 읽는 섹션이다.
+    // 페이지 맨 아래에 닿으면 마지막 섹션으로 친다(짧은 마지막 섹션은 그 지점까지 올라오지 못하므로).
+    const line = Math.max(head.getBoundingClientRect().bottom + 24, window.innerHeight * .4);
+    let current = -1;
+    sections.forEach((section, index) => { if (section && section.getBoundingClientRect().top <= line) current = index; });
+    if (window.scrollY + window.innerHeight >= root.scrollHeight - 4) current = sections.length - 1;
+    if (current === marked) return;
+    marked = current;
+    sectionLinks.forEach((link, index) => {
+      if (index === current) link.setAttribute("aria-current", "true");
+      else link.removeAttribute("aria-current");
+    });
+    // 좁은 화면에서는 목차가 옆으로 길어서, 표시된 항목이 보이도록 목차만 옆으로 민다
+    const link = sectionLinks[current];
+    if (link && nav.scrollWidth > nav.clientWidth) nav.scrollTo({ left: link.offsetLeft - nav.offsetLeft - 16, behavior: "smooth" });
+  };
+  measure(); mark();
+  window.addEventListener("resize", () => { measure(); mark(); });
+  window.addEventListener("scroll", mark, { passive: true });
+  document.fonts?.ready.then(() => { measure(); mark(); });
+}

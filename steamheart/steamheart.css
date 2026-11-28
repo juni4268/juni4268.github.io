@@ -123,8 +123,10 @@
 .boss-pattern-reset:focus-visible { outline: 2px solid var(--brass); outline-offset: 2px; }
 
 /* 크레딧: 본문 사례보다 작게, 이미지 없이 */
-.project-credits { padding-block: clamp(1.6rem, 4vw, 2.6rem); color: var(--soft); font-size: var(--fs-sub); }
-.project-credits h2 { margin: 0 0 .5rem; color: var(--ink); font-size: 1rem; font-weight: 800; letter-spacing: 0; }
+/* 위 섹션과의 간격은 다른 섹션 사이와 같게 한다(따로 붙던 큰 바깥 여백을 없앤다) */
+.project-credits { margin-top: 0; padding-block: clamp(2rem, 5vw, 4rem) clamp(1.6rem, 4vw, 2.6rem); color: var(--soft); font-size: var(--fs-sub); }
+/* 크레딧은 본문 섹션이 아니라 덧붙임이므로, 제목을 메인의 '참여 작품' 같은 작은 이름표 모양으로 둔다 */
+.project-credits h2 { margin: 0 0 .7rem; color: var(--soft); font-size: var(--fs-small); font-weight: 800; letter-spacing: 0; }
 .credits-result { color: var(--ink); font-weight: 600; }
 .credits-list { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 1rem clamp(1rem, 2.5vw, 2rem); margin: 1rem 0 0; padding-top: 1rem; border-top: 1px solid var(--rule); }
 .credits-list dt { color: var(--ink); font-weight: 800; }
@@ -204,8 +206,8 @@
 /* Same box in both views so the title and button do not shift when the view switches. */
 .has-doc .section-head { margin-inline: -.5rem; padding: .6rem .5rem; border-bottom: 1px solid transparent; }
 .has-doc .doc-toggle { min-width: 6rem; text-align: center; }
-.project-section.is-doc .section-head { position: sticky; top: 0; z-index: 3; background: color-mix(in srgb, var(--bg) 92%, transparent); backdrop-filter: blur(6px); border-bottom-color: var(--rule); }
-.section-doc { scroll-margin-top: 9rem; }
+.project-section.is-doc .section-head { position: sticky; top: var(--head-h, 0px); z-index: 3; background: color-mix(in srgb, var(--bg) 92%, transparent); backdrop-filter: blur(6px); border-bottom-color: var(--rule); }
+.section-doc { scroll-margin-top: calc(var(--head-h, 4rem) + 5rem); }
 
 @media (max-width: 1000px) and (min-width: 761px) { .credits-list { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
 .project-media.is-native img { width: auto; max-width: 100%; height: auto; }
